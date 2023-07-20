@@ -4,61 +4,42 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Yash12007</title>
-    <link rel="icon" href="https://yash12007.github.io/Max/Max_AI.jpeg">
+    <link rel="icon" href="https://icons.getbootstrap.com/assets/icons/box.svg">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
   </head>
   <style>
-    #offcanvas{
-      position: absolute;
-      bottom: 10px;
-      right: 10px;
-      color: white;
-      background-color: rgb(153, 0, 255);
-      border-width: 0px;
-      border-radius: 30px;
-      height: 50px;
-      width: 50px;
-    }
-    #sector{
-      background-color: rgb(153, 0, 255);
-      height: 10000000000%;
-      width: 3px;
-      position: absolute;
-      right: 10%;
-      top: 60px;
-    }
-    #content-body{
-      background-color: black;
-      color: white;
-      display: flex;
-      width: 89%;
-    }
-    h3{
-      background-color: black;
-      color: cyan;
-    }
-    .progress-bar{
-      width: 100%;
-      height: 3px;
-      border-radius: 0px;
-      background-image: linear-gradient(to right, red, yellow, green, blue);
-      position: absolute;
-      top:55px;
-      left: 0;
-    }
     body{
-      background-color: black;
-      color: white;
-      font-family: calibri;
+        background-color: black;
+        color:white;
+    }
+    .btn{
+        color: white;
+    }
+    #myVideo {
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        min-width: 100%; 
+        min-height: 100%;
+    }
+    #intro{
+        position: relative;
+        display: grid;
+        place-items: center;
+    }
+    #loading{
+        height: 3px;
+        width: 100%;
+        position: absolute;
+        top: 50px;
+        left: 0px;
+        background-image: linear-gradient(to right, red, yellow, green, blue);
+    }
+    .color_text{
+        text-shadow: 0 0 3px rgb(0, 255, 255), 0 0 5px #0000FF;
     }
     .progress-bar{
       animation: slideFromLeft 0.5s ease-in-out;
-    }
-    #mainbody{
-      background-color: black;
-      color: white;
-      height: 10px;
-      width: 90%;
     }
     @keyframes slideFromLeft {
       0% {
@@ -68,145 +49,126 @@
         transform: translateX(0%);
       }
     }
-    .btn-success{
-      background-color: #04e03f;
-    }
   </style>
   <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="">
-          <b id="icon">
-            <i class="bi bi-box"></i>
-            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-box" viewBox="0 0 16 16">
-              <path d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5 8 5.961 14.154 3.5 8.186 1.113zM15 4.239l-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923l6.5 2.6zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464L7.443.184z"/>
-            </svg>
-          </b>
-          Yash12007
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="https://yash12007.github.io/Max">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="https://yash12007.blogspot.com/p/about.html">About</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Services
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="https://www.github.com/Yash12007">GitHub</a></li>
-                <li><a class="dropdown-item" href="https://www.replit.com/@Yash12007">Replit</a></li>
-                <li><a class="dropdown-item" href="https://www.fiverr.com/yash12007">Fiverr</a></li>
-                <li><a class="dropdown-item" href="https://www.youtube.com/@Yash12007">YouTube</a></li>
-                <li><a class="dropdown-item" href="https://www.dev.to/yash12007">Dev.to</a></li>
-                <li><a class="dropdown-item" href="https://www.linkedin.com/in/yash12007">LinkedIn</a></li>
-                <li><a class="dropdown-item" href="https://yash12007.blogspot.com">Blogger</a></li>
-                <li><a class="dropdown-item" href="https://www.medium.com/@Yash12007">Medium</a></li>
-                <li><a class="dropdown-item" href="https://www.quora.com/profile/Yash-Bodhe-8">Quora</a></li>
-                <li><a class="dropdown-item" href="https://yash12007.github.io/Max/contact.html">Contact</a></li>
-              </ul>
-            </li>
-            <li class="nav-item" id="slide">
-              <a class="nav-link" href="https://yash12007.github.io/Max/contact.html">Contact</a>
-            </li>
-          </ul>
+    <video autoplay muted loop id="myVideo">
+        <source src="https://adding-video-in-html-with-controls--yash12007.repl.co/video.mp4" type="video/mp4">
+    </video>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="" style="color: white;">
+                <i class="bi bi-box"></i>
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-box" viewBox="0 0 16 16">
+                    <path d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5 8 5.961 14.154 3.5 8.186 1.113zM15 4.239l-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923l6.5 2.6zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464L7.443.184z"/>
+                </svg>
+                Yash12007
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="https://yash12007.github.io/home" class="btn">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="https://yash12007.blogspot.com/p/about.html" class="btn">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="https://yash12007.blogspot.com/p/services.html" class="btn">Services</a>     
+                    </li>
+                    <li class="nav-item">
+                        <a href="https://yash12007.github.io/Max/contact.html" class="btn">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="" class="btn">Terms & Conditions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="https://yash12007.blogspot.com/p/privacy-policy.html" class="btn">Privacy & Policy</a>
+                    </li><li class="nav-item">
+                        <a href="https://yash12007.blogspot.com" class="btn">Blog</a>
+                    </li>
+                </ul>  
+            </div>
         </div>
-      </div>
     </nav>
-    <div class="progress-bar"></div>
-    <div id="mainbody"></div>
-    <h3>Anything Uninstaller</h3>
-    <div id="content-body">
-      <img src="https://yash12007.github.io/Max/Anything_Uninstaller.ico" height="100px" width="100px" alt="...">
-      <p>Anything Uninstaller Is an executable file (.exe) that helps you to uninstall any type of file or folder from your system it is very easy to use if you enter the file path in the entry box then just click on Uninstall and then, your file or folder will be completely uninstalled but if there you found an error in the red color then, it comes through your system so, no problem to use it.</p>
+    <div id="loading" class="progress-bar"></div>
+    <div id="intro">
+        <h1 class="color_text">Download Amazing Applications Here.</h1>
+        <p class="color_text">You are able to use in Windows & Android</p>
+        <br>
+        <div style="display: flex;">
+            <button onclick="win()" class="btn" style="margin:10px; color:rgb(0, 255, 255); background-color: black;">
+                <i class="bi bi-windows"></i>
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-windows" viewBox="0 0 16 16">
+                    <path d="M6.555 1.375 0 2.237v5.45h6.555V1.375zM0 13.795l6.555.933V8.313H0v5.482zm7.278-5.4.026 6.378L16 16V8.395H7.278zM16 0 7.33 1.244v6.414H16V0z"/>
+                </svg>
+                <b>Windows</b>    
+            </button>
+            <button onclick="and()" class="btn" style="margin:10px; color:rgb(0, 255, 0); background-color: black;">
+                <i class="bi bi-android2"></i>
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-android2" viewBox="0 0 16 16">
+                    <path d="m10.213 1.471.691-1.26c.046-.083.03-.147-.048-.192-.085-.038-.15-.019-.195.058l-.7 1.27A4.832 4.832 0 0 0 8.005.941c-.688 0-1.34.135-1.956.404l-.7-1.27C5.303 0 5.239-.018 5.154.02c-.078.046-.094.11-.049.193l.691 1.259a4.25 4.25 0 0 0-1.673 1.476A3.697 3.697 0 0 0 3.5 5.02h9c0-.75-.208-1.44-.623-2.072a4.266 4.266 0 0 0-1.664-1.476ZM6.22 3.303a.367.367 0 0 1-.267.11.35.35 0 0 1-.263-.11.366.366 0 0 1-.107-.264.37.37 0 0 1 .107-.265.351.351 0 0 1 .263-.11c.103 0 .193.037.267.11a.36.36 0 0 1 .112.265.36.36 0 0 1-.112.264Zm4.101 0a.351.351 0 0 1-.262.11.366.366 0 0 1-.268-.11.358.358 0 0 1-.112-.264c0-.103.037-.191.112-.265a.367.367 0 0 1 .268-.11c.104 0 .19.037.262.11a.367.367 0 0 1 .107.265c0 .102-.035.19-.107.264ZM3.5 11.77c0 .294.104.544.311.75.208.204.46.307.76.307h.758l.01 2.182c0 .276.097.51.292.703a.961.961 0 0 0 .7.288.973.973 0 0 0 .71-.288.95.95 0 0 0 .292-.703v-2.182h1.343v2.182c0 .276.097.51.292.703a.972.972 0 0 0 .71.288.973.973 0 0 0 .71-.288.95.95 0 0 0 .292-.703v-2.182h.76c.291 0 .54-.103.749-.308.207-.205.311-.455.311-.75V5.365h-9v6.404Zm10.495-6.587a.983.983 0 0 0-.702.278.91.91 0 0 0-.293.685v4.063c0 .271.098.501.293.69a.97.97 0 0 0 .702.284c.28 0 .517-.095.712-.284a.924.924 0 0 0 .293-.69V6.146a.91.91 0 0 0-.293-.685.995.995 0 0 0-.712-.278Zm-12.702.283a.985.985 0 0 1 .712-.283c.273 0 .507.094.702.283a.913.913 0 0 1 .293.68v4.063a.932.932 0 0 1-.288.69.97.97 0 0 1-.707.284.986.986 0 0 1-.712-.284.924.924 0 0 1-.293-.69V6.146c0-.264.098-.491.293-.68Z"/>
+                </svg>
+                <b>Android</b>
+            </button>
+        </div>
+        <br>
+        <div id="applications" style="width: 80%; height: 100%; background-image: linear-gradient(to right,#f200ff, #b700ff, blue); color: white;">
+            <b>Choose an OS (Operating System) to find applications for you...</b>
+        </div>
+        <br>
+        <p class="color_text">Applications are pretested in Windows & Android. Licence given in Windows setup file</p>
+        <b class="color_text">This applications are not available on Microsoft store and Play store</b>
+        <br>
+        <div style="display: flex;">
+            <button class="btn color_text" onclick="Play()">Play video</button>
+            <button class="btn color_text" onclick="Pause()">Pause video</button>
+            <button class="btn color_text" id="muteButton">Unmute</button>
+        </div>
+        <footer>
+            <p style="text-align: center; color: white; font-size: 12px;">&copy; 2023 Yash12007. All rights reserved.</p>
+        </footer>
     </div>
-    <p class="card-text">OS: Windows<br>Required: Windows 7 or higher</br></p>
-      <a download href="https://github.com/Yash12007/Project/raw/main/applications/Anything_Uninstaller_Setup.exe" class="btn btn-primary">Windows</a>
-    <h3>Alice AI</h3>
-    <div id="content-body">
-      <img src="https://yash12007.github.io/Max/Alice%20AI.png" height="100px" width="100px" alt="...">
-      <p>Alice AI is an application that helps you to give all answers to your any question by voice and also open websites such as Google, YouTube, StackOverflow, Whatsapp, Facebook, Spotify, etc.</p>
-    </div>
-    <p class="card-text">OS: Windows<br>Required: Windows 7 or higher</br></p>
-    <a download href="https://github.com/Yash12007/Alice_AI/blob/main/Alice_AI.py" class="btn btn-primary">Download</a>
-    <h3>Yash12007</h3>
-    <div id="content-body">
-      <img src="https://yash12007.github.io/Max/Max_AI.jpeg" height="100px" width="100px" alt="...">
-      <p>Yash12007 is a web app for windows & android which helps to remind you about new applications on Yash12007</p>
-    </div>
-    <p class="card-text">OS: Windows, Android<br>Required: --</br></p>
-    <a href="https://drive.google.com/file/d/1sxUqSafp10rBy8E9_4NLdX5kghkJ8hH4/view?usp=drive_link" class="btn btn-primary">Windows</a>
-    <a download href="https://github.com/Yash12007/Applications/raw/main/app-release.apk" class="btn btn-success">Android</a>
-    <div id="loading">
-      <div class="spinner-border text-info" role="status">
-        <span class="visually-hidden">Loading...</span>
-      </div>
-      <i>Loading...</i>
-    </div>
-    <div id="sector"></div>
-    <button id="offcanvas" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-      <i class="bi bi-chat"></i>
-      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-chat" viewBox="0 0 16 16">
-        <path d="M2.678 11.894a1 1 0 0 1 .287.801 10.97 10.97 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8.06 8.06 0 0 0 8 14c3.996 0 7-2.807 7-6 0-3.192-3.004-6-7-6S1 4.808 1 8c0 1.468.617 2.83 1.678 3.894zm-.493 3.905a21.682 21.682 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a9.68 9.68 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105z"/>
-      </svg>
-    </button>
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel" style="background-color: black;color: white;">
-      <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasRightLabel">Alice AI</h5>
-        <button type="button" style="background-color: black;color: white; font-size: 20px; font-family: calibri; border-width: 0px;" data-bs-dismiss="offcanvas" aria-label="Close">x</button>
-      </div>
-      <div class="offcanvas-body">
-        <p id="textcontent">Share this website's address to others such as friends, family, etc on whatsapp.</p>
-        <input type="tel" placeholder="Enter phone number" style="background-color: black; border-color: cyan; border-radius: 30px; height: 30px; position: absolute;bottom: 10px; color: cyan; left: 0px;" id="input">
-        <button style="position: absolute; right: 3px; bottom: 10px; background-color: black; color: cyan; height: 50px; width: 50px; border-radius: 30px; border-width: 0px; right: 0px;" onclick="send()">
-          <i class="bi bi-send"></i>
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
-            <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/>
-          </svg>
-        </button>
-      </div>
-    </div>
-    <div class="card text-center" style="width:80%;background-color: black; color: white;">
-      <div class="card-header">
-        <i class="bi bi-box"></i>
-        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-box" viewBox="0 0 16 16">
-          <path d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5 8 5.961 14.154 3.5 8.186 1.113zM15 4.239l-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923l6.5 2.6zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464L7.443.184z"/>
-        </svg>
-        Yash12007: Technology you need
-      </div>
-      <div class="card-body">
-        <h5 class="card-title" style="background-color: black; color: white;">External links</h5>
-        <a href="https://www.github.com/Yash12007" class="btn btn-1" style="background-color: black;color: cyan;">Github</a>
-        <a href="https://www.replit.com/@Yash12007" class="btn btn-1" style="background-color: black;color: cyan;">Replit</a>
-        <a href="https://yash12007.blogspot.com" class="btn btn-1" style="background-color: black;color: cyan;">Blog</a>
-        <a href="https://https://www.medium.com/@Yash12007" class="btn btn-1" style="background-color: black;color: cyan;">Medium</a>
-        <a href="https://www.youtube.com/@Yash12007" class="btn btn-1" style="background-color: black;color: cyan;">YouTube</a>
-        <a href="https://www.fiverr.com/yash12007/create-a-flask-server-using-python-html-css-and-javascript" class="btn btn-1" style="background-color: black;color: cyan;">Fiverr</a>
-        <a href="https://yash12007.github.io/Max/contact.html" class="btn btn-1" style="background-color: black;color: cyan;">Contact</a>
-      </div>
-    </div>
+          
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
   </body>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>        
   <script>
-    function send(){
-      var input = document.getElementById("input").value;
-      window.location.href="https://wa.me/send?="+input+"&text=https://yash12007.github.io/home%20A%20Platform%20where%20you%20Download%20Amazing%20Applications%20for%20Windows%20and%20Android";
+    $.getJSON("https://api.ipify.org?format=json", function(data){
+        localStorage.setItem("IP_Address", data.ip);
+    })
+    function Play(){
+        document.getElementById("myVideo").play()
     }
-    function load(){
-      var load = document.getElementById("loading");
-      load.setAttribute("style", "position:absolute; top:45%; left:45%; color:white; display:flex;");
-      setTimeout(afterload, 1000);
+    function Pause(){
+        document.getElementById("myVideo").pause()
     }
-    load();
-    function afterload(){
-      var load = document.getElementById("loading");
-      load.setAttribute("style", "left:-100%; position:absolute; top:-100%;");
+    function iptracing(){
+        localStorage.setItem("Yash12007-User")
+    }
+    function win(){
+        document.getElementById("applications").innerHTML = "<iframe src='win.html' frameborder='0' width='100%' height='100%'></iframe>";
+    }
+    function and(){
+        document.getElementById("applications").innerHTML = "<iframe src='and.html' frameborder='0' width='100%' height='100%'></iframe>";
+    }
+    function linux(){
+        document.getElementById("applications").innerHTML = "<iframe src='linux.html' frameborder='0' width='100%' height='100%'></iframe>";
+    }
+    const video = document.getElementById('myVideo');
+    const muteButton = document.getElementById('muteButton');
+
+    muteButton.addEventListener('click', toggleMute);
+
+    function toggleMute() {
+        if (video.muted) {
+            video.muted = false;
+            muteButton.innerText = 'Mute';
+        } else {
+            video.muted = true;
+            muteButton.innerText = 'Unmute';
+        }
     }
   </script>
 </html>
