@@ -131,8 +131,11 @@
                     </li>
                     <li class="nav-item">
                         <a id="profile-name" class="btn" onclick="signInWithGoogle()">
-                            Sign Up
+                            Sign Up with Google
                         </a>
+                    </li>
+                    <li class="nav-item">
+                        <span id="user-info"></span>
                     </li>   
                 </ul>  
             </div>
@@ -213,7 +216,7 @@
               <h5 class="card-title">About</h5>
               <p>Welcome to Yash12007, a software development company dedicated to providing high-quality software solutions to businesses and organizations of all sizes. <a href="https://yash12007.blogspot.com/p/about.html" class="btn">Read more</a></p>
               <footer>
-                  <p style="text-align: center; color: white; font-size: 12px;">&copy; 2023 Yash12007. All rights reserved.</p>
+                <p style="text-align: center; color: white; font-size: 12px;">&copy; 2023 Yash12007. All rights reserved.</p>
               </footer>
         </div>
     </div>
@@ -263,5 +266,31 @@
         const googleSignInUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token&scope=email%20profile`;
         window.open(googleSignInUrl, '_self');
     }
+    // Function to fetch user information from Google API
+    function getUserInfo(accessToken) {
+        const userInfoUrl = `https://www.googleapis.com/oauth2/v2/userinfo?access_token=${accessToken}`;
+        fetch(userInfoUrl)
+            .then(response => response.json())
+            .then(data => {
+                // Update the user-info element with user account information
+                const userInfoElement = document.getElementById('user-info');
+                userInfoElement.innerHTML = `
+                    <img src="${data.picture}" alt="Profile Picture" width="30" height="30" style="border-radius: 50%; margin-right: 5px;">
+                    Welcome, ${data.name}
+                `;
+            })
+            .catch(error => console.error('Error fetching user information:', error));
+    }
+    // Function to handle the redirect after successful sign-in with Google
+    function handleGoogleSignIn() {
+        const urlParams = new URLSearchParams(window.location.hash.substr(1));
+        const accessToken = urlParams.get('access_token');
+
+        if (accessToken) {
+            getUserInfo(accessToken);
+        }
+    }
+    // Call handleGoogleSignIn on page load to check for access token in the URL hash
+    handleGoogleSignIn();
   </script>
 </html>
