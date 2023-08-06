@@ -277,6 +277,8 @@
                 <img src="${data.picture}" alt="Profile Picture" width="30" height="30" style="border-radius: 50%; margin-right: 5px;"> ${data.name}
                 <br>
                 Email: ${data.email}
+                <br>
+                Last login date: ${localStorage.getItem("Signup-date")}
                 `;
             }).catch(error => document.getElementById("info").innerHTML='Error fetching user information:', error);
         }
@@ -285,6 +287,8 @@
         document.getElementById("infosection").setAttribute("style", "top:-50000px; left:-50000px;");
     }
     function signInWithGoogle() {
+        const datetime = Date();
+        localStorage.setItem("Signup-date", datetime);
         const clientId = '364524252352-mueplfnejbmn0jupc9ut4j7kdsf7md8s.apps.googleusercontent.com';
         const redirectUri = 'https://yash12007.github.io/home';
         const googleSignInUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token&scope=email%20profile`;
