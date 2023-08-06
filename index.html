@@ -239,11 +239,6 @@
     // Function to fetch user information from Google API
     function getUserInfo(accessToken) {
         const userInfoUrl = `https://www.googleapis.com/oauth2/v2/userinfo?access_token=${accessToken}`;
-        try{
-            localStorage.setItem("Yash12007-account", userInfoUrl);
-        } catch(e){
-            alert("Error while saving info");
-        }
         fetch(userInfoUrl)
             .then(response => response.json())
             .then(data => {
@@ -267,15 +262,5 @@
     }
     // Call handleGoogleSignIn on page load to check for access token in the URL hash
     handleGoogleSignIn();
-    try{
-        account = localStorage.getItem("Yash12007-account");
-        if(account == null){
-            console.log("No account founded");
-        }else{
-            window.location.href = account;
-        }
-    } catch(e){
-        console.error(e)
-    }
   </script>
 </html>
