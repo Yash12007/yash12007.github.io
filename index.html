@@ -77,20 +77,16 @@
         border-color: none;
         border-width: 0px;
     }
-    #share{
+    .sign{
         position: absolute;
         bottom: 10px;
         right: 10px;
-        width: 50px;
+        width: fit-content;
         height: 50px;
         background-image: linear-gradient(to right, cyan, blue);
         color: white;
         border-width: 0;
         border-radius: 30px;
-    }
-    .offcanvas{
-        background-image: linear-gradient(to right, cyan, blue);
-        color: white;
     }
   </style>
   <body>
@@ -129,14 +125,6 @@
                     <li class="nav-item">
                         <a href="https://yash12007.blogspot.com" class="btn">Blog</a>
                     </li>
-                    <li class="nav-item">
-                        <a id="profile-name" class="btn" onclick="signInWithGoogle()">
-                            Sign Up with Google
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <span id="user-info"></span>
-                    </li>   
                 </ul>  
             </div>
         </div>
@@ -179,27 +167,13 @@
             <button class="btn color_text" id="muteButton">Unmute</button>
         </div>
     </div>
-    <button class="btn" id="share" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">
-        <i class="bi bi-share-fill"></i>
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-share-fill" viewBox="0 0 16 16">
-            <path d="M11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5z"/>
+    <button class="btn sign" id="user-info" onclick="signInWithGoogle()">
+        <i class="bi bi-google"></i>
+        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-google" viewBox="0 0 16 16">
+            <path d="M15.545 6.558a9.42 9.42 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.689 7.689 0 0 1 5.352 2.082l-2.284 2.284A4.347 4.347 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.792 4.792 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.702 3.702 0 0 0 1.599-2.431H8v-3.08h7.545z"/>
         </svg>
+        Sign Up with Google
     </button>
-    <div class="offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="staticBackdrop" aria-labelledby="staticBackdropLabel">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="staticBackdropLabel">Send link to WhatsApp</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-        <div>
-            choose who you want to send, Enter phone number with country code
-            <br>
-            <div style="display: flex;">
-                <input id="phonenumber" type="text" style="border-radius: 30px; height: 30px; width: max-content; background: none; color: white; border-color: white;" placeholder="Enter phone number">
-                <button class="btn" onclick="sendlink()">Send</button>
-            </div>
-        </div>
-    </div>
     </div>
     <div id="About">
         <div class="card text-center">
@@ -224,10 +198,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
   </body>       
   <script>
-    function sendlink(){
-        const nm = document.getElementById("phonenumber").value;
-        window.open("https://api.whatsapp.com/send?phone="+nm+"&text=Check out this website where you can download applications for windows and android https://yash12007.github.io/home", "_blank");
-    }
     function Play(){
         document.getElementById("myVideo").play()
     }
