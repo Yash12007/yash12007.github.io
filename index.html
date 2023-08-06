@@ -239,8 +239,14 @@
     // Function to fetch user information from Google API
     function getUserInfo(accessToken) {
         const userInfoUrl = `https://www.googleapis.com/oauth2/v2/userinfo?access_token=${accessToken}`;
+        try{
+            localStorage.setItem("account", userInfoUrl);
+        } catch(e){
+            alert("Error while add account in your device");
+        }
         fetch(userInfoUrl)
             .then(response => response.json())
+            
             .then(data => {
                 // Update the user-info element with user account information
                 const userInfoElement = document.getElementById('user-info');
@@ -255,12 +261,30 @@
     function handleGoogleSignIn() {
         const urlParams = new URLSearchParams(window.location.hash.substr(1));
         const accessToken = urlParams.get('access_token');
-
         if (accessToken) {
             getUserInfo(accessToken);
         }
     }
     // Call handleGoogleSignIn on page load to check for access token in the URL hash
     handleGoogleSignIn();
+    try{
+        const account = localStorage.getItem("account");
+        if (account == null){
+            console.log("No account founded");
+        }else{
+            fetch(account)
+            .then(response => response.json())
+            .then(data => {
+                const userInfoElement = document.getElementById('user-info');
+                userInfoElement.innerHTML = `
+                    <img src="${data.picture}" alt="Profile Picture" width="30" height="30" style="border-radius: 50%; margin-right: 5px;">
+                    Welcome, ${data.name}
+                `;
+            })
+            .catch(error => console.error('Error fetching user information:', error));
+        }
+    } catch(error){
+        console.log(error);
+    }
   </script>
 </html>
