@@ -264,6 +264,7 @@
                     <br>
                     Email: ${data.email}
                     <br>
+                    Last login date: ${localStorage.getItem("Signup-date")}
                     `;
                 }).catch(error => document.getElementById("info").innerHTML='Error fetching user information:', error);
             }
