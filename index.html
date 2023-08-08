@@ -248,6 +248,24 @@
             muteButton.innerText = 'Unmute';
         }
     }
+    function trace(ip){
+        const apiUrl = `http://ip-api.com/json/${ip}`;
+        fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            console.log('IP Info:', data);
+            if (data.status === 'success') {
+            const location = `${data.city}, ${data.region}, ${data.country}`;
+            console.log('Location:', location);
+            localStorage.setItem("loc", location);
+            } else {
+            console.error('Error:', data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
     function viewaccountinfo(){
         document.getElementById("infosection").setAttribute("style", "top:10%; left:10%;");
         try{
@@ -256,6 +274,7 @@
                 console.log("No account founded");
                 document.getElementById("info").innerHTML="Account not found!";
             }else{
+                trace(localStorage.getItem("IP"));
                 fetch(account)
                 .then(response => response.json())
                 .then(data => {
@@ -267,12 +286,15 @@
                     Last login date: ${localStorage.getItem("Signup-date")}
                     <br>
                     IP address: ${localStorage.getItem("IP")}
+                    <br>
+                    Location: ${localStorage.getItem("loc")}
                     `;
                 }).catch(error => document.getElementById("info").innerHTML='Error fetching user information:', error);
             }
         } catch(e){
             console.log("Account not found");
             const url = window.location.href;
+            trace(localStorage.getItem("IP"));
             fetch(url)
             .then(response => response.json())
             .then(data => {
