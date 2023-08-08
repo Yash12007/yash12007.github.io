@@ -249,22 +249,19 @@
         }
     }
     const ip = localStorage.getItem("IP");
-    const apiUrl = 'https://members.ip-api.com/json/'+ip;
+    const apiUrl = `http://ipapi.co/${ip}/json/`;
+    // Make a GET request to the API
     fetch(apiUrl)
-    .then(response => response.json())
-    .then(data => {
+      .then(response => response.json())
+      .then(data => {
         console.log('IP Info:', data);
-        if (data.status === 'success') {
-            const location = `${data.city}, ${data.region}, ${data.country}`;
-            console.log('Location:', location);
-            localStorage.setItem("loc", location);
-        } else {
-            console.error('Error:', data.message);
-        }
-    })
-    .catch(error => {
+        const location = `${data.city}, ${data.region}, ${data.country_name}`;
+        console.log('Location:', location);
+        localStorage.setItem("loc", location);
+      })
+      .catch(error => {
         console.error('Error:', error);
-    });
+      });
     function viewaccountinfo(){
         document.getElementById("infosection").setAttribute("style", "top:10%; left:10%;");
         try{
