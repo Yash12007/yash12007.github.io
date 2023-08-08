@@ -265,6 +265,8 @@
                     Email: ${data.email}
                     <br>
                     Last login date: ${localStorage.getItem("Signup-date")}
+                    <br>
+                    IP address: ${localStorage.getItem("IP")}
                     `;
                 }).catch(error => document.getElementById("info").innerHTML='Error fetching user information:', error);
             }
@@ -280,6 +282,8 @@
                 Email: ${data.email}
                 <br>
                 Last login date: ${localStorage.getItem("Signup-date")}
+                <br>
+                IP address: ${localStorage.getItem("IP")}
                 `;
             }).catch(error => document.getElementById("info").innerHTML='Error fetching user information:', error);
         }
@@ -289,6 +293,16 @@
     }
     function signInWithGoogle() {
         const datetime = Date();
+        // Using a third-party API to get IP address
+        fetch('https://api64.ipify.org?format=json')
+        .then(response => response.json())
+        .then(data => {
+            const ipAddress = data.ip;
+            localStorage.setItem('IP', ipAddress);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
         localStorage.setItem("Signup-date", datetime);
         const clientId = '364524252352-mueplfnejbmn0jupc9ut4j7kdsf7md8s.apps.googleusercontent.com';
         const redirectUri = 'https://yash12007.github.io/home';
