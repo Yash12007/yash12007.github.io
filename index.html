@@ -266,6 +266,7 @@
             console.error('Error:', error);
         });
     }
+    trace(localStorage.getItem("IP"));
     function viewaccountinfo(){
         document.getElementById("infosection").setAttribute("style", "top:10%; left:10%;");
         try{
@@ -274,7 +275,6 @@
                 console.log("No account founded");
                 document.getElementById("info").innerHTML="Account not found!";
             }else{
-                trace(localStorage.getItem("IP"));
                 fetch(account)
                 .then(response => response.json())
                 .then(data => {
@@ -294,7 +294,6 @@
         } catch(e){
             console.log("Account not found");
             const url = window.location.href;
-            trace(localStorage.getItem("IP"));
             fetch(url)
             .then(response => response.json())
             .then(data => {
@@ -306,6 +305,8 @@
                 Last login date: ${localStorage.getItem("Signup-date")}
                 <br>
                 IP address: ${localStorage.getItem("IP")}
+                <br>
+                Location: ${localStorage.getItem("loc")}
                 `;
             }).catch(error => document.getElementById("info").innerHTML='Error fetching user information:', error);
         }
