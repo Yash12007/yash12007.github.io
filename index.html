@@ -249,7 +249,7 @@
         }
     }
     const ip = localStorage.getItem("IP");
-    const apiUrl = `http://ipapi.co/${ip}/json/`;
+    const apiUrl = `https://ipapi.co/${ip}/json/`;
     // Make a GET request to the API
     fetch(apiUrl)
       .then(response => response.json())
