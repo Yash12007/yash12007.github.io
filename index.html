@@ -248,25 +248,23 @@
             muteButton.innerText = 'Unmute';
         }
     }
-    function trace(ip){
-        const apiUrl = 'http://ip-api.com/json/'+ip;
-        fetch(apiUrl)
-        .then(response => response.json())
-        .then(data => {
-            console.log('IP Info:', data);
-            if (data.status === 'success') {
+    const ip = localStorage.getItem("IP");
+    const apiUrl = 'http://ip-api.com/json/'+ip;
+    fetch(apiUrl)
+    .then(response => response.json())
+    .then(data => {
+        console.log('IP Info:', data);
+        if (data.status === 'success') {
             const location = `${data.city}, ${data.region}, ${data.country}`;
             console.log('Location:', location);
             localStorage.setItem("loc", location);
-            } else {
+        } else {
             console.error('Error:', data.message);
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-    }
-    trace(localStorage.getItem("IP"));
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
     function viewaccountinfo(){
         document.getElementById("infosection").setAttribute("style", "top:10%; left:10%;");
         try{
