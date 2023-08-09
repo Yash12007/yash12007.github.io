@@ -248,7 +248,7 @@
         }
     }
     const ip = localStorage.getItem('IP');
-    const apiUrl = 'http://ip-api.com/json/'+ip;
+    const apiUrl = 'https://ip-api.com/json/'+ip;
     fetch(apiUrl)
     .then(response => response.json())
     .then(data => {
