@@ -242,13 +242,17 @@
     gtag('config', 'G-0QMN9FLJTJ');
   </script>
   <script>
-    var account = localStorage.getItem('account');
-    fetch(account)
-    .then(response => response.json())
-    .then(data => {
-        var useremail = data.email;
-        var user_name = data.name;
-    })
+    try{
+      var account = localStorage.getItem('account');
+      fetch(account)
+      .then(response => response.json())
+      .then(data => {
+          var useremail = data.email;
+          var user_name = data.name;
+      })
+    } catch(e){
+      console.error("Error: E10 account not found!");
+    }
     function Play(){
         document.getElementById('myVideo').play()
     }
