@@ -242,6 +242,7 @@
     gtag('config', 'G-0QMN9FLJTJ');
   </script>
   <script>
+    var account = localStorage.getItem('account');
     fetch(account)
     .then(response => response.json())
     .then(data => {
