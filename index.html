@@ -112,6 +112,40 @@
         border-width: 1px; 
         color: white;
     }
+    @keyframes removescreen {
+        0%{
+            top: 0;
+            left: 0;
+            opacity: 1;
+        }
+        50%{
+            top: 0;
+            left: 0;
+            opacity: 1;
+        }
+        99%{
+            top: 0;
+            left: 0;
+            opacity: 1;
+        }    
+        100%{
+            top: -50000px;
+            left: 0;
+            opacity: 0;
+        }
+    }
+    #mainscreen{
+        position: absolute;
+        background: black;
+        color: white;
+        width: 100%;
+        height: 100%;
+        top: -50000px;
+        left: 0;
+        display: grid;
+        place-items: center;
+        animation: 5s removescreen;
+    }
   </style>
   <body>
     <video autoplay muted loop id='myVideo'>
@@ -197,6 +231,18 @@
         Sign Up with Google
     </button>
     </div>
+    </div>
+    <div id="mainscreen">
+        <div style="display: flex; place-items: center;">
+            <i class='bi bi-box'></i>
+            <svg xmlns='http://www.w3.org/2000/svg' width='150' height='150' fill='currentColor' class='bi bi-box' viewBox='0 0 16 16'>
+                <path d='M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5 8 5.961 14.154 3.5 8.186 1.113zM15 4.239l-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923l6.5 2.6zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464L7.443.184z'/>
+            </svg>
+            <div style="display: grid; place-items: center; margin: 10px;">
+                <h1><b>Yash12007</b></h1>
+                <p>Elevate Everyday</p>
+            </div>
+        </div>  
     </div>
     <div id='infosection'>
         <div id='info' style='position: absolute; top: 10px; left: 10px;'>Loading account info...</div>
@@ -294,11 +340,14 @@
       fetch(account)
       .then(response => response.json())
       .then(data => {
-          var useremail = data.email;
-          var user_name = data.name;
+          if (data.name && data.email == 'undefined'){
+            window.location.href = 'https://yash12007.github.io/Sign-up/';
+          } else{
+            console.log("[info]: Session with Google connected.")
+          }
       })
     } catch(e){
-      console.error("Error: E10 account not found!");
+      console.error("[Error]: E10-account not found!");
     }
     function Play(){
         document.getElementById('myVideo').play()
@@ -306,8 +355,27 @@
     function Pause(){
         document.getElementById('myVideo').pause()
     }
-    function iptracing(){
-        localStorage.setItem('Yash12007-User')
+    async function iptracing(){
+        await fetch('https://api64.ipify.org?format=json').then(response => response.json())
+        .then(data => {
+            const ipAddress = data.ip;
+            localStorage.setItem('IP', ipAddress);
+        }).catch(error => {
+            console.error('[Error]: ', error);
+        });
+        await fetch(`https://ip-api.com/json/${ipAddress}`).then((response) => response.json())
+        .then((data) => {
+            if (data.status === 'success') {
+            const country = data.country;
+            const region = data.regionName;
+            const city = data.city;
+            localStorage.setItem("loc", `${city}, ${region}, ${country}`);
+            } else {
+                console.error('[Error]: Failed to retrieve location information');
+            }
+        }).catch((error) => {
+            console.error('[Error]: in fetching location information || ', error);
+        });
     }
     function win(){
         document.getElementById('applications').innerHTML = `<iframe src='win.html' frameborder='0' width='100%' height='100%'></iframe>`;
@@ -347,14 +415,14 @@
         }
     })
     .catch(error => {
-        console.error('Error:', error);
+        console.error('[Error]: ', error);
     });
     function viewaccountinfo(){
         document.getElementById('infosection').setAttribute('style', 'top:10%; left:10%;');
         try{
             const account = localStorage.getItem('account');
             if (account == null){
-                console.log('No account founded');
+                console.log('[info]: No account founded');
                 document.getElementById('info').innerHTML=`Account not found or Session expired, Sign in to continue.
                 <br>
                 <button class='btn' onclick='closeinfo()'>Close</button>`;
@@ -375,10 +443,10 @@
                     <br>
                     <button onclick='closeinfo()' class='btn'>Close</button>
                     `;
-                }).catch(error => document.getElementById('info').innerHTML='Error fetching user information:', error);
+                }).catch(error => document.getElementById('info').innerHTML='[Error]: in fetching user information || ', error);
             }
         } catch(e){
-            console.log('Account not found');
+            console.log('[info]: Account not found');
             const url = window.location.href;
             fetch(url)
             .then(response => response.json())
@@ -396,7 +464,7 @@
                 <br>
                 <button onclick='closeinfo()' class='btn'>Close</button>
                 `;
-            }).catch(error => document.getElementById('info').innerHTML='Error fetching user information:', error);
+            }).catch(error => document.getElementById('info').innerHTML='[Error]: in fetching user information || ', error);
         }
     }
     function closeinfo(){
@@ -404,16 +472,7 @@
     }
     function signInWithGoogle() {
         const datetime = Date();
-        // Using a third-party API to get IP address
-        fetch('https://api64.ipify.org?format=json')
-        .then(response => response.json())
-        .then(data => {
-            const ipAddress = data.ip;
-            localStorage.setItem('IP', ipAddress);
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
+        iptracing();
         localStorage.setItem('Signup-date', datetime);
         const clientId = '364524252352-mueplfnejbmn0jupc9ut4j7kdsf7md8s.apps.googleusercontent.com';
         const redirectUri = 'https://yash12007.github.io/';
@@ -426,7 +485,7 @@
         try{
             localStorage.setItem('account', userInfoUrl);
         } catch(e){
-            alert('Error while add account in your device');
+            alert('[Error]: while add account in your device');
         }
         fetch(userInfoUrl)
             .then(response => response.json())
@@ -439,7 +498,7 @@
                     Welcome, ${data.name}
                 `;
             })
-            .catch(error => console.error('Error fetching user information:', error));
+            .catch(error => console.error('[Error]: in fetching user information || ', error));
     }
     // Function to handle the redirect after successful sign-in with Google
     function handleGoogleSignIn() {
@@ -454,7 +513,7 @@
     try{
         const account = localStorage.getItem('account');
         if (account == null){
-            console.log('No account founded');
+            console.log('[info]: No account founded');
             window.location.href='https://yash12007.github.io/Sign-up/';
         }else{
             fetch(account)
@@ -466,7 +525,7 @@
                     Welcome, ${data.name}
                 `;
             })
-            .catch(error => console.error('Error fetching user information:', error));
+            .catch(error => console.error('[Error]: in fetching user information || ', error));
         }
     } catch(error){
         console.log(error);
