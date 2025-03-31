@@ -400,6 +400,27 @@
 ]
     </script>
     <script>
+	function sendNotification() {
+             if ('serviceWorker' in navigator && 'PushManager' in window) {
+                  navigator.serviceWorker.register('sw.js').then(function(reg) {
+                      console.log('Service Worker Registered');
+
+                      Notification.requestPermission().then(function(permission) {
+                           if (permission === 'granted') {
+                               reg.showNotification('Welcome to Yash12007', {
+                                   body: 'Check our software solutions & services available at affordable rates',
+                                   icon: '192x192.png',
+                                   vibrate: [200, 100, 200]
+                              });
+                           } else {
+                              console.warn('Notification permission denied');
+                           }
+                     });
+                }).catch(console.error);
+           } else {
+               console.warn('Push notifications not supported');
+           }
+	}sendNotification();
         function Login(){
             alert("We are currently working on Email Signup / Login process, Please use Google Signup / Login");
             document.getElementById('LogScreen').setAttribute('style', "top:0; left:0;");
