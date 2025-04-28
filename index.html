@@ -461,7 +461,6 @@
       import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
       import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-analytics.js";
       import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, signInWithCredential, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-    
       // === Firebase Configuration ===
       const firebaseConfig = {
         apiKey: "AIzaSyDHHQxbcn_FPinU1mWnbcnPRBj_8sq1vKk",
@@ -472,12 +471,10 @@
         appId: "1:913345082260:web:e5d4c96dfb02cef5ab9581",
         measurementId: "G-G0CQDSMEZL"
       };
-    
       // === Initialize Firebase ===
       const app = initializeApp(firebaseConfig);
       const analytics = getAnalytics(app);
       const auth = getAuth(app);
-    
       // === Functions ===
       async function loginOrSignup() {
         const email = document.getElementById('email').value.trim();
@@ -488,7 +485,6 @@
           alert('Please enter email and password.');
           return;
         }
-    
         try {
           if (action === 'Signup') {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -504,7 +500,6 @@
           alert('Error: ' + error.message);
         }
       }
-    
       function updateUserUI(user) {
         if (user) {
           document.getElementById("logbtn").innerHTML = `
@@ -514,7 +509,6 @@
           `;
         }
       }
-    
       function setupAuthListener() {
         onAuthStateChanged(auth, (user) => {
           if (user) {
@@ -525,14 +519,12 @@
           }
         });
       }
-    
       // === Attach Events After DOM Ready ===
       document.addEventListener('DOMContentLoaded', () => {
         document.getElementById("loginbtn").addEventListener("click", loginOrSignup);
         setupAuthListener();
         handleGoogleSignIn();
       });
-    
       // === Google Sign In ===
       async function loginWithGoogleIdToken(id_token) {
         try {
@@ -546,13 +538,15 @@
           alert('Google login error: ' + error.message);
         }
       }
-    
       function handleGoogleSignIn() {
         const urlParams = new URLSearchParams(window.location.hash.slice(1));
-        const accessToken = urlParams.get('access_token');
-        if (accessToken) {
+        const idToken = urlParams.get('id_token'); // <-- use id_token now
+        const accessToken = urlParams.get('access_token'); // optional if you still want profile picture
+
+        if (idToken) {
+          loginWithGoogleIdToken(idToken); // <-- pass ID TOKEN to Firebase
+        } else if (accessToken) {
           getUserInfo(accessToken);
-          loginWithGoogleIdToken(accessToken);
         } else {
           const storedAccountUrl = localStorage.getItem('account');
           if (storedAccountUrl) {
@@ -565,7 +559,6 @@
           }
         }
       }
-    
       function updateGoogleProfileUI(data) {
         if (data && data.picture) {
           const userInfoElement = document.getElementById('logbtn');
@@ -639,7 +632,7 @@
       function signInWithGoogle() {
         const clientId = '364524252352-mueplfnejbmn0jupc9ut4j7kdsf7md8s.apps.googleusercontent.com';
         const redirectUri = 'https://www.yash12007.com';
-        const googleSignInUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token&scope=email%20profile`;
+        const googleSignInUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=id_token token&scope=email%20profile&nonce=randomNonceString`;
     
         const datetime = new Date().toISOString();
         fetch('https://api64.ipify.org?format=json')
