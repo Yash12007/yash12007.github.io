@@ -533,27 +533,27 @@
     </script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6045335792586801" crossorigin="anonymous"></script>
     <script>
-	function sendNotification() {
-             if ('serviceWorker' in navigator && 'PushManager' in window) {
-                  navigator.serviceWorker.register('service-worker.js').then(function(reg) {
-                      console.log('Service Worker Registered');
+        function sendNotification() {
+            if ('serviceWorker' in navigator && 'PushManager' in window) {
+                navigator.serviceWorker.register('service-worker.js').then(function(reg) {
+                  console.log('Service Worker Registered');
 
-                      Notification.requestPermission().then(function(permission) {
-                           if (permission === 'granted') {
-                               reg.showNotification('Welcome to Yash12007', {
-                                   body: 'Check our software solutions & services available at affordable rates',
-                                   icon: '192x192.png',
-                                   vibrate: [200, 100, 200]
-                              });
-                           } else {
-                              console.warn('Notification permission denied');
-                           }
-                     });
+                    Notification.requestPermission().then(function(permission) {
+                      if (permission === 'granted') {
+                          reg.showNotification('Welcome to Yash12007', {
+                              body: 'Check our software solutions & services available at affordable rates',
+                              icon: '192x192.png',
+                              vibrate: [200, 100, 200]
+                          });
+                      } else {
+                        console.warn('Notification permission denied');
+                      }
+                    });
                 }).catch(console.error);
-           } else {
-               console.warn('Push notifications not supported');
-           }
-	}sendNotification();
+            } else {
+                console.warn('Push notifications not supported');
+            }
+        }sendNotification();
         function Login(){
             document.getElementById('LogScreen').setAttribute('style', "top:0; left:0;");
             document.getElementById('LogHead').textContent='Login';
@@ -611,6 +611,7 @@
             const accessToken = urlParams.get('access_token');
             if (accessToken) {
                 getUserInfo(accessToken);
+                loginWithGoogleIdToken(accessToken);
             }
         }
         handleGoogleSignIn();
@@ -619,6 +620,7 @@
             if (account == null || account == ''){
                 console.log('No account founded');
             }else{
+                loginWithGoogleIdToken(accessToken);
                 fetch(account)
                 .then(response => response.json())
                 .then(data => {
@@ -635,6 +637,23 @@
             console.log(error);
         }
     </script>
+    <script type="module">
+      import { getAuth, signInWithCredential, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+      
+      // Function to login/signup with id_token
+      async function loginWithGoogleIdToken(id_token) {
+        const credential = GoogleAuthProvider.credential(id_token);
+      
+        try {
+          const userCredential = await signInWithCredential(auth, credential);
+          console.log('User signed in:', userCredential.user);
+          alert('Login/Signup successful!');
+        } catch (error) {
+          console.error('Error during sign-in:', error);
+          alert('Firebase login error: ' + error.message);
+        }
+      }
+    </script>      
     <script src="https://cdn.pulse.is/livechat/loader.js" data-live-chat-id="67f76c37500ab275d603d21e" async></script>
 </body>
 </html>
