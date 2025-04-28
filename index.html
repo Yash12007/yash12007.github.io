@@ -457,203 +457,201 @@
         }
     </script>
     <script type="module">
-	  // === Import Firebase functions ===
-	  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-	  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-analytics.js";
-	  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-	
-	  // === Firebase Configuration ===
-	  const firebaseConfig = {
-	    apiKey: "AIzaSyDHHQxbcn_FPinU1mWnbcnPRBj_8sq1vKk",
-	    authDomain: "androidsignup.firebaseapp.com",
-	    projectId: "androidsignup",
-	    storageBucket: "androidsignup.firebasestorage.app",
-	    messagingSenderId: "913345082260",
-	    appId: "1:913345082260:web:e5d4c96dfb02cef5ab9581",
-	    measurementId: "G-G0CQDSMEZL"
-	  };
-	
-	  // === Initialize Firebase ===
-	  const app = initializeApp(firebaseConfig);
-	  const analytics = getAnalytics(app);
-	  const auth = getAuth(app);
-	
-	  // === Wait for DOM to load before attaching listeners ===
-	  document.addEventListener('DOMContentLoaded', () => {
-	
-	    // === Click event for login/signup button ===
-	    document.getElementById("loginbtn").addEventListener("click", async () => {
-	      if (document.getElementById("loginbtn").textContent.trim() === 'Signup') {
-	        const email = document.getElementById('email').value;
-	        const password = document.getElementById('password').value;
-	
-	        try {
-	          const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-	          const user = userCredential.user;
-	          console.log('User created:', user);
-	          alert('Sign-up successful!');
-	        } catch (error) {
-	          console.error('Error signing up:', error.message);
-	          alert('Error signing up: ' + error.message);
-	        }
-	      } else if (document.getElementById("loginbtn").textContent.trim() === 'Login') {
-	        const email = document.getElementById('email').value;
-	        const password = document.getElementById('password').value;
-	
-	        try {
-	          const userCredential = await signInWithEmailAndPassword(auth, email, password);
-	          const user = userCredential.user;
-	          console.log('User logged in:', user);
-	          alert('Login successful!');
-	        } catch (error) {
-	          console.error('Error logging in:', error.message);
-	          alert('Error logging in: ' + error.message);
-	        }
-	      }
-	    });
-	
-	    // === Auth state observer ===
-	    onAuthStateChanged(auth, (user) => {
-	      if (user) {
-	        console.log('User is logged in:', user.email);
-	        document.getElementById("logbtn").innerHTML = `
-	          <div onclick="alert('User is logged in: ${user.email}')">
-	            <i class="bi bi-person"></i>
-	            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
-	              <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
-	            </svg>
-	          </div>
-	        `;
-	      } else {
-	        console.log('No user is logged in');
-	      }
-	    });
-	
-	  });
-    </script>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6045335792586801" crossorigin="anonymous"></script>
-    <script>
-        function sendNotification() {
-            if ('serviceWorker' in navigator && 'PushManager' in window) {
-                navigator.serviceWorker.register('service-worker.js').then(function(reg) {
-                  console.log('Service Worker Registered');
-
-                    Notification.requestPermission().then(function(permission) {
-                      if (permission === 'granted') {
-                          reg.showNotification('Welcome to Yash12007', {
-                              body: 'Check our software solutions & services available at affordable rates',
-                              icon: '192x192.png',
-                              vibrate: [200, 100, 200]
-                          });
-                      } else {
-                        console.warn('Notification permission denied');
-                      }
-                    });
-                }).catch(console.error);
-            } else {
-                console.warn('Push notifications not supported');
-            }
-        }sendNotification();
-        function Login(){
-            document.getElementById('LogScreen').setAttribute('style', "top:0; left:0;");
-            document.getElementById('LogHead').textContent='Login';
-            document.getElementById('Googlebtn').textContent='Login with Google';
-            document.getElementById('loginbtn').textContent='Login';
-            document.getElementById('option').innerHTML="Don't have an account? <a style='color: #0f0; -webkit-text-fill-color: #0f0;' onclick='Signup()'>Signup</a>";
+      // === Import Firebase functions ===
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-analytics.js";
+      import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, signInWithCredential, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    
+      // === Firebase Configuration ===
+      const firebaseConfig = {
+        apiKey: "AIzaSyDHHQxbcn_FPinU1mWnbcnPRBj_8sq1vKk",
+        authDomain: "androidsignup.firebaseapp.com",
+        projectId: "androidsignup",
+        storageBucket: "androidsignup.appspot.com",
+        messagingSenderId: "913345082260",
+        appId: "1:913345082260:web:e5d4c96dfb02cef5ab9581",
+        measurementId: "G-G0CQDSMEZL"
+      };
+    
+      // === Initialize Firebase ===
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+      const auth = getAuth(app);
+    
+      // === Functions ===
+      async function loginOrSignup() {
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value.trim();
+        const action = document.getElementById('loginbtn').textContent.trim();
+    
+        if (!email || !password) {
+          alert('Please enter email and password.');
+          return;
         }
-        function Signup(){
-            document.getElementById('LogScreen').setAttribute('style', "top:0; left:0;");
-            document.getElementById('LogHead').textContent='Signup';
-            document.getElementById('Googlebtn').textContent='Sign up with Google';
-            document.getElementById('loginbtn').textContent='Signup';
-            document.getElementById('option').innerHTML="Already have an account? <a style='color: #0f0; -webkit-text-fill-color: #0f0;' onclick='Login()'>Login</a>";
-        }function removeLogScreen(){
-            document.getElementById('LogScreen').setAttribute('style', 'top:-50000px; left:-50000px;');
-        }function signInWithGoogle() {
-            const datetime = Date();
-            let ipAddress;
-            fetch('https://api64.ipify.org?format=json')
-            .then(response => response.json())
-            .then(data => {
-                ipAddress = data.ip;
-                localStorage.setItem('IP', ipAddress);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-            localStorage.setItem('Signup-date', datetime);
-            localStorage.setItem('ipAddress', ipAddress);
-            const clientId = '364524252352-mueplfnejbmn0jupc9ut4j7kdsf7md8s.apps.googleusercontent.com';
-            const redirectUri = 'https://www.yash12007.com';
-            const googleSignInUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token&scope=email%20profile`;
-            window.open(googleSignInUrl, '_self');
-        }function getUserInfo(accessToken) {
-            const userInfoUrl = `https://www.googleapis.com/oauth2/v2/userinfo?access_token=${accessToken}`;
-            try{
-                localStorage.setItem('account', userInfoUrl);
-            } catch(e){
-                alert('Error while add account in your device');
-            }
-            fetch(userInfoUrl)
-                .then(response => response.json())
-                .then(data => {
-                    const userInfoElement = document.getElementById('logbtn');
-                    userInfoElement.innerHTML = `
-                        <img src='${data.picture}' width='30' height='30' style='border-radius: 50%; margin-right: 5px;'>
-                    `;
-                })
-                .catch(error => {
-                console.error('Error fetching user information:', error);
-                });
-        }
-        function handleGoogleSignIn() {
-            const urlParams = new URLSearchParams(window.location.hash.slice(1));
-            const accessToken = urlParams.get('access_token');
-            if (accessToken) {
-                getUserInfo(accessToken);
-                loginWithGoogleIdToken(accessToken);
-            }
-        }
-        handleGoogleSignIn();
-        try{
-            const account = localStorage.getItem('account');
-            if (account == null || account == ''){
-                console.log('No account founded');
-            }else{
-                loginWithGoogleIdToken(accessToken);
-                fetch(account)
-                .then(response => response.json())
-                .then(data => {
-                    const userInfoElement = document.getElementById('logbtn');
-                    userInfoElement.innerHTML = `
-                        <img src='${data.picture}' width='30' height='30' style='border-radius: 50%; margin-right: 5px;'>
-                    `;
-                })
-                .catch(error =>{ 
-                console.error('Error fetching user information:', error);
-                });
-            }
-        } catch(error){
-            console.log(error);
-        }
-    </script>
-    <script type="module">
-      import { getAuth, signInWithCredential, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-      
-      // Function to login/signup with id_token
-      async function loginWithGoogleIdToken(id_token) {
-        const credential = GoogleAuthProvider.credential(id_token);
-      
+    
         try {
-          const userCredential = await signInWithCredential(auth, credential);
-          console.log('User signed in:', userCredential.user);
-          alert('Login/Signup successful!');
+          if (action === 'Signup') {
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            console.log('User created:', userCredential.user);
+            alert('Sign-up successful!');
+          } else if (action === 'Login') {
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            console.log('User logged in:', userCredential.user);
+            alert('Login successful!');
+          }
         } catch (error) {
-          console.error('Error during sign-in:', error);
-          alert('Firebase login error: ' + error.message);
+          console.error('Auth error:', error.message);
+          alert('Error: ' + error.message);
         }
       }
-    </script>      
+    
+      function updateUserUI(user) {
+        if (user) {
+          document.getElementById("logbtn").innerHTML = `
+            <div onclick="alert('User: ${user.email}')">
+              <i class="bi bi-person"></i>
+            </div>
+          `;
+        }
+      }
+    
+      function setupAuthListener() {
+        onAuthStateChanged(auth, (user) => {
+          if (user) {
+            console.log('Logged in as:', user.email);
+            updateUserUI(user);
+          } else {
+            console.log('No user logged in');
+          }
+        });
+      }
+    
+      // === Attach Events After DOM Ready ===
+      document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById("loginbtn").addEventListener("click", loginOrSignup);
+        setupAuthListener();
+        handleGoogleSignIn();
+      });
+    
+      // === Google Sign In ===
+      async function loginWithGoogleIdToken(id_token) {
+        try {
+          const credential = GoogleAuthProvider.credential(id_token);
+          const userCredential = await signInWithCredential(auth, credential);
+          console.log('Google User signed in:', userCredential.user);
+          alert('Google Login/Signup successful!');
+          updateUserUI(userCredential.user);
+        } catch (error) {
+          console.error('Google sign-in error:', error.message);
+          alert('Google login error: ' + error.message);
+        }
+      }
+    
+      function handleGoogleSignIn() {
+        const urlParams = new URLSearchParams(window.location.hash.slice(1));
+        const accessToken = urlParams.get('access_token');
+        if (accessToken) {
+          getUserInfo(accessToken);
+          loginWithGoogleIdToken(accessToken);
+        } else {
+          const storedAccountUrl = localStorage.getItem('account');
+          if (storedAccountUrl) {
+            fetch(storedAccountUrl)
+              .then(response => response.json())
+              .then(data => {
+                updateGoogleProfileUI(data);
+              })
+              .catch(error => console.error('Fetching saved Google profile failed:', error));
+          }
+        }
+      }
+    
+      function updateGoogleProfileUI(data) {
+        if (data && data.picture) {
+          const userInfoElement = document.getElementById('logbtn');
+          userInfoElement.innerHTML = `
+            <img src="${data.picture}" width="30" height="30" style="border-radius:50%; margin-right:5px;">
+          `;
+        }
+      }
+    
+      function getUserInfo(accessToken) {
+        const userInfoUrl = `https://www.googleapis.com/oauth2/v2/userinfo?access_token=${accessToken}`;
+        fetch(userInfoUrl)
+          .then(response => response.json())
+          .then(data => {
+            localStorage.setItem('account', userInfoUrl);
+            updateGoogleProfileUI(data);
+          })
+          .catch(error => console.error('Error fetching Google user info:', error));
+      }
+    </script>
+    
+    <!-- Notification Service Worker & Login UI -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6045335792586801" crossorigin="anonymous"></script>
+    
+    <script>
+      // === Push Notification Setup ===
+      function sendNotification() {
+        if ('serviceWorker' in navigator && 'PushManager' in window) {
+          navigator.serviceWorker.register('service-worker.js').then(function(reg) {
+            console.log('Service Worker Registered');
+    
+            Notification.requestPermission().then(function(permission) {
+              if (permission === 'granted') {
+                reg.showNotification('Welcome to Yash12007', {
+                  body: 'Check our software solutions & services available at affordable rates!',
+                  icon: '192x192.png',
+                  vibrate: [200, 100, 200]
+                });
+              } else {
+                console.warn('Notification permission denied');
+              }
+            });
+          }).catch(console.error);
+        } else {
+          console.warn('Push notifications not supported');
+        }
+      }
+      sendNotification();
+    
+      // === Login/Signup Modal Control ===
+      function Login() {
+        document.getElementById('LogScreen').style = "top:0; left:0;";
+        document.getElementById('LogHead').textContent = 'Login';
+        document.getElementById('Googlebtn').textContent = 'Login with Google';
+        document.getElementById('loginbtn').textContent = 'Login';
+        document.getElementById('option').innerHTML = "Don't have an account? <a style='color:#0f0;' onclick='Signup()'>Signup</a>";
+      }
+    
+      function Signup() {
+        document.getElementById('LogScreen').style = "top:0; left:0;";
+        document.getElementById('LogHead').textContent = 'Signup';
+        document.getElementById('Googlebtn').textContent = 'Sign up with Google';
+        document.getElementById('loginbtn').textContent = 'Signup';
+        document.getElementById('option').innerHTML = "Already have an account? <a style='color:#0f0;' onclick='Login()'>Login</a>";
+      }
+    
+      function removeLogScreen() {
+        document.getElementById('LogScreen').style = "top:-50000px; left:-50000px;";
+      }
+    
+      function signInWithGoogle() {
+        const clientId = '364524252352-mueplfnejbmn0jupc9ut4j7kdsf7md8s.apps.googleusercontent.com';
+        const redirectUri = 'https://www.yash12007.com';
+        const googleSignInUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token&scope=email%20profile`;
+    
+        const datetime = new Date().toISOString();
+        fetch('https://api64.ipify.org?format=json')
+          .then(response => response.json())
+          .then(data => {
+            localStorage.setItem('IP', data.ip);
+          }).catch(error => console.error('IP fetch error:', error));
+    
+        localStorage.setItem('Signup-date', datetime);
+        window.open(googleSignInUrl, '_self');
+      }
+    </script>    
     <script src="https://cdn.pulse.is/livechat/loader.js" data-live-chat-id="67f76c37500ab275d603d21e" async></script>
 </body>
 </html>
