@@ -471,8 +471,8 @@
               alert('Error signing up: ' + error.message);
             }
           }else if(document.getElementById("loginbtn").textContent === 'Login'){
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
             
             try {
               const userCredential = await signInWithEmailAndPassword(auth, email, password);
