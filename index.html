@@ -457,58 +457,12 @@
         }
     </script>
     <script type="module">
-        document.getElementById("loginbtn").addEventListener("click", async ()=>{
-          if(document.getElementById("loginbtn").textContent === 'Signup'){
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            try {
-              const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-              const user = userCredential.user;
-              console.log('User created:', user);
-              alert('Sign-up successful!');
-            } catch (error) {
-              console.error('Error signing up:', error.message);
-              alert('Error signing up: ' + error.message);
-            }
-          }else if(document.getElementById("loginbtn").textContent === 'Login'){
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            
-            try {
-              const userCredential = await signInWithEmailAndPassword(auth, email, password);
-              const user = userCredential.user;
-              console.log('User logged in:', user);
-              alert('Login successful!');
-            } catch (error) {
-              console.error('Error logging in:', error.message);
-              alert('Error logging in: ' + error.message);
-            }
-          }
-        });
-        onAuthStateChanged(auth, (user) => {
-          if (user) {
-            document.getElementById("logbtn").innerHTML=`
-              <div onclick="alert('User is logged in: '+user)">
-                <i class="bi bi-person"></i>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
-                  <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
-                </svg>
-              </div>
-            `;
-          } else {
-            console.log('No user is logged in');
-          }
-        });
-    </script>
-    <script type="module">
-	  // Import the functions you need from the SDKs you need
+	  // === Import Firebase functions ===
 	  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
 	  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-analytics.js";
-	  // TODO: Add SDKs for Firebase products that you want to use
-	  // https://firebase.google.com/docs/web/setup#available-libraries
+	  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 	
-	  // Your web app's Firebase configuration
-	  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+	  // === Firebase Configuration ===
 	  const firebaseConfig = {
 	    apiKey: "AIzaSyDHHQxbcn_FPinU1mWnbcnPRBj_8sq1vKk",
 	    authDomain: "androidsignup.firebaseapp.com",
@@ -519,9 +473,63 @@
 	    measurementId: "G-G0CQDSMEZL"
 	  };
 	
-	  // Initialize Firebase
+	  // === Initialize Firebase ===
 	  const app = initializeApp(firebaseConfig);
 	  const analytics = getAnalytics(app);
+	  const auth = getAuth(app);
+	
+	  // === Wait for DOM to load before attaching listeners ===
+	  document.addEventListener('DOMContentLoaded', () => {
+	
+	    // === Click event for login/signup button ===
+	    document.getElementById("loginbtn").addEventListener("click", async () => {
+	      if (document.getElementById("loginbtn").textContent.trim() === 'Signup') {
+	        const email = document.getElementById('email').value;
+	        const password = document.getElementById('password').value;
+	
+	        try {
+	          const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+	          const user = userCredential.user;
+	          console.log('User created:', user);
+	          alert('Sign-up successful!');
+	        } catch (error) {
+	          console.error('Error signing up:', error.message);
+	          alert('Error signing up: ' + error.message);
+	        }
+	      } else if (document.getElementById("loginbtn").textContent.trim() === 'Login') {
+	        const email = document.getElementById('loginEmail').value;
+	        const password = document.getElementById('loginPassword').value;
+	
+	        try {
+	          const userCredential = await signInWithEmailAndPassword(auth, email, password);
+	          const user = userCredential.user;
+	          console.log('User logged in:', user);
+	          alert('Login successful!');
+	        } catch (error) {
+	          console.error('Error logging in:', error.message);
+	          alert('Error logging in: ' + error.message);
+	        }
+	      }
+	    });
+	
+	    // === Auth state observer ===
+	    onAuthStateChanged(auth, (user) => {
+	      if (user) {
+	        console.log('User is logged in:', user.email);
+	        document.getElementById("logbtn").innerHTML = `
+	          <div onclick="alert('User is logged in: ${user.email}')">
+	            <i class="bi bi-person"></i>
+	            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+	              <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
+	            </svg>
+	          </div>
+	        `;
+	      } else {
+	        console.log('No user is logged in');
+	      }
+	    });
+	
+	  });
     </script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6045335792586801" crossorigin="anonymous"></script>
     <script>
