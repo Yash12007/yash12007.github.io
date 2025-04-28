@@ -244,31 +244,31 @@
                     <a href="https://g.page/r/CUlXNoglU0GAEBM/review" id="review">Review Us</a>
                     <a id="bookNow" href="https://dikidi.net/1836112">Book Now</a>
                 </div>
-		<a href="https://lin.ee/D40xgCw"><img src="https://scdn.line-apps.com/n/line_add_friends/btn/en.png" alt="Add friend" height="36" border="0"></a>
+		            <a href="https://lin.ee/D40xgCw"><img src="https://scdn.line-apps.com/n/line_add_friends/btn/en.png" alt="Add friend" height="36" border="0"></a>
             </div>
             <p id="details">Dedicated to providing high-quality software solutions to businesses and organizations of all sizes. We are passionate about software development and strive to create innovative and intuitive software that empowers our clients to achieve their goals.</p>
         </div>
         <i class="bi bi-heart"></i>
         <a id="sponsorUs" href="https://github.com/sponsors/Yash12007">
-            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-                <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
-            </svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
+          </svg>
         </a>
         <section id="Documentation">DOCUMENTATION</section>
         <div>
-            <h1>Documentation</h1>
-            <b>Special Features</b>
-            <br><br>
-            <li>Best and interactive design:</li>
-            <p>We provide Interactive design in our services to gives you enhancing experience with our services and applications</p>
-            <li>Easy to understand</li>
-            <p>Our services are easy to understand because we provide Text/Icon for it's similar features</p>
-            <li>High functionality</li>
-            <p>Our services contains a lot of functions which have highly debugged programs to work properly</p>
-            <li>Dark/Light Themes</li>
-            <p>Many of our services contains Theme Switch or Toggle Theme button to switch appearance</p>
-            <li>Ultimate features</li>
-            <p>We provide a lot of functions that have ultimate features which are loop in few conditions</p>
+          <h1>Documentation</h1>
+          <b>Special Features</b>
+          <br><br>
+          <li>Best and interactive design:</li>
+          <p>We provide Interactive design in our services to gives you enhancing experience with our services and applications</p>
+          <li>Easy to understand</li>
+          <p>Our services are easy to understand because we provide Text/Icon for it's similar features</p>
+          <li>High functionality</li>
+          <p>Our services contains a lot of functions which have highly debugged programs to work properly</p>
+          <li>Dark/Light Themes</li>
+          <p>Many of our services contains Theme Switch or Toggle Theme button to switch appearance</p>
+          <li>Ultimate features</li>
+          <p>We provide a lot of functions that have ultimate features which are loop in few conditions</p>
         </div>
         <section id="services">SERVICES</section>
         <div id="Catelog">
@@ -400,7 +400,7 @@
                     <a href="mailto:yash12007@yahoo.com">yash12007@yahoo.com</a>
                     <a href="tel:+917420891287">+917420891287</a>
                 </div>
-		<img src="https://www.yash12007.com/LineQR.png" width="150px" height="150px">
+		            <img src="https://www.yash12007.com/LineQR.png" width="150px" height="150px">
                 <b>Scan to connect with us at Line</b>
             </div>
             <a href="https://www.yash12007.com/Max/contact" class="Appointment">Book your Appointment Now</a>
@@ -457,6 +457,50 @@
         }
     </script>
     <script type="module">
+        document.getElementById("loginbtn").addEventListener("click", async ()=>{
+          if(document.getElementById("loginbtn").textContent === 'Signup'){
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            try {
+              const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+              const user = userCredential.user;
+              console.log('User created:', user);
+              alert('Sign-up successful!');
+            } catch (error) {
+              console.error('Error signing up:', error.message);
+              alert('Error signing up: ' + error.message);
+            }
+          }else if(document.getElementById("loginbtn").textContent === 'Login'){
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            try {
+              const userCredential = await signInWithEmailAndPassword(auth, email, password);
+              const user = userCredential.user;
+              console.log('User logged in:', user);
+              alert('Login successful!');
+            } catch (error) {
+              console.error('Error logging in:', error.message);
+              alert('Error logging in: ' + error.message);
+            }
+          }
+        });
+        onAuthStateChanged(auth, (user) => {
+          if (user) {
+            document.getElementById("logbtn").innerHTML=`
+              <div onclick="alert('User is logged in: '+user)">
+                <i class="bi bi-person"></i>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                  <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
+                </svg>
+              </div>
+            `;
+          } else {
+            console.log('No user is logged in');
+          }
+        });
+    </script>
+    <script type="module">
 	  // Import the functions you need from the SDKs you need
 	  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
 	  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-analytics.js";
@@ -503,7 +547,6 @@
            }
 	}sendNotification();
         function Login(){
-            alert("We are currently working on Email Signup / Login process, Please use Google Signup / Login");
             document.getElementById('LogScreen').setAttribute('style', "top:0; left:0;");
             document.getElementById('LogHead').textContent='Login';
             document.getElementById('Googlebtn').textContent='Login with Google';
@@ -511,7 +554,6 @@
             document.getElementById('option').innerHTML="Don't have an account? <a style='color: #0f0; -webkit-text-fill-color: #0f0;' onclick='Signup()'>Signup</a>";
         }
         function Signup(){
-            alert("We are currently working on Email Signup / Login process, Please use Google Signup / Login");
             document.getElementById('LogScreen').setAttribute('style', "top:0; left:0;");
             document.getElementById('LogHead').textContent='Signup';
             document.getElementById('Googlebtn').textContent='Sign up with Google';
