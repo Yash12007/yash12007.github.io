@@ -632,8 +632,7 @@
       function signInWithGoogle() {
         const clientId = '913345082260-jobhspedjr8p6ns8iu6gd9bdfggsfi85.apps.googleusercontent.com';
         const redirectUri = 'https://www.yash12007.com';
-        const googleSignInUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=id_token token&scope=email%20profile&nonce=randomNonceString`;
-    
+        const googleSignInUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token id_token&scope=email%20profile&nonce=randomNonceString`;
         const datetime = new Date().toISOString();
         fetch('https://api64.ipify.org?format=json')
           .then(response => response.json())
