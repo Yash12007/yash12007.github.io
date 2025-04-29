@@ -630,19 +630,25 @@
       }
     
       function signInWithGoogle() {
-        const clientId = '913345082260-jobhspedjr8p6ns8iu6gd9bdfggsfi85.apps.googleusercontent.com';
-        const redirectUri = 'https://www.yash12007.com';
-        const googleSignInUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token%20id_token&scope=email%20profile&nonce=randomNonceString`;
-        const datetime = new Date().toISOString();
-        fetch('https://api64.ipify.org?format=json')
+          const clientId = '913345082260-jobhspedjr8p6ns8iu6gd9bdfggsfi85.apps.googleusercontent.com';
+          const redirectUri = 'https://www.yash12007.com';
+          const googleSignInUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token%20id_token&scope=email%20profile&nonce=randomNonceString`;
+          const datetime = new Date().toISOString();
+          localStorage.setItem('Signup-date', datetime);
+
+          fetch('https://api64.ipify.org?format=json')
           .then(response => response.json())
           .then(data => {
-            localStorage.setItem('IP', data.ip);
-          }).catch(error => console.error('IP fetch error:', error));
-    
-        localStorage.setItem('Signup-date', datetime);
-        window.open(googleSignInUrl, '_self');
-      }
+              localStorage.setItem('IP', data.ip);
+              // After saving IP, then redirect
+              window.location.href = googleSignInUrl;
+          })
+          .catch(error => {
+              console.error('IP fetch error:', error);
+              // Still proceed to Google Sign-in if IP fails
+              window.location.href = googleSignInUrl;
+          });
+       }
     </script>    
     <script src="https://cdn.pulse.is/livechat/loader.js" data-live-chat-id="67f76c37500ab275d603d21e" async></script>
 </body>
