@@ -501,7 +501,6 @@
     </script>
     <script type="module">
       import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-      const db = getFirestore(app);
 
       // === Import Firebase functions ===
       import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
@@ -521,6 +520,7 @@
       const app = initializeApp(firebaseConfig);
       const analytics = getAnalytics(app);
       const auth = getAuth(app);
+      const db = getFirestore(app);
       // === Functions ===
       async function loginOrSignup() {
         const email = document.getElementById('email').value.trim();
