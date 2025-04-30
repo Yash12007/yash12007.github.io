@@ -475,15 +475,12 @@
           <span id="IP" style="font-size:8px;">IP</span>
           <span id="Sdatetime" style="font-size:8px;">datetime</span>
         </div>
-        
         <div style="display:flex; place-items:center;">
             <button onclick="signInWithGoogle()">Switch Account</button>
             <button onclick="closeUserInfo()">Close</button>
         </div>
+        <button onclick="logout()" style="color: #f00;">Signout</button>
     </div>
-    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js"></script>
     <script>
         let currentUser = null;
         if ("serviceWorker" in navigator) {
@@ -503,13 +500,21 @@
         }
     </script>
     <script type="module">
-      import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
-      // === Import Firebase functions ===
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-      import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-analytics.js";
-      import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, signInWithCredential, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-      // === Firebase Configuration ===
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
+      import { 
+        getAuth, 
+        onAuthStateChanged, 
+        signInWithEmailAndPassword, 
+        createUserWithEmailAndPassword, 
+        signInWithCredential, 
+        GoogleAuthProvider 
+      } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+      import { 
+        getFirestore, 
+        doc, 
+        setDoc 
+      } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
       const firebaseConfig = {
         apiKey: "AIzaSyDHHQxbcn_FPinU1mWnbcnPRBj_8sq1vKk",
         authDomain: "androidsignup.firebaseapp.com",
@@ -579,6 +584,13 @@
             </div>
           `;
         }
+      }
+      function logout() {
+        signOut(auth).then(() => {
+          currentUser = null;
+          alert("Logged out");
+          location.reload();
+        });
       }
       function setupAuthListener() {
         onAuthStateChanged(auth, (user) => {
