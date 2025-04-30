@@ -481,6 +481,9 @@
             <button onclick="closeUserInfo()">Close</button>
         </div>
     </div>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js"></script>
     <script>
         let currentUser = null;
         if ("serviceWorker" in navigator) {
@@ -526,43 +529,45 @@
         const email = document.getElementById('email').value.trim();
         const password = document.getElementById('password').value.trim();
         const action = document.getElementById('loginbtn').textContent.trim();
-    
-        if (!email || !password) {
-          alert('Please enter email and password.');
-          return;
-        }
+        if (!email || !password) return alert('Enter email and password');
         try {
+          let userCredential;
           if (action === 'Signup') {
-            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-            console.log('User created:', userCredential.user);
-            await saveUserDataToDB(userCredential.user);
-            alert('Sign-up successful!');
-          } else if (action === 'Login') {
-            const userCredential = await signInWithEmailAndPassword(auth, email, password);
-            console.log('User logged in:', userCredential.user);
-            await saveUserDataToDB(userCredential.user);
-            alert('Login successful!');
+            userCredential = await createUserWithEmailAndPassword(auth, email, password);
+          } else {
+            userCredential = await signInWithEmailAndPassword(auth, email, password);
           }
+          await saveUserDataToDB(userCredential.user);
+          alert(`${action} successful!`);
         } catch (error) {
-          console.error('Auth error:', error.message);
-          alert('Error: ' + error.message);
+          alert("Error: " + error.message);
+          console.error(error);
         }
       }
       async function saveUserDataToDB(user) {
         if (!user) return;
-
-        const ip = localStorage.getItem('IP') || 'Unknown';
-        const signInDate = localStorage.getItem('Signup-date') || new Date().toISOString();
-
-        const userRef = doc(db, "users", user.uid); // Collection 'users', document with UID
+        // Fetch IP and set last sign-in date
+        let ip = localStorage.getItem('IP');
+        if (!ip) {
+          try {
+            const response = await fetch('https://api64.ipify.org?format=json');
+            const data = await response.json();
+            ip = data.ip;
+            localStorage.setItem('IP', ip);
+          } catch (e) {
+            ip = "Unknown";
+          }
+        }
+        const signInDate = new Date().toISOString();
+        localStorage.setItem("Signup-date", signInDate);
+        // Save to Firestore
+        const userRef = doc(db, "userData", user.uid);
         await setDoc(userRef, {
-          uid: user.uid,
           name: user.displayName || "No Name",
           email: user.email,
-          photoURL: user.photoURL || '',
           ip: ip,
           lastSignIn: signInDate
-        }, { merge: true }); // merge:true updates existing users too
+        }, { merge: true });
       }
       function updateUserUI(user) {
         if (user) {
@@ -596,13 +601,12 @@
         try {
           const credential = GoogleAuthProvider.credential(id_token);
           const userCredential = await signInWithCredential(auth, credential);
-          console.log('Google User signed in:', userCredential.user);
           await saveUserDataToDB(userCredential.user);
-          alert('Google Login/Signup successful!');
+          alert("Google sign-in successful!");
           updateUserUI(userCredential.user);
         } catch (error) {
-          console.error('Google sign-in error:', error.message);
-          alert('Google login error: ' + error.message);
+          alert("Google sign-in failed: " + error.message);
+          console.error(error);
         }
       }
       function handleGoogleSignIn() {
@@ -697,25 +701,19 @@
       }
     
       function signInWithGoogle() {
-          const clientId = '913345082260-jobhspedjr8p6ns8iu6gd9bdfggsfi85.apps.googleusercontent.com';
-          const redirectUri = 'https://www.yash12007.com';
-          const googleSignInUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token%20id_token&scope=email%20profile&nonce=randomNonceString`;
-          const datetime = new Date().toISOString();
-          localStorage.setItem('Signup-date', datetime);
-
-          fetch('https://api64.ipify.org?format=json')
-          .then(response => response.json())
-          .then(data => {
-              localStorage.setItem('IP', data.ip);
-              // After saving IP, then redirect
-              window.location.href = googleSignInUrl;
-          })
-          .catch(error => {
-              console.error('IP fetch error:', error);
-              // Still proceed to Google Sign-in if IP fails
-              window.location.href = googleSignInUrl;
-          });
-       }
+        const clientId = 'YOUR_CLIENT_ID';
+        const redirectUri = 'YOUR_REDIRECT_URL';
+        const googleSignInUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token%20id_token&scope=email%20profile&nonce=random`;
+        const datetime = new Date().toISOString();
+        localStorage.setItem('Signup-date', datetime);
+        fetch('https://api64.ipify.org?format=json')
+        .then(res => res.json())
+        .then(data => {
+          localStorage.setItem('IP', data.ip);
+          window.location.href = googleSignInUrl;
+        })
+        .catch(() => window.location.href = googleSignInUrl); // proceed even on IP error
+      }
     </script>    
     <script src="https://cdn.pulse.is/livechat/loader.js" data-live-chat-id="67f76c37500ab275d603d21e" async></script>
 </body>
