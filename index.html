@@ -458,6 +458,8 @@
                 <br>
                 <button id="Googlebtn" onclick="signInWithGoogle()" class="sign">Sign up with Google</button>
                 <br>
+                <div id="g_id_onload"></div>
+                <br>
                 <p id="option"></p>
                 Before entering details make sure that
                 <br>
@@ -499,6 +501,7 @@
           document.getElementById('userInfoBox').style.display = 'block';
         }
     </script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
       import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
@@ -528,6 +531,14 @@
       const app = initializeApp(firebaseConfig);
       const analytics = getAnalytics(app);
       const auth = getAuth(app);
+      import { setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+      setPersistence(auth, browserLocalPersistence)
+        .then(() => {
+          console.log("Auth persistence set to local (auto login enabled).");
+        })
+        .catch((error) => {
+          console.error("Persistence error:", error);
+        });
       const db = getFirestore(app);
       // === Functions ===
       async function loginOrSignup() {
@@ -596,7 +607,10 @@
         onAuthStateChanged(auth, (user) => {
           if (user) {
             console.log('Logged in as:', user.email);
+            currentUser = user;
             updateUserUI(user);
+            saveUserDataToDB(user);
+            showUserInfo();
           } else {
             console.log('No user logged in');
           }
@@ -660,6 +674,26 @@
             updateGoogleProfileUI(data);
           })
           .catch(error => console.error('Error fetching Google user info:', error));
+      }
+      window.onload = function () {
+        google.accounts.id.initialize({
+          client_id: "913345082260-jobhspedjr8p6ns8iu6gd9bdfggsfi85.apps.googleusercontent.com",
+          callback: handleCredentialResponse,
+          auto_select: false,
+          prompt_parent_id: "g_id_onload",
+        });
+
+        google.accounts.id.prompt();
+      };
+      function handleCredentialResponse(response) {
+        const credential = GoogleAuthProvider.credential(response.credential);
+        signInWithCredential(auth, credential)
+          .then((userCredential) => {
+            console.log("Signed in!", userCredential.user);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
       }
     </script>
     
