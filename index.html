@@ -31,6 +31,7 @@
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
     <link rel="me" href="https://twitter.com/twitterdev">
+    <script type="text/javascript" src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" async></script>
     <script type="application/ld+json">
 [
   {
@@ -261,6 +262,19 @@
           border-radius: 8px;
           padding: 5px;
           margin: 5px;
+      }#reviewBox{
+          position: absolute;
+          top: 100px;
+          left: 5%;
+          width: 250px;
+          height: 40%;
+          border: 2px solid #ccc;
+          box-shadow: 2px 2px 5px #0ff;
+          background: #000;
+          display: none;
+          place-items: center;
+          justify-content: center;
+          border-radius: 10px;
       }
     </style>
 </head>
@@ -273,7 +287,7 @@
             </div>
             <div style="display: grid; place-items:center;">
                 <div style="display:flex; place-items:center;">
-                    <a href="https://g.page/r/CUlXNoglU0GAEBM/review" id="review">Review Us</a>
+                    <a id="review">Review Us</a>
                     <a id="bookNow" href="https://dikidi.net/1836112">Book Now</a>
                 </div>
 		            <a href="https://lin.ee/D40xgCw"><img src="https://scdn.line-apps.com/n/line_add_friends/btn/en.png" alt="Add friend" height="36" border="0"></a>
@@ -506,9 +520,37 @@
         </div>
         <button onclick="logout()" style="color: #f00;">Signout</button>
     </div>
+    <div id="reviewBox">
+      <div style="display: grid; place-items: center;">
+        <h3 style="margin: 0; padding: 0;">Review US at:</h3>
+        <p style="margin: 0; padding: 0;">⭐⭐⭐⭐⭐</p>
+      </div>
+      <i class="bi bi-google"></i>
+      <div style="display: grid; place-items: center; overflow: auto;">
+        <a style="color: #fff; width: 180px; height: 30px; border: 2px solid #ccc; padding: 5px; margin: 5px; border-radius: 30px; display: flex; place-items: center; justify-content: space-around;" href="https://g.page/r/CUlXNoglU0GAEBM/review" target="_blank">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-google" viewBox="0 0 16 16">
+            <path d="M15.545 6.558a9.4 9.4 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.7 7.7 0 0 1 5.352 2.082l-2.284 2.284A4.35 4.35 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.8 4.8 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.7 3.7 0 0 0 1.599-2.431H8v-3.08z"/>
+          </svg>
+          Review us on Google
+        </a>
+        <div class="trustpilot-widget" data-locale="en-US" data-template-id="56278e9abfbbba0bdcd568bc" data-businessunit-id="6815d303a84edc652852d975" data-style-height="52px" data-style-width="100%">
+          <a href="https://www.trustpilot.com/review/yash12007.com" target="_blank" rel="noopener">Trustpilot</a>
+        </div>
+      </div>
+      <button onclick="HideReviewBox()" style="width: 80px; height: 30px; border: 2px solid #0ff; border-radius: 30px; display: flex; place-items: center; justify-content: center;">Close</button>
+    </div>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v22.0&appId=954485419561383"></script>
     <script>
+        document.getElementById("review").addEventListener("click", ()=>{
+            document.getElementById("reviewBox").style.display="grid";
+        });
+        if(window.innerWidth<=320){
+            document.getElementById("reviewBox").style="left:0px; top:0px; height:100%; width:100%; border-radius:0px; border:none; box-shadow:2px 2px 5px #0ff inset;";
+        }
+        function HideReviewBox(){
+            document.getElementById("reviewBox").style.display="none";
+        }
         let currentUser = null;
         if ("serviceWorker" in navigator) {
             navigator.serviceWorker.register("service-worker.js")
