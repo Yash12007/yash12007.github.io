@@ -171,7 +171,12 @@
           color: #0ff;
           border-top: 2px solid #fff;
           border-bottom: 2px solid #0ff;
-      }.block{
+          transition: all 1s;
+      }section:hover{
+        background: #0ff;
+        color: #000;
+      }
+      .block{
           width: 100%;
           height: fit-content;
       }#Catelog{
@@ -179,11 +184,25 @@
       }::-webkit-scrollbar, ::-webkit-scrollbar-thumb{
           background: transparent;
       }.card{
-          width: 100%;
-          word-wrap: break-word;
-          border-bottom: 1px solid #fff;
-          height: max-content;
-      }.link{
+        background: #000;
+        max-width: 260px;
+        word-wrap: break-word;
+        border: 1px solid #a0f;
+        border-radius: 10px;
+        height: max-content;
+        margin: 10px;
+        padding: 5px;
+        box-shadow: 2px 2px 5px #a0f;
+        transition: all 1s;
+      }.card img{
+        border-radius: 10px;
+        max-width: 250px;
+        border: 2px solid #fff;
+      }.card:hover{
+        background: #a0f;
+        color: #000;
+      }
+      .link{
           color: #0df;
       }#LogScreen{
           background: #000;
@@ -275,6 +294,64 @@
           place-items: center;
           justify-content: center;
           border-radius: 10px;
+      }.feature{
+        padding: 5px;
+        background: #000;
+        margin: 10px;
+        display: grid;
+        place-items: left;
+        border: 2px solid #0ff;
+        border-radius: 10px;
+        box-shadow: 2px 2px 5px #0ff;
+        width: 50vw;
+        transition: all 1s;
+      }.feature:hover{
+        background: #a0f;
+        color: #000;
+        scale: 0.9;
+      }
+      .feature div{
+        display: flex;
+        place-items: center;
+        justify-content: start;
+      }#GetStartedEmail{
+        width: 60vw;
+        height: 30px;
+        border: none;
+        outline: none;
+        color: #000;
+        background: #fff;
+      }#GetStartedEmail:focus{
+        outline: none;
+        border: none;
+      }#EmailBox{
+        width: 60vw;
+        height: 30px;
+        margin: 10px;
+        padding: 8px;
+        border: 2px solid #00f;
+        border-radius: 30px;
+        background: #fff;
+        color: #000;
+        display: flex;
+        place-items: center;
+        justify-content: space-around;
+        overflow: hidden;
+      }#GetStartedBTN{
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: #00f;
+        color: #fff;
+        display: grid;
+        place-items: center;
+        justify-content: center;
+        font-weight: 500;
+      }#softwaresmainframe{
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 8px;
       }
     </style>
 </head>
@@ -290,8 +367,11 @@
                     <a id="review">Review Us</a>
                     <a id="bookNow" href="https://dikidi.net/1836112">Book Now</a>
                 </div>
-		            <a href="https://lin.ee/D40xgCw"><img src="https://scdn.line-apps.com/n/line_add_friends/btn/en.png" alt="Add friend" height="36" border="0"></a>
-            </div>
+                <div id="EmailBox">
+                  <input type="text" id="GetStartedEmail" placeholder="Enter your E-mail to continue" autofocus>
+                  <button id="GetStartedBTN">></button>
+                </div>
+              </div>
             <p id="details">Dedicated to providing high-quality software solutions to businesses and organizations of all sizes. We are passionate about software development and strive to create innovative and intuitive software that empowers our clients to achieve their goals.</p>
         </div>
         <i class="bi bi-heart"></i>
@@ -301,89 +381,144 @@
           </svg>
         </a>
         <section id="Documentation">DOCUMENTATION</section>
-        <div>
+        <div style="background: #000; border: 2px solid #fff; border-radius: 10px; margin: 5px; padding: 8px;">
           <h2>Documentation</h2>
           <b>Special Features</b>
           <br><br>
-          <li>Best and interactive design:</li>
-          <p>We provide Interactive design in our services to gives you enhancing experience with our services and applications</p>
-          <li>Easy to understand</li>
-          <p>Our services are easy to understand because we provide Text/Icon for it's similar features</p>
-          <li>High functionality</li>
-          <p>Our services contains a lot of functions which have highly debugged programs to work properly</p>
-          <li>Dark/Light Themes</li>
-          <p>Many of our services contains Theme Switch or Toggle Theme button to switch appearance</p>
-          <li>Ultimate features</li>
-          <p>We provide a lot of functions that have ultimate features which are loop in few conditions</p>
+          <div class="feature">
+            <div>
+              <i class="bi bi-stars"></i>
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-stars" viewBox="0 0 16 16">
+                <path d="M7.657 6.247c.11-.33.576-.33.686 0l.645 1.937a2.89 2.89 0 0 0 1.829 1.828l1.936.645c.33.11.33.576 0 .686l-1.937.645a2.89 2.89 0 0 0-1.828 1.829l-.645 1.936a.361.361 0 0 1-.686 0l-.645-1.937a2.89 2.89 0 0 0-1.828-1.828l-1.937-.645a.361.361 0 0 1 0-.686l1.937-.645a2.89 2.89 0 0 0 1.828-1.828zM3.794 1.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387A1.73 1.73 0 0 0 4.593 5.69l-.387 1.162a.217.217 0 0 1-.412 0L3.407 5.69A1.73 1.73 0 0 0 2.31 4.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387A1.73 1.73 0 0 0 3.407 2.31zM10.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.16 1.16 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.16 1.16 0 0 0-.732-.732L9.1 2.137a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732z"/>
+              </svg>
+              <b>Best and interactive design:</b>
+            </div>
+            <p>We provide Interactive design in our services to gives you enhancing experience with our services and applications</p>
+          </div>
+          <div class="feature">
+            <div>
+              <i class="bi bi-journal-text"></i>
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-journal-text" viewBox="0 0 16 16">
+                <path d="M5 10.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5"/>
+                <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2"/>
+                <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1z"/>
+              </svg>
+              <b>Easy to understand</b>
+            </div>
+            <p>Our services are easy to understand because we provide Text/Icon for it's similar features</p>
+          </div>
+          <div class="feature">
+            <div>
+              <i class="bi bi-braces"></i>
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-braces" viewBox="0 0 16 16">
+                <path d="M2.114 8.063V7.9c1.005-.102 1.497-.615 1.497-1.6V4.503c0-1.094.39-1.538 1.354-1.538h.273V2h-.376C3.25 2 2.49 2.759 2.49 4.352v1.524c0 1.094-.376 1.456-1.49 1.456v1.299c1.114 0 1.49.362 1.49 1.456v1.524c0 1.593.759 2.352 2.372 2.352h.376v-.964h-.273c-.964 0-1.354-.444-1.354-1.538V9.663c0-.984-.492-1.497-1.497-1.6M13.886 7.9v.163c-1.005.103-1.497.616-1.497 1.6v1.798c0 1.094-.39 1.538-1.354 1.538h-.273v.964h.376c1.613 0 2.372-.759 2.372-2.352v-1.524c0-1.094.376-1.456 1.49-1.456V7.332c-1.114 0-1.49-.362-1.49-1.456V4.352C13.51 2.759 12.75 2 11.138 2h-.376v.964h.273c.964 0 1.354.444 1.354 1.538V6.3c0 .984.492 1.497 1.497 1.6"/>
+              </svg>
+              <b>High functionality</b>
+            </div>
+            <p>Our services contains a lot of functions which have highly debugged programs to work properly</p>
+          </div>
+          <div class="feature">
+            <div>
+              <i class="bi bi-toggle-on"></i>
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-toggle-on" viewBox="0 0 16 16">
+                <path d="M5 3a5 5 0 0 0 0 10h6a5 5 0 0 0 0-10zm6 9a4 4 0 1 1 0-8 4 4 0 0 1 0 8"/>
+              </svg>
+              <b>Dark/Light Themes</b>
+            </div>
+            <p>Many of our services contains Theme Switch or Toggle Theme button to switch appearance</p>
+          </div>
+          <div class="feature">
+            <div>
+              <i class="bi bi-code-square"></i>
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-code-square" viewBox="0 0 16 16">
+                <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                <path d="M6.854 4.646a.5.5 0 0 1 0 .708L4.207 8l2.647 2.646a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 0 1 .708 0m2.292 0a.5.5 0 0 0 0 .708L11.793 8l-2.647 2.646a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708 0"/>
+              </svg>
+              <b>Ultimate features</b>
+            </div>
+            <p>We provide a lot of functions that have ultimate features which are loop in few conditions</p>
+          </div>
+        </div>
+        <section id="software">Software / Applications</section>
+        <div id="softwaresmainframe">
+          <div class="card">
+            <img src="https://www.yash12007.com/Sera/Sera.png" alt="Sera Antivirus">
+            <h3>Sera Antivirus</h3>
+            <p>Sera is the most powerful antivirus software developed by Yash12007. It provides the security shild to remove All viruses, malware, trojan, and other harmful software and applications from your device and also provides the Storage Management and Utilities services.</p>
+            <a class="link" href="https://www.yash12007.com/Sera">Download Now</a>
+            <i>₹2588 INR</i>
+          </div>
         </div>
         <section id="services">SERVICES</section>
         <div id="Catelog">
-            <div class="card">
-                <h3>Server Development</h3>
-                <p>High level documentation services providing URLs with returning strings. Our First priority is Post method to safe pages, All your data will be end-to-end encrypted. Secure URLs will be maintained with exceptions</p>
-                <a class="link" href="https://www.fiverr.com/s/PqA1IP">Learn more</a>
-                <i>$15</i>
-            </div>
-            <div class="card">
-                <h3>Web Application Development</h3>
-                <p>All our applications built with Custom User Interface and can be native as well as progressive WebApp. Changing Theme may charge extra. We can create application for any platform.</p>
-                <a class="link" href="https://dikidi.net/1836112">Book Now</a>
-                <i>$15</i>
-            </div>
-            <div class="card">
-                <h3>Windows Application Development</h3>
-                <p>All our Applications comes with setup Installer or direct use file in (.exe) format. We DO NOT publish applications to Microsoft store.</p>
-                <a class="link" href="https://dikidi.net/1836112">Book Now</a>
-                <i>$15</i>
-            </div>
-            <div class="card">
-                <h3>Android Application Development</h3>
-                <p>Our applications comes with build file in (.apk) format, We DO NOT publish application to Playstore. Our applications will automatically verified by Android devices as None harmful application.</p>
-                <a class="link" href="https://dikidi.net/1836112">Book Now</a>
-                <i>$15</i>
-            </div>
-            <div class="card">
-                <h3>Linux Tools Development</h3>
-                <p>Linux Tools development needs extra verification due to security purposes. For that you will need to register for verification. It may take sometime.</p>
-                <a class="link" href="https://www.yash12007.com/Max/contact">Register Now</a>
-                <i>$15</i>
-            </div>
-            <div class="card">
-                <h3>IT Consulting</h3>
-                <p>We will book a consultation session for you to consult you about your IT (Information Technology) Services. We consult you in your projects, applications, etc. Extra charges may apply as per services add-ons.</p>
-                <a class="link" href="https://www.yash12007.com/Max/contact">Book Now</a>
-                <i>$25</i>
-            </div>
-            <div class="card">
-                <h3>Software Consulting</h3>
-                <p>Software consulting needs to verify and test your software with our system, For that you will need to provide us your Software through Google Drive link. This consultation will help you to Improve your software with our company.</p>
-                <a class="link" href="https://www.yash12007.com/Max/contact">Book Now</a>
-                <i>$25</i>
-            </div>
-            <div class="card">
-                <h3>Software Development Outsourcing</h3>
-                <p>To outsource your software, You will need to contact us and provide detailed information about your software to outsource it on our Website. Our outsourcing pages will be maintained with your given information.</p>
-                <a class="link" href="https://wa.me/917420891287">Contact us</a>
-                <i>$10</i>
-            </div>
-            <div class="card">
-                <h3>Business to Business</h3>
-                <p>B2B Software applications takes extra time to make itsecure and maintained. For that you will need to provide us your Business Credentials to make it well working, well designed, and impressive.</p>
-                <a class="link" href="https://wa.me/917420891287">Book Now</a>
-                <i>$25</i>
-            </div>
-            <div class="card">
-                <h3>UI/UX Designing</h3>
-                <p>We will create Qt design for your applications which comes in (XML) format for you Applications.</p>
-                <a class="link" href="https://www.fiverr.com/s/akBNBz7">Learn more</a>
-                <i>$15</i>
-            </div>
-            <div class="card">
-                <h3>Frontend Development</h3>
-                <p>We will create a customized website for you that is made up of Frontend languages. (Static as well as dynamic with Flask Server). Creating of Flask Server may charge extra if there are additional features added.</p>
-                <a class="link" href="https://dikidi.net/1836112">Learn more</a>
-                <i>$15</i>
-            </div>
+          <div class="card">
+            <img src="https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto,q_auto,f_auto/gigs/308800048/original/b5fca78944c1af03d4f29d0bcd80b28253cd8981/create-a-flask-server-using-python-html-css-and-javascript.png" alt="Server Development">
+            <h3>Server Development</h3>
+            <p>High level documentation services providing URLs with returning strings. Our First priority is Post method to safe pages, All your data will be end-to-end encrypted. Secure URLs will be maintained with exceptions</p>
+            <a class="link" href="https://www.fiverr.com/s/PqA1IP">Learn more</a>
+            <i>$15</i>
+          </div>
+          <div class="card">
+              <h3>Web Application Development</h3>
+              <p>All our applications built with Custom User Interface and can be native as well as progressive WebApp. Changing Theme may charge extra. We can create application for any platform.</p>
+              <a class="link" href="https://dikidi.net/1836112">Book Now</a>
+              <i>$15</i>
+          </div>
+          <div class="card">
+            <h3>Windows Application Development</h3>
+            <p>All our Applications comes with setup Installer or direct use file in (.exe) format. We DO NOT publish applications to Microsoft store.</p>
+            <a class="link" href="https://dikidi.net/1836112">Book Now</a>
+            <i>$15</i>
+          </div>
+          <div class="card">
+              <h3>Android Application Development</h3>
+              <p>Our applications comes with build file in (.apk) format, We DO NOT publish application to Playstore. Our applications will automatically verified by Android devices as None harmful application.</p>
+              <a class="link" href="https://dikidi.net/1836112">Book Now</a>
+              <i>$15</i>
+          </div>
+          <div class="card">
+            <h3>Linux Tools Development</h3>
+            <p>Linux Tools development needs extra verification due to security purposes. For that you will need to register for verification. It may take sometime.</p>
+            <a class="link" href="https://www.yash12007.com/Max/contact">Register Now</a>
+            <i>$15</i>
+          </div>
+          <div class="card">
+              <h3>IT Consulting</h3>
+              <p>We will book a consultation session for you to consult you about your IT (Information Technology) Services. We consult you in your projects, applications, etc. Extra charges may apply as per services add-ons.</p>
+              <a class="link" href="https://www.yash12007.com/Max/contact">Book Now</a>
+              <i>$25</i>
+          </div>
+          <div class="card">
+            <h3>Software Consulting</h3>
+            <p>Software consulting needs to verify and test your software with our system, For that you will need to provide us your Software through Google Drive link. This consultation will help you to Improve your software with our company.</p>
+            <a class="link" href="https://www.yash12007.com/Max/contact">Book Now</a>
+            <i>$25</i>
+          </div>
+          <div class="card">
+              <h3>Software Development Outsourcing</h3>
+              <p>To outsource your software, You will need to contact us and provide detailed information about your software to outsource it on our Website. Our outsourcing pages will be maintained with your given information.</p>
+              <a class="link" href="https://wa.me/917420891287">Contact us</a>
+              <i>$10</i>
+          </div>
+          <div class="card">
+            <h3>Business to Business</h3>
+            <p>B2B Software applications takes extra time to make itsecure and maintained. For that you will need to provide us your Business Credentials to make it well working, well designed, and impressive.</p>
+            <a class="link" href="https://wa.me/917420891287">Book Now</a>
+            <i>$25</i>
+          </div>
+          <div class="card">
+              <img src="https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto,q_auto,f_auto/gigs/354763379/original/e3201d7c057c0fb5b4ebb848a60e61cab570f2cc/design-xml-layout-for-qt-applications.png" alt="Best UI/UX designing">
+              <h3>UI/UX Designing</h3>
+              <p>We will create Qt design for your applications which comes in (XML) format for you Applications.</p>
+              <a class="link" href="https://www.fiverr.com/s/akBNBz7">Learn more</a>
+              <i>$15</i>
+          </div>
+          <div class="card">
+              <h3>Frontend Development</h3>
+              <p>We will create a customized website for you that is made up of Frontend languages. (Static as well as dynamic with Flask Server). Creating of Flask Server may charge extra if there are additional features added.</p>
+              <a class="link" href="https://dikidi.net/1836112">Learn more</a>
+              <i>$15</i>
+          </div>
         </div>
         <section id="contact">CONTACT</section>
         <div>
@@ -464,6 +599,7 @@
     <div id="bottom">
         <a href="https://www.yash12007.com">Home</a>
         <a href="https://www.yash12007.com/Max#about">About</a>
+        <a href="#software">Software</a>
         <a href="#services">Services</a>
         <a href="#contact">Contact</a>
     </div>
@@ -518,7 +654,6 @@
             <button onclick="signInWithGoogle()">Switch Account</button>
             <button onclick="closeUserInfo()">Close</button>
         </div>
-        <button onclick="logout()" style="color: #f00;">Signout</button>
     </div>
     <div id="reviewBox">
       <div style="display: grid; place-items: center;">
@@ -662,13 +797,6 @@
             </div>
           `;
         }
-      }
-      function logout() {
-        signOut(auth).then(() => {
-          currentUser = null;
-          alert("Logged out");
-          location.reload();
-        });
       }
       function setupAuthListener() {
         onAuthStateChanged(auth, (user) => {
@@ -826,7 +954,16 @@
           window.location.href = googleSignInUrl;
         })
         .catch(() => window.location.href = googleSignInUrl); // proceed even on IP error
-      }
+      }document.getElementById("GetStartedBTN").addEventListener('click', ()=>{
+        document.getElementById("email").value=document.getElementById("GetStartedEmail").value;
+        Signup();
+      });
+      document.getElementById("GetStartedEmail").addEventListener("keydown", (event)=>{
+        if(event.key === 13 || event.key === 'Enter'){
+          document.getElementById("email").value=document.getElementById("GetStartedEmail").value;
+          Signup();
+        }
+      });
     </script>    
     <script src="https://cdn.pulse.is/livechat/loader.js" data-live-chat-id="67f76c37500ab275d603d21e" async></script>
 </body>
