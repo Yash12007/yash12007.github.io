@@ -543,7 +543,7 @@
         <h2 id="LogHead" style="color: #000;">Login</h2>
         <div style="position: absolute; top: 10%; left: 10%; width: 80%; height: 80%; place-items: center; display: grid; backdrop-filter: blur(10px); background: #000000a8; border: 2px solid #fff; box-shadow: 2px 2px 5px #fff; border-radius: 10px;">
             <div style="width: fit-content;">
-                <form>
+                <form onsubmit="event.preventDefault()">
                   <input type="email" name="email" id="email" placeholder="Email" autocomplete="email">
                   <br>
                   <input type="password" name="password" id="password" placeholder="Password" autocomplete="current-password">
