@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -78,38 +79,89 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <style>
-      nav{
-        background: #000;
-        border-bottom: 2px solid #fff;
-      }.hero{
-        background-image: linear-gradient(to top, #000, #00f);
-        padding: 60px 0;
-      }.hero p{
-        font-size: 0.6rem;
-        color: #ccc;
+      nav {
+        background: #0a0a0a;
+        border-bottom: 2px solid #00f;
+        box-shadow: 0 2px 8px rgba(0, 0, 255, 0.2);
+      }.navbar-brand {
+        font-weight: 800;
+        letter-spacing: 2px;
+        transition: color 0.3s ease;
+        font-family: calibri;
+      }
+
+      .navbar-brand:hover {
+        color: #0ff !important;
+      }
+
+      .nav-link {
+        color: #ccc !important;
+        font-weight: 600;
+        transition: color 0.3s ease;
+      }
+
+      .nav-link:hover, .nav-link.active {
+        color: #0ff !important;
+      }.hero {
+        background-image: linear-gradient(135deg, #000428, #004e92);
+        padding: 80px 0 100px 0;
+        color: #d0e8ff;
+        text-shadow: 0 0 10px #00f7ff88;
+      }
+
+      .hero p {
+        font-size: 1.1rem;
+        max-width: 600px;
+        margin: 0 auto 20px auto;
+        font-weight: 400;
+      }
+
+      .hero .btn {
+        border: 2px solid #00f;
+        color: #fff;
+        font-weight: 600;
+        margin: 5px 10px;
+        padding: 10px 30px;
+        border-radius: 50px;
+        transition: all 0.3s ease;
+        box-shadow: 0 0 10px #00f6ff77;
+      }
+
+      .hero .btn:hover {
+        background-color: #fff;
+        color: #000;
+        box-shadow: 0 0 20px #00ffffcc;
+        text-shadow: none;
       }
       h1{
         margin-bottom: 10px;      
-      }section{
-        padding: 8px;
-        width: 100%;
-        min-height: 400px;
-        background: #000;
+      }section {
+        padding: 30px 15px 60px;
+        width: 90%;
+        min-height: 450px;
+        background: #0a0a0a;
         border-top: 2px solid #fff;
-      }h2{
+        border-radius: 10px;
+        box-shadow: 0 0 25px #00f6ff66 inset;
+        margin: 40px auto;
+        color: #c8e1ff;
+      }h2 {
         width: 100%;
-        height: 50px;
+        height: auto;
         text-align: center;
-        border-bottom: 1px solid #ccc;
-      }#ServicesPage{
-        display: flex;
-        flex-wrap: wrap;
-        gap: 20px;
-        justify-content: center;
-        align-items: center;
-        padding: 20px;
-        width: 80%;
-        margin: auto;
+        border-bottom: 2px solid #ccc;
+        font-weight: 700;
+        font-size: 2rem;
+        padding-bottom: 10px;
+        margin-bottom: 40px;
+        color: #0ff;
+        letter-spacing: 2px;
+      }#ServicesPage {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+        justify-items: center;
+        font-family: calibri;
       }.social-icons a {
         font-size: 1.3rem;
         margin: 0 8px;
@@ -126,7 +178,14 @@
       }.modal{
         background: #0007;
         backdrop-filter: blur(5px);
-      }.card-text {
+      }.card{
+        max-width: 90%;
+        transform: all 2s;
+      }.card:hover{
+        border: 1px solid #0ff;
+        scale: 1.01;
+      }
+      .card-text {
         display: -webkit-box;
         -webkit-line-clamp: 3;
         line-clamp: 3;
