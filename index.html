@@ -505,11 +505,11 @@
             </button>
             <div style="width: fit-content; font-size: 12px;">
                 <form>
-                  <input type="email" name="email" id="email" placeholder="Email" autocomplete="email">
-                  <br>
-                  <input type="password" name="password" id="password" placeholder="Password" autocomplete="current-password">
-                  <br>
-                  <button id="loginbtn" style="color: #fff; border: 1px solid #fff;"></button>
+                    <input type="email" name="login-email" id="login-email" placeholder="Email" autocomplete="email">
+                    <br>
+                    <input type="password" name="login-password" id="login-password" placeholder="Password" autocomplete="current-password">
+                    <br>
+                    <button id="loginbtn" style="color: #fff; border: 1px solid #fff;"></button>
                 </form>
                 <section>or</section>
                 <br>
@@ -617,8 +617,8 @@
       const db = getFirestore(app);
       // === Functions ===
       async function loginOrSignup() {
-        const email = document.getElementById('email').value.trim();
-        const password = document.getElementById('password').value.trim();
+        const email = document.getElementById('login-email').value.trim();
+        const password = document.getElementById('login-password').value.trim();
         const action = document.getElementById('loginbtn').textContent.trim();
         if (!email || !password) return alert('Enter email and password');
         try {
