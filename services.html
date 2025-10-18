@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
   <head>
@@ -80,53 +79,52 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <style>
       nav {
-        background: #0a0a0a;
-        border-bottom: 2px solid #00f;
-        box-shadow: 0 2px 8px rgba(0, 0, 255, 0.2);
+        background: #fff;
+        border-bottom: 2px solid #0df;
+        box-shadow: 0 2px 8px #ffffffac;
+        color: #222;
       }.navbar-brand {
         font-weight: 800;
-        letter-spacing: 2px;
         transition: color 0.3s ease;
-        font-family: calibri;
-      }
-
-      .navbar-brand:hover {
+        font-family: calibri !important;
+      }.navbar-brand:hover {
         color: #0ff !important;
-      }
-
-      .nav-link {
-        color: #ccc !important;
+      }.nav-link {
+        color: #222 !important;
+        text-transform: uppercase;
+        font-size: 8px;
         font-weight: 600;
         transition: color 0.3s ease;
-      }
-
-      .nav-link:hover, .nav-link.active {
-        color: #0ff !important;
+      }.nav-link:hover, .nav-link.active {
+        color: #a0f !important;
       }.hero {
-        background-image: linear-gradient(135deg, #000428, #004e92);
+        background-image: #c8f8ff;
         padding: 80px 0 100px 0;
-        color: #d0e8ff;
+        color: #a0f;
         text-shadow: 0 0 10px #00f7ff88;
+      }.hero img{
+        background: #222;
+        margin-bottom: 18px;
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;;
       }
-
       .hero p {
-        font-size: 1.1rem;
+        font-size: 12px;
         max-width: 600px;
         margin: 0 auto 20px auto;
         font-weight: 400;
-      }
-
-      .hero .btn {
+      }.hero .btn {
         border: 2px solid #00f;
-        color: #fff;
+        color: #000;
         font-weight: 600;
         margin: 5px 10px;
         padding: 10px 30px;
         border-radius: 50px;
         transition: all 0.3s ease;
         box-shadow: 0 0 10px #00f6ff77;
+        text-shadow: none;
       }
-
       .hero .btn:hover {
         background-color: #fff;
         color: #000;
@@ -134,17 +132,18 @@
         text-shadow: none;
       }
       h1{
-        margin-bottom: 10px;      
+        margin-bottom: 10px;
+        font-size: 22px !important;
       }section {
         padding: 30px 15px 60px;
         width: 90%;
         min-height: 450px;
-        background: #0a0a0a;
+        background: #fff;
         border-top: 2px solid #fff;
         border-radius: 10px;
         box-shadow: 0 0 25px #00f6ff66 inset;
         margin: 40px auto;
-        color: #c8e1ff;
+        color: #222;
       }h2 {
         width: 100%;
         height: auto;
@@ -154,38 +153,43 @@
         font-size: 2rem;
         padding-bottom: 10px;
         margin-bottom: 40px;
-        color: #0ff;
+        color: #0af;
         letter-spacing: 2px;
       }#ServicesPage {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 25px;
-        justify-items: center;
+        margin-top: 30px; 
+        display: flex; 
+        place-items: center;
+        flex-wrap: wrap; 
+        gap: 20px; 
+        justify-content: center;
         font-family: calibri;
       }.social-icons a {
         font-size: 1.3rem;
         margin: 0 8px;
       }footer {
-        border-top: 1px solid #333;
-        background: #000;
+        box-shadow: 0 -2px 3px #ccc;
+        background: #f3f3f3;
         padding: 25px 20px;
         color: #888;
-      }
-      footer a {
-        color: #fff;
+        font-size: 10px;
+        display: flex;
+        place-items: center;
+        justify-content: space-around;
+      }footer a {
+        color: #747474;
         text-decoration: none;
         transition: color 0.3s;
       }.modal{
-        background: #0007;
+        background: #fff7;
         backdrop-filter: blur(5px);
       }.card{
         max-width: 90%;
         transform: all 2s;
       }.card:hover{
-        border: 1px solid #0ff;
+        background: #ccf7ff;
+        color: #222;
         scale: 1.01;
-      }
-      .card-text {
+      }.card-text {
         display: -webkit-box;
         -webkit-line-clamp: 3;
         line-clamp: 3;
@@ -193,15 +197,20 @@
         overflow: hidden;
         text-overflow: ellipsis;
       }.btn-primary {
-        background-color: transparent;
-        color: #0ff;
-        border: 2px solid #0ff;
+        background-color: transparent !important;
+        color: #1f9a9a !important;
+        border: 2px solid #01afaf !important;
       }.card-title{
         font-size: 21px;
+      }.form-control:disabled{
+        background-color: #c1f4f4 !important;
+      }::-webkit-scrollbar {
+        width: 0px;
+        height: 0px;
       }
     </style>
   </head>
-  <body data-bs-theme="dark">
+  <body>
     <nav class="navbar navbar-expand-lg">
       <div class="container-fluid">
         <a class="navbar-brand" href="" style="font-size: 18px;">Yash12007</a>
@@ -236,8 +245,45 @@
       </div>
     </div>
     <section>
+      <h3>Featured Services</h3>
+      <div style="margin-top: 30px; display: flex; place-items: center; flex-wrap: wrap; gap: 20px; justify-content: center;">
+        <div class="card h-100 d-flex flex-column" style="width: 18rem;">
+          <div class="card-body">
+            <img src="https://www.yash12007.com/Assets/SD.png" alt="Software Development" style="width:100%; height:auto; border-radius: 10px; margin-bottom: 10px;">
+            <h5 class="card-title">Software Development</h5>
+            <p class="card-text">From custom applications to full-stack solutions, we deliver reliable and scalable software tailored to your business goals.</p>
+            <a href="#" class="btn btn-primary" onclick="openForm('Software Development')">Book Now</a>
+          </div>
+        </div>
+        <div class="card h-100 d-flex flex-column" style="width: 18rem;">
+          <div class="card-body">
+            <img src="https://www.yash12007.com/Assets/UIUX.png" alt="UI / UX Interface development" style="width:100%; height:auto; border-radius: 10px; margin-bottom: 10px;">
+            <h5 class="card-title">UI / UX Interface</h5>
+            <p class="card-text">Elevate your software with our professional UI/UX Interface Development service, specializing in GUI application development using Qt. Our abstract and creative designs ensure a seemless user experience for applications, whether they are Qt, Webview, or native.</p>
+            <a href="#" class="btn btn-primary" onclick="openForm('UI / UX Interface development')">Book Now</a>
+          </div>
+        </div>
+        <div class="card h-100 d-flex flex-column" style="width: 18rem;">
+          <div class="card-body">
+            <img src="https://www.yash12007.com/Assets/webverse.png" alt="Web Verse - Fullstack development" style="width:100%; height:auto; border-radius: 10px; margin-bottom: 10px;">
+            <h5 class="card-title">Fullstack development</h5>
+            <p class="card-text">Unlock your business potential with our Custom Web Development Services, tailored for both Mobile and Desktop platforms.</p>
+            <a href="#" class="btn btn-primary" onclick="openForm('Web Verse - Fullstack development')">Book Now</a>
+          </div>
+        </div>
+        <div class="card h-100 d-flex flex-column" style="width: 18rem;">
+          <div class="card-body">
+            <img src="https://www.yash12007.com/Assets/flask.png" alt="Flask Server Development" style="width:100%; height:auto; border-radius: 10px; margin-bottom: 10px;">
+            <h5 class="card-title">Flask Server</h5>
+            <p class="card-text">Introducing our Custom Flask Server Development service. designed to create robust website servers tailored to your needs.</p>
+            <a href="#" class="btn btn-primary" onclick="openForm('Flask Server Development')">Book Now</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section>
       <h2 id="services">Services Page</h2>
-      <div id="ServicesPage" class="col-md-4 mb-4">
+      <div id="ServicesPage">
         <div class="card h-100 d-flex flex-column" style="width: 18rem;">
           <div class="card-body">
             <h5 class="card-title">Enterprise Software</h5>
@@ -282,13 +328,16 @@
         </div>
     </section>
     <footer class="text-center mt-5">
-      <div class="container">
-        <p class="mb-2">&copy; 2025 Yash12007. All rights reserved.</p>
+      <div>
+        <p>A software development company dedicated to providing high-quality software solutions to businesses and organizations of all sizes. <br>&copy; 2025 Yash12007. All rights reserved.</p>
+      </div>
+      <div class="container"> 
         <div class="social-icons">
+          <a href="https://www.facebook.com"><i class="bi bi-facebook"></i></a>
           <a href="https://www.instagram.com/yash12007_com" target="_blank"><i class="bi bi-instagram"></i></a>
           <a href="https://www.linkedin.com/company/yash12007" target="_blank"><i class="bi bi-linkedin"></i></a>
+          <a href="https://www.twitter.com/_Yash12007_"><i class="bi bi-twitter-x"></i></a>
           <a href="https://www.youtube.com/@Yash12007" target="_blank"><i class="bi bi-youtube"></i></a>
-          <a href="https://www.github.com/Yash12007" target="_blank"><i class="bi bi-github"></i></a>
         </div>
       </div>
     </footer>
@@ -339,5 +388,6 @@
       }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-  </body>
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"version":"2024.11.0","token":"9566e86f01df45009b8dc922ac29e934","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
 </html>
