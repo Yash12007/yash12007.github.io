@@ -19,7 +19,7 @@
   <meta name="description" content="Yash12007 is a software development company delivering cutting-edge apps, tools, and cross-platform solutions to help businesses grow with quality technology.">
   <meta name="keywords" content="Yash12007, Yash Bodhe, software development company, custom software solutions, web and mobile app development, cross-platform app development, Python development, JavaScript development, Flutter development, AI software solutions, cybersecurity software, cloud server solutions, antivirus software, Sera antivirus, Nexus OS, RIKKO programming language, enterprise software development, software company India, affordable app development, innovative software solutions, business software services, high-quality software and apps, software for startups, custom web applications, trusted software development partner, IT company, tech company, digital agency, web development, software development, technology solutions, technology services, software engineering, software architecture, software design, software development life cycle, software testing, software deployment, software maintenance, software project management, software security, software optimization, software integration, software scalability, software analytics, software user experience, software collaboration, software automation, software cloud, software mobile, software enterprise, software startups">
   <link rel="icon" href="https://www.yash12007.com/512x512.ico" type="image/x-icon" />
-  <link rel="icon" type="image/svg+xml" href="/512x512.svg">
+  <link rel="icon" type="image/svg+xml" href="https://www.yash12007.com/512x512.svg">
   <link rel="apple-touch-icon" href="https://www.yash12007.com/192x192.png">
   <link rel="icon" type="image/png" sizes="16x16" href="https://www.yash12007.com/16x16.png">
   <link rel="icon" type="image/png" sizes="32x32" href="https://www.yash12007.com/32x32.png">
@@ -167,12 +167,16 @@
       border-radius: 50%;
       min-width: 120px;
       min-height: 120px;
-      margin-top: 85%;
+      margin-top: 40%;
       box-shadow: 2px 2px 5px #222;
     }
     section{width: 80%; margin: 10%; text-align: center; height: 1px; border: 0.5px solid #fff;}
     #option{
       font-size: 12px;
+    }#quick-signin-qr img {
+      width: 80px;
+      height: auto;
+      max-width: 100%;
     }
   </style>
 </head>
@@ -547,17 +551,24 @@
     <div id="userInfoBox">
         <div style="display:grid; place-items:center; margin: 8px;">
           <img id="profilePic" src="https://cdn.pixabay.com/photo/2022/03/09/09/07/sakura-7057460_1280.jpg" width="80px" height="80px" style="border-radius: 50%;" alt="Profile"><br>
-          <strong id="userName">Example Name</strong><br>
-          <span id="userEmail"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f19f909c94b19489909c819d94df929e9c">[email&#160;protected]</a></span>
-          <span id="IP" style="font-size:8px;">IP</span>
-          <span id="Sdatetime" style="font-size:8px;">datetime</span>
+          <div style="display: grid; place-items: center; justify-content: center; gap: 0px;">
+            <strong id="userName">Example Name</strong>
+            <span id="userEmail" style="font-size: 10px;"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f19f909c94b19489909c819d94df929e9c">user@example.com</a></span>
+          </div>
+          <div style="margin: 10px; margin-top: 30px; background: #d3f9ff; color: #009a9c; border-radius: 1rem; padding: 40px 30px; display: flex; flex-direction: column; gap: 0px;">
+            <span id="IP" style="font-size:10px;">IP: 1234:4567:8901:2345</span>
+            <span id="Sdatetime" style="font-size:10px;">Last login: 2025-10-26T21:10:00</span>
+          </div>
         </div>
         <div style="display:flex; place-items:center;">
             <button onclick="signInWithGoogle()">Switch Account</button>
             <button onclick="closeUserInfo()">Close</button>
+            <button onclick="QuickSignin()">Quick Signin</button>
         </div>
+        <div id="quick-signin-qr"></div>
         <p style="font-size: 8px; position: absolute; bottom: 20px; left:0px; text-align: center; width: 100%;">We value your privacy and protect your data with the highest security standards.</p>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script>
     <script>
       function shareWebsite() {
@@ -844,6 +855,26 @@
               Signup();
           }
       });
+      function QuickSignin() {
+        const storedAccountUrl = localStorage.getItem('account');
+        if (storedAccountUrl) {
+          const qrContainer = document.getElementById('quick-signin-qr');
+          qrContainer.innerHTML = "";
+          const signinLink = "https://www.yash12007.com/?id_token=" + encodeURIComponent(storedAccountUrl);
+          new QRCode(qrContainer, {
+            text: signinLink,
+            width: 96,
+            height: 96,
+            colorDark: "#000000",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.H
+          });
+          document.getElementById('quick-signin-qr').insertAdjacentHTML('beforeend', `<p><a href="${signinLink}" target="_blank">${signinLink}</a></p>`);
+        } else {
+          alert("No saved account found. Please sign up first.");
+          Signup();
+        }
+      }
     </script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"version":"2024.11.0","token":"9566e86f01df45009b8dc922ac29e934","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
