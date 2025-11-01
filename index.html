@@ -961,7 +961,7 @@
                   <div style="display:flex; flex-direction:column; justify-content:start; place-items:left; text-align:left; align-items:left; gap:0px;">
                     <h3 style="margin:10px 0 4px;">
                       ${name} 
-                      <div title="Verified User" style="display:inline-block; color:#0df; margin-left:5px; vertical-align:middle;">
+                      <div title="Verified User" style="cursor:pointer; display:inline-block; color:#0df; margin-left:5px; vertical-align:middle;">
                         <i class="bi bi-patch-check-fill"></i>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-patch-check-fill" viewBox="0 0 16 16">
                           <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708"/>
@@ -975,13 +975,26 @@
               </div>
               <div style="display:flex; gap:10px; justify-content:center; margin-top:20px;">
                 <button onclick="document.getElementById('profile').style.display='none';" style="height:fit-content; margin-top:20px;padding:8px;border:1px solid #0df;background:#0df7;color:#0df;border-radius:5px;cursor:pointer;">Close</button>
-                <button onclick="ShareProfile()" style="height:fit-content; margin-top:20px;padding:8px;border:1px solid #0df;background:#0df7;color:#0df;border-radius:5px;cursor:pointer;">Share Profile</button>
+                <button onclick="shareCurrentProfile(${name}, ${encoded})" style="height:fit-content; margin-top:20px;padding:8px;border:1px solid #0df;background:#0df7;color:#0df;border-radius:5px;cursor:pointer;">Share Profile</button>
                 <button onclick="signInWithGoogle()" style="height:fit-content; margin-top:20px;padding:8px;border:1px solid #0df;background:#0df7;color:#0df;border-radius:5px;cursor:pointer;">Get yours</button>
               </div>
             </div>
           `;
         } catch (err) {
           alert("Something went wrong: ", err);
+        }
+      }function shareCurrentProfile(name, data){
+        if(navigator.share){
+          navigator.share({
+            title: 'Take a look at my profile!',
+            text: `Hey there! I'm ${name}.\nCheck out my profile on Yash12007:`,
+            url: profileLink
+          }).then(() => console.log('Thanks for sharing!')).catch(err => console.error('Error sharing:', err));
+        }else{
+          const fallbackUrl = `https://wa.me/?text=${encodeURIComponent(
+            `*Hey there! I'm ${name}* \nCheck out my profile on Yash12007: \n\n${profileLink}`
+          )}`;
+          window.open(fallbackUrl, '_blank');
         }
       }
     </script>
