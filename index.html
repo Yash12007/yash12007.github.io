@@ -645,6 +645,11 @@
           console.error("Persistence error:", error);
         });
       const db = getFirestore(app);
+      // Expose module-scoped objects to non-module scripts on the page
+      // so older-style code can access them via window.auth / window.db.
+      window.auth = auth;
+      window.db = db;
+      window.firebaseApp = app;
       // === Functions ===
       async function loginOrSignup() {
         const email = document.getElementById('login-email').value.trim();
@@ -871,9 +876,11 @@
           }
       });
       function QuickSignin() {
-        const user = firebase.auth().currentUser;
+        // Use the modular SDK auth exposed to window by the module script.
+        const user = (window.auth && window.auth.currentUser) || null;
 
         if (user) {
+          // user.getIdToken() is still available on the User object
           user.getIdToken().then(token => {
             const qrContainer = document.getElementById('quick-signin-qr');
             qrContainer.innerHTML = "";
