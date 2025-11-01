@@ -163,7 +163,7 @@
       margin: 5px;
       font-size: 12px;
       padding: 8px;
-    }#userInfoBox img{
+    }#userInfoBox #profilePic{
       border-radius: 50%;
       min-width: 120px;
       min-height: 120px;
@@ -915,10 +915,10 @@
                 // generate QR
                 new QRCode(qrContainer, {
                   text: signinLink,
-                  width: 96,
-                  height: 96,
-                  colorDark: "#000000",
-                  colorLight: "#ffffff",
+                  width: 120,
+                  height: 120,
+                  colorDark: "#ffffff",
+                  colorLight: "#000000",
                   correctLevel: QRCode.CorrectLevel.H
                 });
                 qrContainer.insertAdjacentHTML('beforeend', `<p style="font-size:11px;margin-top:6px;"><a href="${signinLink}" target="_blank">Open sign-in link</a></p>`);
