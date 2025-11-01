@@ -984,6 +984,7 @@
           alert("Something went wrong: ", err);
         }
       }function shareCurrentProfile(name, data){
+        const profileLink = `${location.origin}/${data}`;
         if(navigator.share){
           navigator.share({
             title: 'Take a look at my profile!',
