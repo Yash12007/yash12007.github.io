@@ -174,7 +174,7 @@
     #option{
       font-size: 12px;
     }#quick-signin-qr img {
-      width: 80px;
+      width: 120px;
       height: auto;
       max-width: 100%;
     }#quick-signin-qr{
@@ -186,8 +186,7 @@
       border: 2px solid #0df;
       box-shadow: 0 0 10px #f0f inset;
       place-items: center;
-    }#quick-signin-qr img{min-width: 60%; aspect-ratio: 1;}
-    #quick-signin-qr:popover-open {
+    }#quick-signin-qr:popover-open {
       display: grid; /* Shown when popover is open */
       gap: 0.5rem;
     }
@@ -948,22 +947,8 @@
           console.error('Failed to get ID token', err);
           qrContainer.innerHTML = `<div style="color:#c00">Failed to get ID token</div>`;
         });
-      }const qr = document.getElementById("quick-signin-qr");
-      qr.style.transition = "transform 0.2s ease"; // smooth motion
-      qr.style.transformStyle = "preserve-3d";
-      qr.style.perspective = "600px"; // gives depth
-      qr.addEventListener("mousemove", (event) => {
-        const rect = qr.getBoundingClientRect();
-        const x = event.clientX - rect.left; // x position within element
-        const y = event.clientY - rect.top;  // y position within element
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        const rotateY = ((x - centerX) / centerX) * 15; // max ±15°
-        const rotateX = ((centerY - y) / centerY) * 15;
-        qr.style.transform = `perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-      });
-      qr.addEventListener("mouseleave", () => {
-        qr.style.transform = "rotateX(0deg) rotateY(0deg)";
+      }document.getElementById("quick-signin-qr").addEventListener('mouseover', (event)=>{
+        document.getElementById("quick-signin-qr").style.transform=`rotateY(calc(${event.clientX} / 360)deg)`;
       });
     </script>
     <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"version":"2024.11.0","token":"9566e86f01df45009b8dc922ac29e934","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
