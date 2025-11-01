@@ -134,8 +134,11 @@
       height: 50px;
       width: 100%;
       margin: 5px;
-      color: white;
+      color: #FFF;
       padding: 3px;
+      display: flex;
+      place-items: center;
+      justify-content: center;
     }#LogScreen input:focus{
       outline: #0ff;
       border: 2px solid #fff;
@@ -174,8 +177,9 @@
     #option{
       font-size: 12px;
     }#quick-signin-qr img {
-      width: 120px;
+      width: 180px;
       height: auto;
+      aspect-ratio: 1;
       max-width: 100%;
     }#quick-signin-qr{
       width: 80%;
@@ -189,6 +193,8 @@
     }#quick-signin-qr:popover-open {
       display: grid; /* Shown when popover is open */
       gap: 0.5rem;
+    }#Googlebtn{
+      justify-content: space-around !important;
     }
   </style>
 </head>
@@ -529,7 +535,7 @@
     </footer>
     <iframe src="https://github.com/sponsors/Yash12007/button" title="Sponsor Yash12007" height="32" width="114" style="border: 0; border-radius: 6px; position: fixed; bottom:30px; right:15px;"></iframe>
     <div id="LogScreen">
-        <div style="position: absolute; top: 10%; left: 10%; width: 80%; height: 80%; place-items: center; display: grid; background: #000000; border-radius: 1rem; border: 1px solid #ccc; box-shadow: 2px 2px 5px #fff;">
+        <div style="position: absolute; top: 15%; left: 10%; width: 80%; height: 80%; place-items: center; display: grid; background: #0007; backdrop-filter: blur(10px); border-radius: 1rem; border: 2px solid #0df; box-shadow: 0 0 10px #f0f inset;">
             <h2 id="LogHead" style="color: #fff; font-size: 22px; position: absolute; top: 10px; left: 10px;">Login</h2>
             <i class="bi bi-x"></i>
             <button style="display: grid; place-items: center; justify-content: center; color: white; -webkit-text-fill-color: white; border-radius: 50%; border:2px solid #fff; width: 30px; height: 30px; position: absolute; top: 10px; right: 10px;" onclick="removeLogScreen()">
@@ -846,7 +852,15 @@
         document.getElementById("navCloserBtn").click();
         document.getElementById('LogScreen').style = "top:0; left:0;";
         document.getElementById('LogHead').textContent = 'Login';
-        document.getElementById('Googlebtn').textContent = 'Login with Google';
+        document.getElementById('Googlebtn').innerHTML = `
+          <div>
+            <i class="bi bi-google"></i>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-google" viewBox="0 0 16 16">
+              <path d="M15.545 6.558a9.4 9.4 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.7 7.7 0 0 1 5.352 2.082l-2.284 2.284A4.35 4.35 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.8 4.8 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.7 3.7 0 0 0 1.599-2.431H8v-3.08z"/>
+            </svg>
+          </div>
+          Login with Google
+        `;
         document.getElementById('loginbtn').textContent = 'Login';
         document.getElementById('option').innerHTML = "Don't have an account? <a style='color:#0ff;' onclick='Signup()'>Signup</a>";
       }
@@ -854,7 +868,15 @@
         document.getElementById("navCloserBtn").click();
         document.getElementById('LogScreen').style = "top:0; left:0;";
         document.getElementById('LogHead').textContent = 'Signup';
-        document.getElementById('Googlebtn').textContent = 'Sign up with Google';
+        document.getElementById('Googlebtn').innerHTML = `
+          <div>
+            <i class="bi bi-google"></i>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-google" viewBox="0 0 16 16">
+              <path d="M15.545 6.558a9.4 9.4 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.7 7.7 0 0 1 5.352 2.082l-2.284 2.284A4.35 4.35 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.8 4.8 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.7 3.7 0 0 0 1.599-2.431H8v-3.08z"/>
+            </svg>
+          </div>
+          Sign up with Google
+        `;
         document.getElementById('loginbtn').textContent = 'Signup';
         document.getElementById('option').innerHTML = "Already have an account? <a style='color:#0ff;' onclick='Login()'>Login</a>";
       }
