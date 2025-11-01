@@ -563,9 +563,9 @@
         <div style="display:flex; place-items:center;">
             <button onclick="signInWithGoogle()">Switch Account</button>
             <button onclick="closeUserInfo()">Close</button>
-            <button onclick="QuickSignin()">Quick Signin</button>
+            <button popovertarget="quick-signin-qr" onclick="QuickSignin()">Quick Signin</button>
         </div>
-        <div id="quick-signin-qr"></div>
+        <div id="quick-signin-qr" popover="auto"></div>
         <p style="font-size: 8px; position: absolute; bottom: 20px; left:0px; text-align: center; width: 100%;">We value your privacy and protect your data with the highest security standards.</p>
     </div>
   <!-- QR library will be loaded on demand by QuickSignin() to avoid blocking page load -->
