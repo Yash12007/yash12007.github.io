@@ -568,7 +568,7 @@
         <div id="quick-signin-qr"></div>
         <p style="font-size: 8px; position: absolute; bottom: 20px; left:0px; text-align: center; width: 100%;">We value your privacy and protect your data with the highest security standards.</p>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
+  <!-- QR library will be loaded on demand by QuickSignin() to avoid blocking page load -->
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script>
     <script>
       function shareWebsite() {
@@ -879,26 +879,62 @@
         // Use the modular SDK auth exposed to window by the module script.
         const user = (window.auth && window.auth.currentUser) || null;
 
-        if (user) {
-          // user.getIdToken() is still available on the User object
-          user.getIdToken().then(token => {
-            const qrContainer = document.getElementById('quick-signin-qr');
-            qrContainer.innerHTML = "";
-            const signinLink = "https://www.yash12007.com/#id_token=" + encodeURIComponent(token) + "&uid=" + encodeURIComponent(user.uid);
-            new QRCode(qrContainer, {
-              text: signinLink,
-              width: 96,
-              height: 96,
-              colorDark: "#000000",
-              colorLight: "#ffffff",
-              correctLevel: QRCode.CorrectLevel.H
-            });
-            qrContainer.insertAdjacentHTML('beforeend', `<p><a href="${signinLink}" target="_blank">${signinLink}</a></p>`);
-          });
-        } else {
+        const qrContainer = document.getElementById('quick-signin-qr');
+        if (!qrContainer) return console.error('No QR container found');
+
+        if (!user) {
           alert("No Firebase user signed in. Please sign in first.");
-          Signup();
+          return Signup();
         }
+
+        // Small UX: show placeholder while preparing
+        qrContainer.innerHTML = `<div style="padding:8px;font-size:12px;color:#666">Generating QR&hellip;</div>`;
+
+        // Helper to dynamically load the QR lib only when needed
+        function loadQRCodeLib() {
+          return new Promise((resolve, reject) => {
+            if (window.QRCode) return resolve();
+            const script = document.createElement('script');
+            script.src = 'https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js';
+            script.async = true;
+            script.onload = () => resolve();
+            script.onerror = (e) => reject(new Error('Failed to load QR library'));
+            document.head.appendChild(script);
+          });
+        }
+
+        user.getIdToken().then(async token => {
+          try {
+            await loadQRCodeLib();
+            // Defer generation to avoid blocking the current event loop
+            (window.requestIdleCallback || function (cb) { return setTimeout(cb, 0); })(() => {
+              try {
+                const signinLink = "https://www.yash12007.com/#id_token=" + encodeURIComponent(token) + "&uid=" + encodeURIComponent(user.uid);
+                // clear placeholder
+                qrContainer.innerHTML = '';
+                // generate QR
+                new QRCode(qrContainer, {
+                  text: signinLink,
+                  width: 96,
+                  height: 96,
+                  colorDark: "#000000",
+                  colorLight: "#ffffff",
+                  correctLevel: QRCode.CorrectLevel.H
+                });
+                qrContainer.insertAdjacentHTML('beforeend', `<p style="font-size:11px;margin-top:6px;"><a href="${signinLink}" target="_blank">Open sign-in link</a></p>`);
+              } catch (e) {
+                console.error('QR generation failed', e);
+                qrContainer.innerHTML = `<div style="color:#c00">QR generation failed</div>`;
+              }
+            });
+          } catch (e) {
+            console.error(e);
+            qrContainer.innerHTML = `<div style="color:#c00">Failed to load QR library</div>`;
+          }
+        }).catch(err => {
+          console.error('Failed to get ID token', err);
+          qrContainer.innerHTML = `<div style="color:#c00">Failed to get ID token</div>`;
+        });
       }
     </script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"version":"2024.11.0","token":"9566e86f01df45009b8dc922ac29e934","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
