@@ -172,29 +172,21 @@
       min-height: 120px;
       margin-top: 40%;
       box-shadow: 2px 2px 5px #222;
-    }
-    section{width: 80%; margin: 10%; text-align: center; height: 1px; border: 0.5px solid #fff;}
+    }section{width: 80%; margin: 10%; text-align: center; height: 1px; border: 0.5px solid #fff;}
     #option{
       font-size: 12px;
-    }#quick-signin-qr img {
-      max-width: 80px;
-      min-width: 80px;
-      height: auto;
-      aspect-ratio: 1;
-    }#quick-signin-qr{
-      width: 80%;
-      height: 80%;
-      border-radius: 10px;
-      background: #fff7;
-      backdrop-filter: blur(10px);
-      border: 2px solid #0df;
-      box-shadow: 0 0 10px #f0f inset;
-      place-items: center;
-    }#quick-signin-qr:popover-open {
-      display: grid; /* Shown when popover is open */
-      gap: 0.5rem;
     }#Googlebtn{
       justify-content: space-around !important;
+    }#profile{
+      position: fixed;
+      width: 80%;
+      height: 80%;
+      background: #0df7;
+      color: #0df;
+      backdrop-filter: blur(10px);
+      border-radius: 10px;
+      border: 2px solid #0df;
+      box-shadow: 0 0 10px #0df;
     }
   </style>
 </head>
@@ -581,12 +573,10 @@
         <div style="display:flex; place-items:center;">
             <button onclick="signInWithGoogle()">Switch Account</button>
             <button onclick="closeUserInfo()">Close</button>
-            <button popovertarget="quick-signin-qr" onclick="QuickSignin()">Quick Signin</button>
+            <button onclick="ShareProfile()">Share Profile</button>
         </div>
-        <div id="quick-signin-qr" popover="auto"></div>
-        <p style="font-size: 8px; position: absolute; bottom: 20px; left:0px; text-align: center; width: 100%;">We value your privacy and protect your data with the highest security standards.</p>
     </div>
-  <!-- QR library will be loaded on demand by QuickSignin() to avoid blocking page load -->
+    <div id="profile"></div>
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script>
     <script>
       function shareWebsite() {
@@ -741,6 +731,7 @@
         document.getElementById("loginbtn").addEventListener("click", loginOrSignup);
         setupAuthListener();
         handleGoogleSignIn();
+        processProfile();
       });
   async function loginWithGoogleIdToken(id_token) {
         try {
@@ -909,69 +900,70 @@
               Signup();
           }
       });
-      function QuickSignin() {
-        // Use the modular SDK auth exposed to window by the module script.
-        const user = (window.auth && window.auth.currentUser) || null;
-
-        const qrContainer = document.getElementById('quick-signin-qr');
-        if (!qrContainer) return console.error('No QR container found');
-
+      function ShareProfile(){
+        const user = (window.auth && window.auth.currentUser) || window.currentUser || null;
         if (!user) {
-          alert("No Firebase user signed in. Please sign in first.");
-          return Signup();
+          alert('No signed-in user found. Please sign in first.');
+          return;
         }
-
-        // Small UX: show placeholder while preparing
-        qrContainer.innerHTML = `<div style="padding:8px;font-size:12px;color:#666">Generating QR&hellip;</div>`;
-
-        // Helper to dynamically load the QR lib only when needed
-        function loadQRCodeLib() {
-          return new Promise((resolve, reject) => {
-            if (window.QRCode) return resolve();
-            const script = document.createElement('script');
-            script.src = 'https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js';
-            script.async = true;
-            script.onload = () => resolve();
-            script.onerror = (e) => reject(new Error('Failed to load QR library'));
-            document.head.appendChild(script);
-          });
+        const name = user.displayName || user.name || user.email || 'No Name';
+        const pic = user.photoURL || user.img || 'https://via.placeholder.com/50';
+        const email = user.email || '';
+        const last = localStorage.getItem('Signup-date') || new Date().toISOString();
+        const rawParams = `profile=${encodeURIComponent(name)}&profilepic=${encodeURIComponent(pic)}&email=${encodeURIComponent(email)}&lastactive=${encodeURIComponent(last)}`;
+        const encodedParams = btoa(rawParams);
+        const profileLink = `${location.origin}/?yuser=${encodedParams}`;
+        if(navigator.share){
+          navigator.share({
+            title: 'Take a look at my profile!',
+            text: `Hey there! I'm ${name}.\nCheck out my profile on Yash12007:`,
+            url: profileLink
+          }).then(() => console.log('Thanks for sharing!')).catch(err => console.error('Error sharing:', err));
+        }else{
+          const fallbackUrl = `https://wa.me/?text=${encodeURIComponent(
+            `*Hey there! I'm ${name}* \nCheck out my profile on Yash12007: \n\n${profileLink}`
+          )}`;
+          window.open(fallbackUrl, '_blank');
         }
-
-        user.getIdToken().then(async token => {
-          try {
-            await loadQRCodeLib();
-            // Defer generation to avoid blocking the current event loop
-            (window.requestIdleCallback || function (cb) { return setTimeout(cb, 0); })(() => {
-              try {
-                const signinLink = "https://www.yash12007.com/#id_token=" + encodeURIComponent(token) + "&uid=" + encodeURIComponent(user.uid);
-                // clear placeholder
-                qrContainer.innerHTML = '';
-                // generate QR
-                new QRCode(qrContainer, {
-                  text: signinLink,
-                  width: 400,
-                  height: 400,
-                  colorDark: "#000000",
-                  colorLight: "#ffffff",
-                  correctLevel: QRCode.CorrectLevel.H
-                });
-                qrContainer.insertAdjacentHTML('beforeend', `<p style="font-size:11px;margin-top:6px;"><a href="${signinLink}" target="_blank">Open sign-in link</a></p>`);
-              } catch (e) {
-                console.error('QR generation failed', e);
-                qrContainer.innerHTML = `<div style="color:#c00">QR generation failed</div>`;
-              }
-            });
-          } catch (e) {
-            console.error(e);
-            qrContainer.innerHTML = `<div style="color:#c00">Failed to load QR library</div>`;
-          }
-        }).catch(err => {
-          console.error('Failed to get ID token', err);
-          qrContainer.innerHTML = `<div style="color:#c00">Failed to get ID token</div>`;
-        });
-      }document.getElementById("quick-signin-qr").addEventListener('mouseover', (event)=>{
-        document.getElementById("quick-signin-qr").style.transform=`rotateY(calc(${event.clientX} / 360)deg)`;
-      });
+      }function processProfile(){
+        const params = new URLSearchParams(location.search);
+        const encoded = params.get('yuser');
+        if (!encoded) {
+          console.log('No shared data found in URL.');
+          return;
+        }
+        try {
+          const decoded = atob(encoded);
+          const query = new URLSearchParams(decoded);
+          const name = query.get('profile');
+          const pic = query.get('profilepic');
+          const email = query.get('email');
+          const last = query.get('lastactive');
+          document.getElementById('profile').style = `
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fff;
+            border: 2px solid #0df;
+            border-radius: 1rem;
+            padding: 20px;
+            box-shadow: 0 0 10px #0df;
+            z-index: 10000;
+            display: grid;
+            place-items: center;
+            text-align: center;
+          `;
+          container.innerHTML = `
+            <img src="${pic}" alt="${name}" style="width:80px;height:80px;border-radius:50%;object-fit:cover;">
+            <h3 style="margin:10px 0 4px;">${name}</h3>
+            <p style="font-size:0.9em;color:#555;">${email}</p>
+            <p style="font-size:0.8em;color:#888;">• Last Active: ${new Date(last).toLocaleString()}</p>
+          `;
+        } catch (err) {
+          alert("Something went wrong: ", err);
+        }
+      }
     </script>
     <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"version":"2024.11.0","token":"9566e86f01df45009b8dc922ac29e934","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
