@@ -181,10 +181,11 @@
       position: fixed;
       width: 80%;
       height: 80%;
-      background: #0df7;
+      background: #0df7 !important;
       color: #0df;
       backdrop-filter: blur(10px);
       border-radius: 10px;
+      display: none;
       border: 2px solid #0df;
       box-shadow: 0 0 10px #0df;
     }
@@ -939,16 +940,13 @@
           const pic = query.get('profilepic');
           const email = query.get('email');
           const last = query.get('lastactive');
-          document.getElementById('profile').style = `
+          const container = document.getElementById('profile');
+          container.style = `
             position: fixed;
-            top: 50%;
-            left: 50%;
+            top: 10%;
+            left: 10%;
             transform: translate(-50%, -50%);
-            background: #fff;
-            border: 2px solid #0df;
-            border-radius: 1rem;
             padding: 20px;
-            box-shadow: 0 0 10px #0df;
             z-index: 10000;
             display: grid;
             place-items: center;
