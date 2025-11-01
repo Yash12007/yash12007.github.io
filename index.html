@@ -185,9 +185,12 @@
       backdrop-filter: blur(10px);
       border: 2px solid #0df;
       box-shadow: 0 0 10px #f0f inset;
-      display: grid;
       place-items: center;
     }#quick-signin-qr img{min-width: 60%; aspect-ratio: 1;}
+    #quick-signin-qr:popover-open {
+      display: grid; /* Shown when popover is open */
+      gap: 0.5rem;
+    }
   </style>
 </head>
 <body>
