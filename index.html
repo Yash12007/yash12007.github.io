@@ -957,13 +957,21 @@
             <div style="gap:5px; display:flex; flex-direction:column; align-items:center; justify-content:center;">
               <div style="display:flex; flex-direction:column; align-items:center; padding:20px; border-radius:10px; box-shadow:0 0 10px #0df; gap:8px;">
                 <div style="display:flex; justify-content:space-between; place-items:center; gap:4px;">
-                  <img src="${pic}" alt="${name}" style="width:80px;height:80px;border-radius:50%;object-fit:cover;">
+                  <img src="${pic}" alt="${name} | Verified" style="width:80px;height:80px;border-radius:50%;object-fit:cover;">
                   <div style="display:flex; flex-direction:column; justify-content:start; place-items:left; text-align:left; align-items:left; gap:0px;">
-                    <h3 style="margin:10px 0 4px;">${name}</h3>
+                    <h3 style="margin:10px 0 4px;">
+                      ${name} 
+                      <div title="Verified User" style="display:inline-block; color:#0df; margin-left:5px; vertical-align:middle;">
+                        <i class="bi bi-patch-check-fill"></i>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-patch-check-fill" viewBox="0 0 16 16">
+                          <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708"/>
+                        </svg>
+                      </div>
+                    </h3>
                     <a style="font-size:12px; color:#ccc;" href="mailto:${email}">${email}</a>
                   </div>
-                  <p style="font-size:0.8em;color:#ccc;">• Shared on: ${new Date(last).toLocaleString()}</p>
                 </div>
+                <p style="font-size:0.8em;color:#0f0;">• Shared on: ${new Date(last).toLocaleString()}</p>
               </div>
               <div style="display:flex; gap:10px; justify-content:center; margin-top:20px;">
                 <button onclick="document.getElementById('profile').style.display='none';" style="height:fit-content; margin-top:20px;padding:8px;border:1px solid #0df;background:#0df7;color:#0df;border-radius:5px;cursor:pointer;">Close</button>
