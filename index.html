@@ -706,6 +706,7 @@
           if (user) {
             console.log('Logged in as:', user.email);
             currentUser = user;
+            localStorage.setItem('account', user.uid);
             updateUserUI(user);
             saveUserDataToDB(user);
           } else {
@@ -718,7 +719,7 @@
         setupAuthListener();
         handleGoogleSignIn();
       });
-      async function loginWithGoogleIdToken(id_token) {
+  async function loginWithGoogleIdToken(id_token) {
         try {
           const credential = GoogleAuthProvider.credential(id_token);
           const userCredential = await signInWithCredential(auth, credential);
@@ -731,9 +732,23 @@
         }
       }
       function handleGoogleSignIn() {
-        const urlParams = new URLSearchParams(window.location.hash.slice(1));
-        const idToken = urlParams.get('id_token'); // <-- use id_token now
-        const accessToken = urlParams.get('access_token'); 
+        // Support id_token provided either in the URL fragment (#id_token=...)
+        // (common after OAuth implicit flow) or in the query string (?id_token=...)
+        let idToken = null;
+        let accessToken = null;
+
+        if (window.location.hash && window.location.hash.length > 1) {
+          const hashParams = new URLSearchParams(window.location.hash.slice(1));
+          idToken = hashParams.get('id_token') || null;
+          accessToken = hashParams.get('access_token') || null;
+        }
+
+        if ((!idToken || !accessToken) && window.location.search) {
+          const queryParams = new URLSearchParams(window.location.search);
+          idToken = idToken || queryParams.get('id_token');
+          accessToken = accessToken || queryParams.get('access_token');
+        }
+
         if (idToken) {
           loginWithGoogleIdToken(idToken);
         } else if (accessToken) {
@@ -856,22 +871,25 @@
           }
       });
       function QuickSignin() {
-        const storedAccountUrl = localStorage.getItem('account');
-        if (storedAccountUrl) {
-          const qrContainer = document.getElementById('quick-signin-qr');
-          qrContainer.innerHTML = "";
-          const signinLink = "https://www.yash12007.com/?id_token=" + encodeURIComponent(storedAccountUrl);
-          new QRCode(qrContainer, {
-            text: signinLink,
-            width: 96,
-            height: 96,
-            colorDark: "#000000",
-            colorLight: "#ffffff",
-            correctLevel: QRCode.CorrectLevel.H
+        const user = firebase.auth().currentUser;
+
+        if (user) {
+          user.getIdToken().then(token => {
+            const qrContainer = document.getElementById('quick-signin-qr');
+            qrContainer.innerHTML = "";
+            const signinLink = "https://www.yash12007.com/#id_token=" + encodeURIComponent(token) + "&uid=" + encodeURIComponent(user.uid);
+            new QRCode(qrContainer, {
+              text: signinLink,
+              width: 96,
+              height: 96,
+              colorDark: "#000000",
+              colorLight: "#ffffff",
+              correctLevel: QRCode.CorrectLevel.H
+            });
+            qrContainer.insertAdjacentHTML('beforeend', `<p><a href="${signinLink}" target="_blank">${signinLink}</a></p>`);
           });
-          document.getElementById('quick-signin-qr').insertAdjacentHTML('beforeend', `<p><a href="${signinLink}" target="_blank">${signinLink}</a></p>`);
         } else {
-          alert("No saved account found. Please sign up first.");
+          alert("No Firebase user signed in. Please sign in first.");
           Signup();
         }
       }
