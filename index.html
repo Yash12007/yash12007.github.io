@@ -958,11 +958,11 @@
               <div style="display:flex; flex-direction:column; align-items:center; padding:20px; border-radius:10px; box-shadow:0 0 10px #0df; gap:8px;">
                 <div style="display:flex; justify-content:space-between; place-items:center; gap:4px;">
                   <img src="${pic}" alt="${name}" style="width:80px;height:80px;border-radius:50%;object-fit:cover;">
-                  <h3 style="margin:10px 0 4px;">${name}</h3>
-                </div>
-                <div style="display:flex; flex-direction:column; justify-content:start; place-items:left; text-align:left; align-items:left; gap:4px;">
-                  <a style="font-size:0.9em; color:#ccc;" href="mailto:${email}">${email}</a>
-                  <p style="font-size:0.8em;color:#ccc;">• Last Active: ${new Date(last).toLocaleString()}</p>
+                  <div style="display:flex; flex-direction:column; justify-content:start; place-items:left; text-align:left; align-items:left; gap:4px;">
+                    <h3 style="margin:10px 0 4px;">${name}</h3>
+                    <a style="font-size:0.9em; color:#ccc;" href="mailto:${email}">${email}</a>
+                    <p style="font-size:0.8em;color:#ccc;">• Last Active: ${new Date(last).toLocaleString()}</p>
+                  </div>
                 </div>
               </div>
               <div style="display:flex; gap:10px; justify-content:center; margin-top:20px;">
