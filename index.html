@@ -14,7 +14,7 @@
   <meta property="og:image:height" content="192">
   <meta name="twitter:title" content="Yash12007">
   <meta name="apple-mobile-web-app-title" content="Yash12007">
-  <meta name="description" content=" Yash12007 is a software development company delivering cutting-edge apps, tools, and cross-platform solutions to help businesses grow with quality technology.">
+  <meta name="description" content="Yash12007 is a software development company delivering cutting-edge apps, tools, and cross-platform solutions to help businesses grow with quality technology.">
   <meta name="keywords" content="Yash12007, Yash Bodhe, software development company, custom software solutions, web and mobile app development, cross-platform app development, Python development, JavaScript development, Flutter development, AI software solutions, cybersecurity software, cloud server solutions, antivirus software, Sera antivirus, Nexus OS, RIKKO programming language, enterprise software development, software company India, affordable app development, innovative software solutions, business software services, high-quality software and apps, software for startups, custom web applications, trusted software development partner, IT company, tech company, digital agency, web development, software development, technology solutions, technology services, software engineering, software architecture, software design, software development life cycle, software testing, software deployment, software maintenance, software project management, software security, software optimization, software integration, software scalability, software analytics, software user experience, software collaboration, software automation, software cloud, software mobile, software enterprise, software startups">
   <link rel="icon" href="https://www.yash12007.com/512x512.ico" type="image/x-icon" />
   <link rel="icon" type="image/svg+xml" href="https://www.yash12007.com/512x512.svg">
@@ -471,11 +471,7 @@
       import { 
         getFirestore, 
         doc, 
-        setDoc,
-        collection,
-        query,
-        where,
-        getDocs
+        setDoc
       } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
       const firebaseConfig = {
         apiKey: "AIzaSyDHHQxbcn_FPinU1mWnbcnPRBj_8sq1vKk",
@@ -756,17 +752,6 @@
           window.open(fallbackUrl, '_blank');
         }
       }
-      async function getUserIdByEmail(userEmail) {
-        const q = query(collection(db, "userData"), where("email", "==", userEmail));
-        const querySnapshot = await getDocs(q);
-        if (querySnapshot.empty) {
-          console.log("No user found with that email");
-          return null;
-        }
-        const doc = querySnapshot.docs[0];
-        console.log("User ID:", doc.id);
-        return doc.id;
-      }
       async function processProfile(){
         const params = new URLSearchParams(location.search);
         const encoded = params.get('yuser');
@@ -782,7 +767,6 @@
           const email = query.get('email');
           const last = query.get('lastactive');
           const container = document.getElementById('profile');
-          const ProfileUserID = await getUserIdByEmail(email);
           container.style = `
             position: absolute;
             top: 10%;
@@ -810,7 +794,6 @@
                       </div>
                     </h3>
                     <a style="font-size:12px; color:#ccc;" href="mailto:${email}">${email}</a>
-                    <a style="font-size:12px; color:#ccc;">UID: ${ProfileUserID}</a>
                   </div>
                 </div>
                 <p style="font-size:0.8em;color:#0f0;">• Shared on: ${new Date(last).toLocaleString()}</p>
