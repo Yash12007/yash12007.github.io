@@ -426,40 +426,7 @@
       <div id="profile"></div>
     </main>
     <script src="https://accounts.google.com/gsi/client" defer></script>
-    <script>
-      let currentUser;
-      function shareWebsite() {
-          if (navigator.share) {
-          navigator.share({
-              title: 'Check out this awesome website!',
-              text: 'Hey! I found this beneficial and cool site of a Software Company known as Yash12007. You might love:',
-              url: 'https://www.yash12007.com'
-          })
-          .then(() => console.log('Thanks for sharing!'))
-          .catch(err => console.error('Error sharing:', err));
-          } else {
-          // Fallback for unsupported browsers
-          const fallbackUrl = `https://wa.me/?text=${encodeURIComponent(
-              'Check out this awesome website! https://www.yash12007.com'
-          )}`;
-          window.open(fallbackUrl, '_blank');
-          }
-      }
-      if ("serviceWorker" in navigator) {
-          navigator.serviceWorker.register("https://www.yash12007.com/service-worker.js")
-              .then(() => console.log("Service Worker Registered"))
-              .catch((err) => console.error("Service Worker Error:", err));
-      }function closeUserInfo(){
-          document.getElementById("userInfoBox").style.display="none";
-      }function showUserInfo() {
-          if (!currentUser) return;
-          document.getElementById('profilePic').src = currentUser.photoURL || 'https://via.placeholder.com/50';
-          document.getElementById('userName').textContent = currentUser.displayName || 'No Name';
-          document.getElementById('userEmail').textContent = currentUser.email || 'No Email';
-          document.getElementById("IP").textContent = "IP Address: " + (window.localStorage.getItem("IP") || '');
-          document.getElementById("Sdatetime").textContent = "Last Signin: " + (window.localStorage.getItem("Signup-date") || '');
-          document.getElementById('userInfoBox').style.display = 'block';
-      }
+    <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
       import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
       import { 
@@ -596,6 +563,41 @@
               <img src="${data.picture}" width="30px" height="30px" style="border-radius:50%; margin-right:5px;" alt="user">
               `;
           }
+      }
+    </script>
+    <script>
+      let currentUser;
+      function shareWebsite() {
+          if (navigator.share) {
+          navigator.share({
+              title: 'Check out this awesome website!',
+              text: 'Hey! I found this beneficial and cool site of a Software Company known as Yash12007. You might love:',
+              url: 'https://www.yash12007.com'
+          })
+          .then(() => console.log('Thanks for sharing!'))
+          .catch(err => console.error('Error sharing:', err));
+          } else {
+          // Fallback for unsupported browsers
+          const fallbackUrl = `https://wa.me/?text=${encodeURIComponent(
+              'Check out this awesome website! https://www.yash12007.com'
+          )}`;
+          window.open(fallbackUrl, '_blank');
+          }
+      }
+      if ("serviceWorker" in navigator) {
+          navigator.serviceWorker.register("https://www.yash12007.com/service-worker.js")
+              .then(() => console.log("Service Worker Registered"))
+              .catch((err) => console.error("Service Worker Error:", err));
+      }function closeUserInfo(){
+          document.getElementById("userInfoBox").style.display="none";
+      }function showUserInfo() {
+          if (!currentUser) return;
+          document.getElementById('profilePic').src = currentUser.photoURL || 'https://via.placeholder.com/50';
+          document.getElementById('userName').textContent = currentUser.displayName || 'No Name';
+          document.getElementById('userEmail').textContent = currentUser.email || 'No Email';
+          document.getElementById("IP").textContent = "IP Address: " + (window.localStorage.getItem("IP") || '');
+          document.getElementById("Sdatetime").textContent = "Last Signin: " + (window.localStorage.getItem("Signup-date") || '');
+          document.getElementById('userInfoBox').style.display = 'block';
       }
       function getUserInfo(accessToken) {
           const userInfoUrl = `https://www.googleapis.com/oauth2/v2/userinfo?access_token=${accessToken}`;
