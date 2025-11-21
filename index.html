@@ -32,7 +32,7 @@
   <meta http-equiv="Expires" content="0" />
   <link rel="me" href="https://twitter.com/twitterdev">
   <script defer type="text/javascript" src="https://widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" async></script>
-  <script type="application/ld+json">
+  <script type="application/ld+json" async defer>
     [
       {
           "@context": "https://schema.org",
@@ -79,7 +79,7 @@
     ]
   </script>
   <!-- Clarity tracking code for https://yash12007.com/ -->
-  <script>
+  <script async defer>
       (function(c,l,a,r,i,t,y){
           c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
           t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i+"?ref=bwt";
@@ -87,7 +87,7 @@
       })(window, document, "clarity", "script", "tw99c31347");
   </script>
   <!-- Snap Pixel Code -->
-  <script type='text/javascript'>
+  <script type='text/javascript' async defer>
       (function(e,t,n){if(e.snaptr)return;var a=e.snaptr=function()
       {a.handleRequest?a.handleRequest.apply(a,arguments):a.queue.push(arguments)};
       a.queue=[];var s='script';r=t.createElement(s);r.async=!0;
@@ -100,20 +100,23 @@
   </script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
   <link rel="preload" href="https://www.yash12007.com/styles.css" as="style">
+  <link rel="preload" as="image" href="https://www.yash12007.com/192x192.png">
   <link rel="stylesheet" href="https://www.yash12007.com/styles.css">
   <style>html{font-display: swap;}</style>
 </head>
 <body>
     <nav>
-        <ul>
-            <span id="BrandName">
-              <img src="https://www.yash12007.com/192x192.png" alt="Yash12007 | Logo" width="40px" height="40px" style="box-shadow: 0px 0px 5px #ccc; border-radius: 50%;">
-              Yash12007
-            </span>
+        <ul style="list-style-type: none;">
+            <li style="list-style-type: none;">
+              <span id="BrandName">
+                <img src="https://www.yash12007.com/192x192.png" alt="Yash12007 | Logo" width="40px" height="40px" style="box-shadow: 0px 0px 5px #ccc; border-radius: 50%;">
+                Yash12007
+              </span>
+            </li>
         </ul>
         <div style="display: flex; place-items: center; justify-content: space-between; width: fit-content;">
-          <button onclick="showUserInfo()">Account</button>
-          <button id="logbtn" onclick="Login()">
+          <button aria-label="Account" onclick="showUserInfo()">Account</button>
+          <button aria-label="Login" id="logbtn" onclick="Login()">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
               <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
             </svg>
@@ -121,311 +124,313 @@
           </button>
         </div>
     </nav>
-    <div class="hero">
+    <main>
+      <div class="hero">
         <div style="display: flex; flex-direction: column; place-items: center; justify-content: center; gap: 15px;">
             <div style="display: flex; flex-direction: column; place-items: center; justify-content: center; gap: 5px;">
               <h1 style="margin: 0px; font-size: clamp(28px, 6vw, 48px)">Enhancing the future</h1>
               <p style="margin: 0px; text-align: center;">Providing large scale software solutions and services all around the world</p>
             </div>
             <div style="display: flex; place-items: center; justify-content: space-between;">
-              <a class="btn" href="#features">Learn more</a>
-              <a class="btn" href="#services">Get started</a>
+              <a aria-label="Learn more" class="btn" href="#features">Learn more</a>
+              <a aria-label="Get Started" class="btn" href="#services">Get started</a>
             </div>          
         </div>
-    </div>
-    <button onclick="shareWebsite()" id="sharebtn" style="transition: all 0.3s; position: absolute; top: 80px; right: 10px; border-radius: 50%; box-shadow: 0 0 5px #fff;">
-      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-share-fill" viewBox="0 0 16 16">
-        <path d="M11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.5 2.5 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5"></path>
-      </svg>
-    </button>
-    <a href="https://www.github.com/sponsors/Yash12007" style="background: #0007; border-radius: 10px; padding: 8px 18px; box-shadow: inset 0px 0px 2px #fff; position: fixed; z-index: 10000; bottom: 10px; right: 10px; -webkit-text-fill-color: #fff;">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#f0f" class="bi bi-heart" viewBox="0 0 16 16">
-        <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
-      </svg>
-      Support
-    </a>
-    <section id="features">
-      <div style="gap: 3px; display: flex; flex-direction: column; justify-content: start; padding: 20px;">
-        <i style="margin: 0px; color: #0df;">Special features</i>
-        <h2 style="margin: 0px;">To hear about us</h2>
-        <p style="margin: 0px;">We are passionate about software development and strive to create innovative and intuitive software that empowers our clients to achieve their goals.</p>
       </div>
-      <div id="featured">
-        <div style="display: flex; place-items: center; justify-content: space-between; padding: 10px;">
-          <div class="ico">
-            <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#0df" stroke-width="1.5" data-slot="icon" aria-hidden="true" class="size-6 text-white">
-              <path d="M12 16.5V9.75m0 0 3 3m-3-3-3 3M6.75 19.5a4.5 4.5 0 0 1-1.41-8.775 5.25 5.25 0 0 1 10.233-2.33 3 3 0 0 1 3.758 3.848A3.752 3.752 0 0 1 18 19.5H6.75Z" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg>
-          </div>
-          <div style="display: flex; flex-direction: column; justify-content: start;">
-            <b>Easily accessible</b>
-            <p>All our Products, Services and Secure APIs are easily accessible to users. Most of our free services are available to everyone</p>
-          </div>
+      <button aria-label="Share" onclick="shareWebsite()" id="sharebtn" style="transition: all 0.3s; position: absolute; top: 80px; right: 10px; border-radius: 50%; box-shadow: 0 0 5px #fff;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-share-fill" viewBox="0 0 16 16">
+          <path d="M11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.5 2.5 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5"></path>
+        </svg>
+      </button>
+      <a aria-label="Sponsor us" href="https://www.github.com/sponsors/Yash12007" style="background: #0007; border-radius: 10px; padding: 8px 18px; box-shadow: inset 0px 0px 2px #fff; position: fixed; z-index: 10000; bottom: 10px; right: 10px; -webkit-text-fill-color: #fff;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#f0f" class="bi bi-heart" viewBox="0 0 16 16">
+          <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
+        </svg>
+        Support
+      </a>
+      <section id="features">
+        <div style="gap: 3px; display: flex; flex-direction: column; justify-content: start; padding: 20px;">
+          <i style="margin: 0px; color: #0df;">Special features</i>
+          <h2 style="margin: 0px;">To hear about us</h2>
+          <p style="margin: 0px;">We are passionate about software development and strive to create innovative and intuitive software that empowers our clients to achieve their goals.</p>
         </div>
+        <div id="featured">
+          <div style="display: flex; place-items: center; justify-content: space-between; padding: 10px;">
+            <div class="ico">
+              <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#0df" stroke-width="1.5" data-slot="icon" aria-hidden="true" class="size-6 text-white">
+                <path d="M12 16.5V9.75m0 0 3 3m-3-3-3 3M6.75 19.5a4.5 4.5 0 0 1-1.41-8.775 5.25 5.25 0 0 1 10.233-2.33 3 3 0 0 1 3.758 3.848A3.752 3.752 0 0 1 18 19.5H6.75Z" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </div>
+            <div style="display: flex; flex-direction: column; justify-content: start;">
+              <b>Easily accessible</b>
+              <p>All our Products, Services and Secure APIs are easily accessible to users. Most of our free services are available to everyone</p>
+            </div>
+          </div>
 
-        <div style="display: flex; place-items: center; justify-content: space-between; padding: 10px;">
-          <div class="ico">
-            <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#0df" stroke-width="1.5" data-slot="icon" aria-hidden="true" class="size-6 text-white">
-              <path d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg>
+          <div style="display: flex; place-items: center; justify-content: space-between; padding: 10px;">
+            <div class="ico">
+              <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#0df" stroke-width="1.5" data-slot="icon" aria-hidden="true" class="size-6 text-white">
+                <path d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </div>
+            <div style="display: flex; flex-direction: column; justify-content: start;">
+              <b>SSL Security</b>
+              <p>Our Products, services and APIs are deployed at secure web portals and uses secure authentication to read and store user data</p>
+            </div>
           </div>
-          <div style="display: flex; flex-direction: column; justify-content: start;">
-            <b>SSL Security</b>
-            <p>Our Products, services and APIs are deployed at secure web portals and uses secure authentication to read and store user data</p>
-          </div>
-        </div>
 
-        <div style="display: flex; place-items: center; justify-content: space-between; padding: 10px;">
-          <div class="ico">
-            <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#0df" stroke-width="1.5" data-slot="icon" aria-hidden="true" class="size-6 text-white">
-              <path d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg>
+          <div style="display: flex; place-items: center; justify-content: space-between; padding: 10px;">
+            <div class="ico">
+              <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#0df" stroke-width="1.5" data-slot="icon" aria-hidden="true" class="size-6 text-white">
+                <path d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </div>
+            <div style="display: flex; flex-direction: column; justify-content: start;">
+              <b>Instant updates</b>
+              <p>Our services took less than a minute to update over all web portals for services and product updates. Also search engines gets optimised within 48 hrs</p>
+            </div>
           </div>
-          <div style="display: flex; flex-direction: column; justify-content: start;">
-            <b>Instant updates</b>
-            <p>Our services took less than a minute to update over all web portals for services and product updates. Also search engines gets optimised within 48 hrs</p>
-          </div>
-        </div>
 
-        <div style="display: flex; place-items: center; justify-content: space-between; padding: 10px;">
-          <div class="ico">
-            <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#0df" stroke-width="1.5" data-slot="icon" aria-hidden="true" class="size-6 text-white">
-              <path d="M7.864 4.243A7.5 7.5 0 0 1 19.5 10.5c0 2.92-.556 5.709-1.568 8.268M5.742 6.364A7.465 7.465 0 0 0 4.5 10.5a7.464 7.464 0 0 1-1.15 3.993m1.989 3.559A11.209 11.209 0 0 0 8.25 10.5a3.75 3.75 0 1 1 7.5 0c0 .527-.021 1.049-.064 1.565M12 10.5a14.94 14.94 0 0 1-3.6 9.75m6.633-4.596a18.666 18.666 0 0 1-2.485 5.33" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg>
-          </div>
-          <div style="display: flex; flex-direction: column; justify-content: start;">
-            <b>Advanced security</b>
-            <p>All device information is securely proceed to our database and creadentials reused to easily access your data with multiple authentication patners</p>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section id="services">
-      <div style="gap: 3px; display: flex; flex-direction: column; justify-content: start; padding: 20px;">
-        <h3 style="font-size: 22px;">Services we provide</h3>
-        <p style="margin: 0px;">At Yash12007, we believe that every business deserves the best possible software solution. That's why we work closely with our clients to understand their unique needs and develop custom software solutions that are tailored to their specific requirements.</p>
-      </div>
-      <div id="ServicesBox">
-        <div style="display: flex; flex-wrap: wrap; place-items: center; justify-content: start;">
-          <a href="https://www.yash12007.com/services">Services</a>
-          <a href="https://g.page/r/CUlXNoglU0GAEBM/review">Reviews</a>
-          <a href="https://www.yash12007.com/Max/#terms-conditions">T&C</a>
-        </div>
-        <div style="gap: 20px; width: 80%; margin: 10%; display: flex; flex-direction: column; place-items: center; justify-content: space-between;">
-          <div style="gap: 20px; display: flex; place-items: center; justify-content: space-between;">
-            <div style="width: 120px; background: #222; padding: 10px; border-radius: 10px; border: 2px solid #a0f;">
-              <b>24 hrs</b>
-              <p>Customer Support</p>
-            </div>
-            <div style="width: 120px; background: #222; padding: 10px; border-radius: 10px; border: 2px solid #a0f;">
-              <b>100+</b>
-              <p>Currencies acceptance</p>
-            </div>
-          </div>
-          <div style="gap: 20px; display: flex; place-items: center; justify-content: space-between;">
-            <div style="width: 120px; background: #222; padding: 10px; border-radius: 10px; border: 2px solid #a0f;">
-              <b>PWA</b>
-              <p>At affordable price</p>
-            </div>
-            <div style="width: 120px; background: #222; padding: 10px; border-radius: 10px; border: 2px solid #a0f;">
-              <b>Unlimited</b>
-              <p>Customizations & designs</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section>
-      <div id="product" style="background: #000; overflow: hidden; border: none; margin-top: 25px; box-shadow: 1px 1px 5px #fff;">
-        <div style="width: 150px; height: 150px; border-radius: 50%; background: radial-gradient(circle closest-corner at center, #a0f, #0df); position: absolute; bottom: -60px; left:-60px; z-index: -1;"></div>
-        <div style="width: 150px; height: 150px; border-radius: 50%; background: radial-gradient(circle closest-corner at center, #a0f, #0df); position: absolute; top: -60px; right:-60px; z-index: -1;"></div>
-        <div style="display: flex; place-items: center; flex-direction: column; justify-content: center; text-align: center; width: 60%; margin-left: 20%;">
-          <h4>Boost your productivity</h4>
-          <p>Sera Antivirus: Smart Protection - A perfect Antivirus software for all kind of harmful files and applications in your device</p>
-          <div style="display: flex; place-items: center; justify-content: space-between;">
-            <a href="https://www.yash12007.com/Sera" style="background: #a0f; border-radius: 30px; font-size: 0.7rem; margin: 10px;">Get yours</a>
-            <a href="https://www.yash12007.com/Sera/#subscribe" style="background: #fff; color: #000; border-radius: 30px; font-size: 0.7rem; margin: 10px;">Activation</a>
-          </div>
-          <img loading="lazy" src="https://www.yash12007.com/Sera/SideView.png" alt="Sera AV | SideView" style="position: absolute; bottom: -10px; right: -10px; border-radius: 10px;" width="200px">
-        </div>
-      </div>
-    </section>
-    <section id="contact">
-      <form action="https://formspree.io/f/xovlopwg" method="POST">
-        <div style="gap: 0px; display: flex; flex-direction: column; justify-content: center; text-align: center; padding: 20px;">
-          <h5 style="font-size: 2.2rem; margin: 8px;">Contact sales</h5>
-          <p style="margin: 0px; font-size: 0.7rem;">Our team will contact you shortly meanwhile don't forget to check your Inbox</p>
-        </div>
-        <div style="place-items: center; justify-content: center; gap: 1rem;">
-          <div style="display: flex; flex-wrap: wrap; place-items: center; justify-content: space-between; flex-direction: row;">
-            <div>
-              <label for="first-name">First name</label>
-              <input required id="first-name" type="text" name="first-name" placeholder="First Name" autocomplete="given-name" />
-            </div>
-            <div>
-              <label for="last-name">Last name</label>
-              <input required id="last-name" type="text" name="last-name" placeholder="Last Name" autocomplete="family-name" />
-            </div>
-          </div>
-          <div style="display: flex; flex-wrap: wrap; flex-direction: row; place-items: center; justify-content: space-between;">
-            <div>
-              <label for="company">Company</label>
-              <input required id="company" type="text" name="company" placeholder="Company Name" autocomplete="organization" />
-            </div>
-            <div>
-              <label for="job-title">Job title</label>
-              <input required id="job-title" type="text" name="job-title" placeholder="Founder / CEO / Manager" />
-            </div>  
-          </div>
-          <div style="display: flex; flex-direction: row; place-items: center; justify-content: space-between; flex-wrap: wrap;">
-            <div>
-              <label for="email">Email</label>
-              <input required id="email" type="email" name="email" placeholder="user@example.com" autocomplete="email" />
-            </div>
-            <div>
-              <label for="phone-number">Phone number</label>
-              <input required id="phone-number" type="tel" name="phone-number" placeholder="(+01) 123-456-7890" />
-            </div>
-          </div>
-          <div style="display: flex; flex-wrap: wrap; flex-direction: row; place-items: center; justify-content: space-between;">
-            <button type="submit">Let's talk</button>
-            <a href="mailto:info@yash12007.com" style="padding: 8px 18px; background: #fff; color: #f0d; font-size: 0.7rem;">Email us</a>
-          </div>
-        </div>
-      </form>
-      <div style="display: flex; place-items: center; justify-content: space-evenly; width: 80%; margin: 10%;">
-        <div>
-          <div id="fb-root"></div>
-          <script defer>(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";fjs.parentNode.insertBefore(js, fjs);}(document, 'script', 'facebook-jssdk'));</script>
-          <div class="fb-share-button" data-href="https://www.yash12007.com/" data-layout="button_count"></div>
-        </div>
-        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Hey%20everyone,%20take%20a%20look%20at:%20https://www.yash12007.com"><i class="bi bi-twitter-x"></i>Tweet</a>
-      </div>
-    </section>
-    <footer>
-      <div style="width: calc(100% - 20px); gap: 0px; display: flex; justify-content: space-between; padding: 0px;">
-        <h6 style="font-size: 1rem; margin: 8px; display: flex; place-items: center;"><img src="https://www.yash12007.com/192x192.png" alt="Yash12007 | Logo" width="30px" height="30px" loading="lazy" style="margin-right: 10px; border-radius: 50%;">Yash12007</h6>
-        <div style="display: flex; place-items: center;">
-          <a href="https://www.paypal.com/paypalme/yash12007ofc">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-paypal" viewBox="0 0 16 16">
-              <path d="M14.06 3.713c.12-1.071-.093-1.832-.702-2.526C12.628.356 11.312 0 9.626 0H4.734a.7.7 0 0 0-.691.59L2.005 13.509a.42.42 0 0 0 .415.486h2.756l-.202 1.28a.628.628 0 0 0 .62.726H8.14c.429 0 .793-.31.862-.731l.025-.13.48-3.043.03-.164.001-.007a.35.35 0 0 1 .348-.297h.38c1.266 0 2.425-.256 3.345-.91q.57-.403.993-1.005a4.94 4.94 0 0 0 .88-2.195c.242-1.246.13-2.356-.57-3.154a2.7 2.7 0 0 0-.76-.59l-.094-.061ZM6.543 8.82a.7.7 0 0 1 .321-.079H8.3c2.82 0 5.027-1.144 5.672-4.456l.003-.016q.326.186.548.438c.546.623.679 1.535.45 2.71-.272 1.397-.866 2.307-1.663 2.874-.802.57-1.842.815-3.043.815h-.38a.87.87 0 0 0-.863.734l-.03.164-.48 3.043-.024.13-.001.004a.35.35 0 0 1-.348.296H5.595a.106.106 0 0 1-.105-.123l.208-1.32z"/>
-            </svg>
-            Sponsor us
-          </a>
-        </div>
-      </div>
-      <div style="display: flex; place-items: center; margin: 10px; width: 100%; justify-content: center;">
-          <a href="https://www.facebook.com/yash12007" class="social" style="color: #1877F2;">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
-                  <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"/>
+          <div style="display: flex; place-items: center; justify-content: space-between; padding: 10px;">
+            <div class="ico">
+              <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#0df" stroke-width="1.5" data-slot="icon" aria-hidden="true" class="size-6 text-white">
+                <path d="M7.864 4.243A7.5 7.5 0 0 1 19.5 10.5c0 2.92-.556 5.709-1.568 8.268M5.742 6.364A7.465 7.465 0 0 0 4.5 10.5a7.464 7.464 0 0 1-1.15 3.993m1.989 3.559A11.209 11.209 0 0 0 8.25 10.5a3.75 3.75 0 1 1 7.5 0c0 .527-.021 1.049-.064 1.565M12 10.5a14.94 14.94 0 0 1-3.6 9.75m6.633-4.596a18.666 18.666 0 0 1-2.485 5.33" stroke-linecap="round" stroke-linejoin="round"></path>
               </svg>
-          </a>
-          <a href="https://www.instagram.com/yash12007_com" class="social" style="color: #f0a;">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-instagram" viewBox="0 0 16 16">
-                  <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"/>
-              </svg>
-          </a>
-          <a href="https://in.linkedin.com/company/yash12007" class="social" style="color: #0ad;">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-linkedin" viewBox="0 0 16 16">
-                  <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"/>
-              </svg>
-          </a>
-          <a href="https://x.com/_Yash12007_" class="social" style="color: #fff;">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-twitter-x" viewBox="0 0 16 16">
-                  <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"/>
-              </svg>
-          </a>
-          <a href="https://www.youtube.com/@Yash12007" class="social" style="color: #f00;">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-youtube" viewBox="0 0 16 16">
-                  <path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.01 2.01 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.01 2.01 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31 31 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.01 2.01 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A100 100 0 0 1 7.858 2zM6.4 5.209v4.818l4.157-2.408z"/>
-              </svg>
-          </a>
-      </div>
-      <div style="text-align: center; font-size: 0.7rem; display: flex; flex-direction: row; place-items: center; justify-content: space-evenly;">
-        <div style="display: flex; flex-direction: column; place-items: center; justify-content: center;">
-          <a href="https://www.yash12007.com">Home</a>
-          <a href="https://www.yash12007.com/Max/#about">About</a>
-          <a href="https://www.yash12007.com/Max/#services">Services</a>
-          <a href="#product">Products</a>
-          <a href="https://www.yash12007.com/Max/contact">Contact</a>
+            </div>
+            <div style="display: flex; flex-direction: column; justify-content: start;">
+              <b>Advanced security</b>
+              <p>All device information is securely proceed to our database and creadentials reused to easily access your data with multiple authentication patners</p>
+            </div>
+          </div>
         </div>
-        <div style="display: flex; flex-direction: column; place-items: center; justify-content: center;">
-          <a href="https://blog.yash12007.com">Blogs</a>
-          <a href="https://medium.com/@Yash12007">Articles</a>
-          <a href="https://www.github.com/Yash12007">GitHub</a>
-          <a href="https://store.yash12007.com">Store</a>
-          <a href="https://yash12007ofc.quora.com">Quora</a>
+      </section>
+      <section id="services">
+        <div style="gap: 3px; display: flex; flex-direction: column; justify-content: start; padding: 20px;">
+          <h3 style="font-size: 22px;">Services we provide</h3>
+          <p style="margin: 0px;">At Yash12007, we believe that every business deserves the best possible software solution. That's why we work closely with our clients to understand their unique needs and develop custom software solutions that are tailored to their specific requirements.</p>
         </div>
-        <div style="display: flex; flex-direction: column; place-items: center; justify-content: center;">
-          <a href="https://www.yash12007.com/Max/#terms-conditions">T&C</a>
-          <a href="https://www.yash12007.com/Max/#privacy-policy">Privacy</a>
-          <a href="https://www.yash12007.com/sitemap.xml">Sitemap</a>
-          <a href="https://www.yash12007.com/shipping-policy">shipping policy</a>
-          <a href="https://www.yash12007.com/return-policy">Return Policy</a>
+        <div id="ServicesBox">
+          <div style="display: flex; flex-wrap: wrap; place-items: center; justify-content: start;">
+            <a aria-label="Services" href="https://www.yash12007.com/services">Services</a>
+            <a aria-label="Review us" href="https://g.page/r/CUlXNoglU0GAEBM/review">Reviews</a>
+            <a aria-label="Terms & conditions" href="https://www.yash12007.com/Max/#terms-conditions">T&C</a>
+          </div>
+          <div style="gap: 20px; width: 80%; margin: 10%; display: flex; flex-direction: column; place-items: center; justify-content: space-between;">
+            <div style="gap: 20px; display: flex; place-items: center; justify-content: space-between;">
+              <div style="width: 120px; background: #222; padding: 10px; border-radius: 10px; border: 2px solid #a0f;">
+                <b>24 hrs</b>
+                <p>Customer Support</p>
+              </div>
+              <div style="width: 120px; background: #222; padding: 10px; border-radius: 10px; border: 2px solid #a0f;">
+                <b>100+</b>
+                <p>Currencies acceptance</p>
+              </div>
+            </div>
+            <div style="gap: 20px; display: flex; place-items: center; justify-content: space-between;">
+              <div style="width: 120px; background: #222; padding: 10px; border-radius: 10px; border: 2px solid #a0f;">
+                <b>PWA</b>
+                <p>At affordable price</p>
+              </div>
+              <div style="width: 120px; background: #222; padding: 10px; border-radius: 10px; border: 2px solid #a0f;">
+                <b>Unlimited</b>
+                <p>Customizations & designs</p>
+              </div>
+            </div>
+          </div>
         </div>
-        <div style="display: flex; flex-direction: column; place-items: center; justify-content: center;">
-          <a href="https://www.yash12007.com/Sera">Sera AV</a>
-          <a href="https://www.yash12007.com/NovaStream">IDE</a>
-          <a href="https://www.yash12007.com/Nexus">Nexus</a>
-          <a href="https://www.yash12007.com/Nexus/beta">Nexus beta</a>
-          <a href="https://github.com/Yash12007/Alice_AI/blob/main/README.md">Alice AI</a>
+      </section>
+      <section>
+        <div id="product" style="background: #000; overflow: hidden; border: none; margin-top: 25px; box-shadow: 1px 1px 5px #fff;">
+          <div style="width: 150px; height: 150px; border-radius: 50%; background: radial-gradient(circle closest-corner at center, #a0f, #0df); position: absolute; bottom: -60px; left:-60px; z-index: -1;"></div>
+          <div style="width: 150px; height: 150px; border-radius: 50%; background: radial-gradient(circle closest-corner at center, #a0f, #0df); position: absolute; top: -60px; right:-60px; z-index: -1;"></div>
+          <div style="display: flex; place-items: center; flex-direction: column; justify-content: center; text-align: center; width: 60%; margin-left: 20%;">
+            <h4>Boost your productivity</h4>
+            <p>Sera Antivirus: Smart Protection - A perfect Antivirus software for all kind of harmful files and applications in your device</p>
+            <div style="display: flex; place-items: center; justify-content: space-between;">
+              <a aria-label="Get yours" href="https://www.yash12007.com/Sera" style="background: #a0f; border-radius: 30px; font-size: 0.7rem; margin: 10px;">Get yours</a>
+              <a aria-label="Activation" href="https://www.yash12007.com/Sera/#subscribe" style="background: #fff; color: #000; border-radius: 30px; font-size: 0.7rem; margin: 10px;">Activation</a>
+            </div>
+            <img loading="lazy" src="https://www.yash12007.com/Sera/SideView.png" alt="Sera AV | SideView" style="position: absolute; bottom: -10px; right: -10px; border-radius: 10px;" width="200px">
+          </div>
         </div>
-      </div>
-      <p style="width: calc(100% - 16px); display: flex; place-items: center; justify-content: space-between;">
-        <a href="https://g.page/r/CUlXNoglU0GAEBM/review">Rate us</a>
-        &copy; 2025 Yash12007. All Rights Reserved.
-      </p>
-    </footer>
-    <div id="LogScreen">
-        <div style="position: absolute; top: 15%; left: 10%; width: 100%; height: 100%; place-items: center; display: grid; background: #0007; backdrop-filter: blur(10px); border-radius: 1rem; border: 2px solid #0df; box-shadow: 0 0 10px #f0f inset;">
-            <button style="display: grid; place-items: center; justify-content: center; color: white; -webkit-text-fill-color: white; border-radius: 50%; border:2px solid #fff; width: 30px; height: 30px; position: absolute; top: 10px; right: 10px;" onclick="removeLogScreen()">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
-                  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+      </section>
+      <section id="contact">
+        <form action="https://formspree.io/f/xovlopwg" method="POST">
+          <div style="gap: 0px; display: flex; flex-direction: column; justify-content: center; text-align: center; padding: 20px;">
+            <h5 style="font-size: 2.2rem; margin: 8px;">Contact sales</h5>
+            <p style="margin: 0px; font-size: 0.7rem;">Our team will contact you shortly meanwhile don't forget to check your Inbox</p>
+          </div>
+          <div style="place-items: center; justify-content: center; gap: 1rem;">
+            <div style="display: flex; flex-wrap: wrap; place-items: center; justify-content: space-between; flex-direction: row;">
+              <div>
+                <label for="first-name">First name</label>
+                <input required id="first-name" type="text" name="first-name" placeholder="First Name" autocomplete="given-name" />
+              </div>
+              <div>
+                <label for="last-name">Last name</label>
+                <input required id="last-name" type="text" name="last-name" placeholder="Last Name" autocomplete="family-name" />
+              </div>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; flex-direction: row; place-items: center; justify-content: space-between;">
+              <div>
+                <label for="company">Company</label>
+                <input required id="company" type="text" name="company" placeholder="Company Name" autocomplete="organization" />
+              </div>
+              <div>
+                <label for="job-title">Job title</label>
+                <input required id="job-title" type="text" name="job-title" placeholder="Founder / CEO / Manager" />
+              </div>  
+            </div>
+            <div style="display: flex; flex-direction: row; place-items: center; justify-content: space-between; flex-wrap: wrap;">
+              <div>
+                <label for="email">Email</label>
+                <input required id="email" type="email" name="email" placeholder="user@example.com" autocomplete="email" />
+              </div>
+              <div>
+                <label for="phone-number">Phone number</label>
+                <input required id="phone-number" type="tel" name="phone-number" placeholder="(+01) 123-456-7890" />
+              </div>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; flex-direction: row; place-items: center; justify-content: space-between;">
+              <button aria-label="Let's talk" type="submit">Let's talk</button>
+              <a aria-label="Email us" href="mailto:info@yash12007.com" style="padding: 8px 18px; background: #fff; color: #f0d; font-size: 0.7rem;">Email us</a>
+            </div>
+          </div>
+        </form>
+        <div style="display: flex; place-items: center; justify-content: space-evenly; width: 80%; margin: 10%;">
+          <div>
+            <div id="fb-root"></div>
+            <script defer async>(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";fjs.parentNode.insertBefore(js, fjs);}(document, 'script', 'facebook-jssdk'));</script>
+            <div class="fb-share-button" data-href="https://www.yash12007.com/" data-layout="button_count"></div>
+          </div>
+          <a aria-label="Tweet" class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Hey%20everyone,%20take%20a%20look%20at:%20https://www.yash12007.com"><i class="bi bi-twitter-x"></i>Tweet</a>
+        </div>
+      </section>
+      <footer>
+        <div style="width: calc(100% - 20px); gap: 0px; display: flex; justify-content: space-between; padding: 0px;">
+          <h6 style="font-size: 1rem; margin: 8px; display: flex; place-items: center;"><img src="https://www.yash12007.com/192x192.png" alt="Yash12007 | Logo" width="30px" height="30px" loading="lazy" style="margin-right: 10px; border-radius: 50%;">Yash12007</h6>
+          <div style="display: flex; place-items: center;">
+            <a aria-label="Sponsor us" href="https://www.paypal.com/paypalme/yash12007ofc">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-paypal" viewBox="0 0 16 16">
+                <path d="M14.06 3.713c.12-1.071-.093-1.832-.702-2.526C12.628.356 11.312 0 9.626 0H4.734a.7.7 0 0 0-.691.59L2.005 13.509a.42.42 0 0 0 .415.486h2.756l-.202 1.28a.628.628 0 0 0 .62.726H8.14c.429 0 .793-.31.862-.731l.025-.13.48-3.043.03-.164.001-.007a.35.35 0 0 1 .348-.297h.38c1.266 0 2.425-.256 3.345-.91q.57-.403.993-1.005a4.94 4.94 0 0 0 .88-2.195c.242-1.246.13-2.356-.57-3.154a2.7 2.7 0 0 0-.76-.59l-.094-.061ZM6.543 8.82a.7.7 0 0 1 .321-.079H8.3c2.82 0 5.027-1.144 5.672-4.456l.003-.016q.326.186.548.438c.546.623.679 1.535.45 2.71-.272 1.397-.866 2.307-1.663 2.874-.802.57-1.842.815-3.043.815h-.38a.87.87 0 0 0-.863.734l-.03.164-.48 3.043-.024.13-.001.004a.35.35 0 0 1-.348.296H5.595a.106.106 0 0 1-.105-.123l.208-1.32z"/>
+              </svg>
+              Sponsor us
+            </a>
+          </div>
+        </div>
+        <div style="display: flex; place-items: center; margin: 10px; width: 100%; justify-content: center;">
+            <a aria-label="Facebook" href="https://www.facebook.com/yash12007" class="social" style="color: #1877F2;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
+                    <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"/>
                 </svg>
-            </button>
-            <div style="width: fit-content; font-size: 12px;">
-                <form style="min-width: 80%; margin-top: 30%;">
-                    <h2 id="LogHead" style="color: #fff; font-size: 22px; position: absolute; top: 10px; left: 10px;">Login</h2>
-                    <input type="email" name="login-email" id="login-email" placeholder="Email" autocomplete="email">
-                    <input type="password" name="login-password" id="login-password" placeholder="Password" autocomplete="current-password">
-                    <button id="loginbtn" style="color: #fff; border: 1px solid #fff;"></button>
-                    <div style="display: flex; flex-direction: row; place-items: center; justify-content: end; text-align: left;">
-                      <a href="https://yash12007.com/Max/#terms-conditions" style="margin: 5px; -webkit-text-fill-color: #ccc; text-decoration: none; background: transparent; min-width: fit-content; padding: 0px; box-shadow: none; border: none;">T&C</a>
-                      <a href="https://yash12007.com/Max/#privacy-policy" style="margin: 5px; -webkit-text-fill-color: #ccc; text-decoration: none; background: transparent; min-width: fit-content; padding: 0px; box-shadow: none; border: none;">Privacy Policy</a></div>
-                </form>
-                <section style="display: flex; place-items: center; justify-content: center; text-align: center;">or</section>
-                <button id="Googlebtn" onclick="signInWithGoogle()" class="sign">Sign up with Google</button>
-                <div id="g_id_onload"></div>
-                <p id="option" style="flex-direction: row; display: flex; place-items: center; justify-content: start;"></p>
-                
+            </a>
+            <a aria-label="Instagram" href="https://www.instagram.com/yash12007_com" class="social" style="color: #f0a;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-instagram" viewBox="0 0 16 16">
+                    <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"/>
+                </svg>
+            </a>
+            <a aria-label="LinkedIn" href="https://in.linkedin.com/company/yash12007" class="social" style="color: #0ad;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-linkedin" viewBox="0 0 16 16">
+                    <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"/>
+                </svg>
+            </a>
+            <a aria-label="Twitter" href="https://x.com/_Yash12007_" class="social" style="color: #fff;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-twitter-x" viewBox="0 0 16 16">
+                    <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"/>
+                </svg>
+            </a>
+            <a aria-label="YouTube" href="https://www.youtube.com/@Yash12007" class="social" style="color: #f00;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-youtube" viewBox="0 0 16 16">
+                    <path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.01 2.01 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.01 2.01 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31 31 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.01 2.01 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A100 100 0 0 1 7.858 2zM6.4 5.209v4.818l4.157-2.408z"/>
+                </svg>
+            </a>
+        </div>
+        <div style="text-align: center; font-size: 0.7rem; display: flex; flex-direction: row; place-items: center; justify-content: space-evenly;">
+          <div style="display: flex; flex-direction: column; place-items: center; justify-content: center;">
+            <a aria-label="Home" href="https://www.yash12007.com">Home</a>
+            <a aria-label="About" href="https://www.yash12007.com/Max/#about">About</a>
+            <a aria-label="Services" href="https://www.yash12007.com/Max/#services">Services</a>
+            <a aria-label="Products" href="#product">Products</a>
+            <a aria-label="Contact" href="https://www.yash12007.com/Max/contact">Contact</a>
+          </div>
+          <div style="display: flex; flex-direction: column; place-items: center; justify-content: center;">
+            <a aria-label="Blogs" href="https://blog.yash12007.com">Blogs</a>
+            <a aria-label="Articles" href="https://medium.com/@Yash12007">Articles</a>
+            <a aria-label="Github" href="https://www.github.com/Yash12007">GitHub</a>
+            <a aria-label="Store" href="https://store.yash12007.com">Store</a>
+            <a aria-label="Quora" href="https://yash12007ofc.quora.com">Quora</a>
+          </div>
+          <div style="display: flex; flex-direction: column; place-items: center; justify-content: center;">
+            <a aria-label="Terms and conditions" href="https://www.yash12007.com/Max/#terms-conditions">T&C</a>
+            <a aria-label="Privacy Policy" href="https://www.yash12007.com/Max/#privacy-policy">Privacy</a>
+            <a aria-label="Sitemap" href="https://www.yash12007.com/sitemap.xml">Sitemap</a>
+            <a aria-label="Shipping policy" href="https://www.yash12007.com/shipping-policy">shipping policy</a>
+            <a aria-label="Return policy" href="https://www.yash12007.com/return-policy">Return Policy</a>
+          </div>
+          <div style="display: flex; flex-direction: column; place-items: center; justify-content: center;">
+            <a aria-label="Sera Antivirus" href="https://www.yash12007.com/Sera">Sera AV</a>
+            <a aria-label="NovaStream IDE" href="https://www.yash12007.com/NovaStream">IDE</a>
+            <a aria-label="Nexus OS" href="https://www.yash12007.com/Nexus">Nexus</a>
+            <a aria-label="Nexus OS | Beta" href="https://www.yash12007.com/Nexus/beta">Nexus beta</a>
+            <a aria-label="Alice AI" href="https://github.com/Yash12007/Alice_AI/blob/main/README.md">Alice AI</a>
+          </div>
+        </div>
+        <p style="width: calc(100% - 16px); display: flex; place-items: center; justify-content: space-between;">
+          <a aria-label="Rate us" href="https://g.page/r/CUlXNoglU0GAEBM/review">Rate us</a>
+          &copy; 2025 Yash12007. All Rights Reserved.
+        </p>
+      </footer>
+      <div id="LogScreen">
+          <div style="position: absolute; top: 15%; left: 10%; width: 100%; height: 100%; place-items: center; display: grid; background: #0007; backdrop-filter: blur(10px); border-radius: 1rem; border: 2px solid #0df; box-shadow: 0 0 10px #f0f inset;">
+              <button aria-label="close" style="display: grid; place-items: center; justify-content: center; color: white; -webkit-text-fill-color: white; border-radius: 50%; border:2px solid #fff; width: 30px; height: 30px; position: absolute; top: 10px; right: 10px;" onclick="removeLogScreen()">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                  </svg>
+              </button>
+              <div style="width: fit-content; font-size: 12px;">
+                  <form style="min-width: 80%; margin-top: 30%;">
+                      <h2 id="LogHead" style="color: #fff; font-size: 22px; position: absolute; top: 10px; left: 10px;">Login</h2>
+                      <input type="email" name="login-email" id="login-email" placeholder="Email" autocomplete="email">
+                      <input type="password" name="login-password" id="login-password" placeholder="Password" autocomplete="current-password">
+                      <button aria-label="Login" id="loginbtn" style="color: #fff; border: 1px solid #fff;"></button>
+                      <div style="display: flex; flex-direction: row; place-items: center; justify-content: end; text-align: left;">
+                        <a aria-label="Terms and conditions" href="https://yash12007.com/Max/#terms-conditions" style="margin: 5px; -webkit-text-fill-color: #ccc; text-decoration: none; background: transparent; min-width: fit-content; padding: 0px; box-shadow: none; border: none;">T&C</a>
+                        <a aria-label="Privacy Policy" href="https://yash12007.com/Max/#privacy-policy" style="margin: 5px; -webkit-text-fill-color: #ccc; text-decoration: none; background: transparent; min-width: fit-content; padding: 0px; box-shadow: none; border: none;">Privacy Policy</a></div>
+                  </form>
+                  <section style="display: flex; place-items: center; justify-content: center; text-align: center;">or</section>
+                  <button aria-label="Signin with Google" id="Googlebtn" onclick="signInWithGoogle()" class="sign">Sign up with Google</button>
+                  <div id="g_id_onload"></div>
+                  <p id="option" style="flex-direction: row; display: flex; place-items: center; justify-content: start;"></p>
+                  
+              </div>
+          </div>
+      </div>
+      <div id="userInfoBox">
+          <div style="display:grid; place-items:center; margin: 8px;">
+            <img id="profilePic" src="https://cdn.pixabay.com/photo/2022/03/09/09/07/sakura-7057460_1280.jpg" width="80px" height="80px" style="border-radius: 50%;" alt="Profile"><br>
+            <div style="display: grid; place-items: center; justify-content: center; gap: 0px;">
+              <strong id="userName">Example Name</strong>
+              <span id="userEmail" style="font-size: 10px;"><a aria-label="Protected Email" href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f19f909c94b19489909c819d94df929e9c"><span class="__cf_email__" data-cfemail="cfbabcaabd8faab7aea2bfa3aae1aca0a2">[email&#160;protected]</span></a></span>
             </div>
-        </div>
-    </div>
-    <div id="userInfoBox">
-        <div style="display:grid; place-items:center; margin: 8px;">
-          <img id="profilePic" src="https://cdn.pixabay.com/photo/2022/03/09/09/07/sakura-7057460_1280.jpg" width="80px" height="80px" style="border-radius: 50%;" alt="Profile"><br>
-          <div style="display: grid; place-items: center; justify-content: center; gap: 0px;">
-            <strong id="userName">Example Name</strong>
-            <span id="userEmail" style="font-size: 10px;"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f19f909c94b19489909c819d94df929e9c"><span class="__cf_email__" data-cfemail="cfbabcaabd8faab7aea2bfa3aae1aca0a2">[email&#160;protected]</span></a></span>
+            <div style="margin: 10px; margin-top: 30px; background: #d3f9ff; color: #009a9c; border-radius: 1rem; padding: 40px 30px; display: flex; flex-direction: column; gap: 0px;">
+              <span id="IP" style="font-size:10px;">IP: 1234:4567:8901:2345</span>
+              <span id="Sdatetime" style="font-size:10px;">Last login: 2025-10-26T21:10:00</span>
+            </div>
           </div>
-          <div style="margin: 10px; margin-top: 30px; background: #d3f9ff; color: #009a9c; border-radius: 1rem; padding: 40px 30px; display: flex; flex-direction: column; gap: 0px;">
-            <span id="IP" style="font-size:10px;">IP: 1234:4567:8901:2345</span>
-            <span id="Sdatetime" style="font-size:10px;">Last login: 2025-10-26T21:10:00</span>
+          <div style="display:flex; place-items:center;">
+              <button aria-label="Switch Account" onclick="signInWithGoogle()">Switch Account</button>
+              <button aria-label="Close" onclick="closeUserInfo()">Close</button>
+              <button aria-label="Share Profile" onclick="ShareProfile()">Share Profile</button>
           </div>
-        </div>
-        <div style="display:flex; place-items:center;">
-            <button onclick="signInWithGoogle()">Switch Account</button>
-            <button onclick="closeUserInfo()">Close</button>
-            <button onclick="ShareProfile()">Share Profile</button>
-        </div>
-    </div>
-    <div id="profile"></div>
-    <script>
+      </div>
+      <div id="profile"></div>
+    </main>
+    <script async defer>
       function shareWebsite() {
           if (navigator.share) {
             navigator.share({
               title: 'Check out this awesome website!',
-              text: 'Hey! I found this really useful and cool site of a Software Company known as Yash12007, You might love:',
+              text: 'Hey! I found this beneficial and cool site of a Software Company known as Yash12007. You might love:',
               url: 'https://www.yash12007.com'
             })
             .then(() => console.log('Thanks for sharing!'))
@@ -457,7 +462,7 @@
         }
     </script>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <script type="module" defer>
+    <script type="module" defer async>
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
       import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
       import { 
@@ -574,6 +579,7 @@
         setupAuthListener();
         handleGoogleSignIn();
         processProfile();
+        sendNotification();
       });
       async function loginWithGoogleIdToken(id_token) {
         try {
@@ -659,7 +665,7 @@
           });
       }
     </script>
-    <script defer>
+    <script defer async>
       function sendNotification() {
         if ('serviceWorker' in navigator && 'PushManager' in window) {
           navigator.serviceWorker.register('https://www.yash12007.com/service-worker.js').then(function(reg) {
@@ -680,7 +686,6 @@
           console.warn('Push notifications not supported');
         }
       }
-      sendNotification();
       function Login() {
         document.getElementById('LogScreen').style = "top:0; left:0;";
         document.getElementById('LogHead').textContent = 'Login';
@@ -693,7 +698,7 @@
           Login with Google
         `;
         document.getElementById('loginbtn').textContent = 'Login';
-        document.getElementById('option').innerHTML = "Don't have an account? <a style='color:#0ff;' onclick='Signup()'>Signup</a>";
+        document.getElementById('option').innerHTML = "Don't have an account? <a aria-label='Signup' style='color:#0ff;' onclick='Signup()'>Signup</a>";
       }
       function Signup() {
         document.getElementById('LogScreen').style = "top:0; left:0;";
@@ -707,7 +712,7 @@
           Sign up with Google
         `;
         document.getElementById('loginbtn').textContent = 'Signup';
-        document.getElementById('option').innerHTML = "Already have an account? <a style='color:#0ff;' onclick='Login()'>Login</a>";
+        document.getElementById('option').innerHTML = "Already have an account? <a aria-label='Login' style='color:#0ff;' onclick='Login()'>Login</a>";
       }
       function removeLogScreen() {
         document.getElementById('LogScreen').style = "top:-50000px; left:-50000px;";
@@ -793,15 +798,15 @@
                         </svg>
                       </div>
                     </h3>
-                    <a style="font-size:12px; color:#ccc;" href="mailto:${email}">${email}</a>
+                    <a aria-label="Email" style="font-size:12px; color:#ccc;" href="mailto:${email}">${email}</a>
                   </div>
                 </div>
                 <p style="font-size:0.8em;color:#0f0;">• Shared on: ${new Date(last).toLocaleString()}</p>
               </div>
               <div style="display:flex; gap:10px; justify-content:center; margin-top:20px;">
-                <button onclick="document.getElementById('profile').style.display='none';" style="height:fit-content; margin-top:20px;padding:8px;border:1px solid #0df;background:#0007;color:#0df;border-radius:5px;cursor:pointer;">Close</button>
-                <button onclick="shareCurrentProfile('${name}', '${encoded}')" style="height:fit-content; margin-top:20px;padding:8px;border:1px solid #0df;background:#0007;color:#0df;border-radius:5px;cursor:pointer;">Share Profile</button>
-                <button onclick="signInWithGoogle()" style="height:fit-content; margin-top:20px;padding:8px;border:1px solid #0df;background:#0007;color:#0df;border-radius:5px;cursor:pointer;">Get yours</button>
+                <button aria-label="close" onclick="document.getElementById('profile').style.display='none';" style="height:fit-content; margin-top:20px;padding:8px;border:1px solid #0df;background:#0007;color:#0df;border-radius:5px;cursor:pointer;">Close</button>
+                <button aria-label="Share profile" onclick="shareCurrentProfile('${name}', '${encoded}')" style="height:fit-content; margin-top:20px;padding:8px;border:1px solid #0df;background:#0007;color:#0df;border-radius:5px;cursor:pointer;">Share Profile</button>
+                <button aria-label="Get yours" onclick="signInWithGoogle()" style="height:fit-content; margin-top:20px;padding:8px;border:1px solid #0df;background:#0007;color:#0df;border-radius:5px;cursor:pointer;">Get yours</button>
               </div>
             </div>
           `;
