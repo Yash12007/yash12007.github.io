@@ -116,7 +116,7 @@
         </ul>
         <div style="display: flex; place-items: center; justify-content: space-between; width: fit-content;">
           <button aria-label="Account" onclick="showUserInfo()">Account</button>
-          <button aria-label="Login" onclick="Login()">
+          <button aria-label="Login" id="logbtn" onclick="Login()">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
               <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
             </svg>
@@ -426,6 +426,354 @@
       <div id="profile"></div>
     </main>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <script type="module" defer async>let currentUser;function shareWebsite(){if(navigator.share)navigator.share({title:"Check out this awesome website!",text:"Hey! I found this beneficial and cool site of a Software Company known as Yash12007. You might love:",url:"https://www.yash12007.com"}).then(()=>console.log("Thanks for sharing!")).catch(e=>console.error("Error sharing:",e));else{let e=`https://wa.me/?text=${encodeURIComponent("Check out this awesome website! https://www.yash12007.com")}`;window.open(e,"_blank")}}function closeUserInfo(){document.getElementById("userInfoBox").style.display="none"}function showUserInfo(){currentUser&&(document.getElementById("profilePic").src=currentUser.photoURL||"https://via.placeholder.com/50",document.getElementById("userName").textContent=currentUser.displayName||"No Name",document.getElementById("userEmail").textContent=currentUser.email||"No Email",document.getElementById("IP").textContent="IP Address: "+(window.localStorage.getItem("IP")||""),document.getElementById("Sdatetime").textContent="Last Signin: "+(window.localStorage.getItem("Signup-date")||""),document.getElementById("userInfoBox").style.display="block")}"serviceWorker"in navigator&&navigator.serviceWorker.register("https://www.yash12007.com/service-worker.js").then(()=>console.log("Service Worker Registered")).catch(e=>console.error("Service Worker Error:",e));import{initializeApp as e}from"https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";import{getAnalytics as t}from"https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";import{getAuth as o,onAuthStateChanged as i,signInWithEmailAndPassword as n,createUserWithEmailAndPassword as r,signInWithCredential as a,GoogleAuthProvider as s}from"https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";import{getFirestore as l,doc as c,setDoc as $}from"https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";let firebaseConfig={apiKey:"AIzaSyDHHQxbcn_FPinU1mWnbcnPRBj_8sq1vKk",authDomain:"androidsignup.firebaseapp.com",projectId:"androidsignup",storageBucket:"androidsignup.appspot.com",messagingSenderId:"913345082260",appId:"1:913345082260:web:e5d4c96dfb02cef5ab9581",measurementId:"G-G0CQDSMEZL"},app=e(firebaseConfig),auth=o(app);import{setPersistence as g,browserLocalPersistence as d}from"https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";g(auth,d).then(()=>{console.log("Auth persistence set to local (auto login enabled).")}).catch(e=>{console.error("Persistence error:",e)});let db=l(app);async function loginOrSignup(){let e=document.getElementById("login-email").value.trim(),t=document.getElementById("login-password").value.trim(),o=document.getElementById("loginbtn").textContent.trim();if(!e||!t)return alert("Enter email and password");try{let i;await saveUserDataToDB((i="Signup"===o?await r(auth,e,t):await n(auth,e,t)).user),alert(`${o} successful!`)}catch(a){alert("Error: "+a.message),console.error(a)}}async function saveUserDataToDB(e){if(!e)return;let t=localStorage.getItem("IP");if(!t)try{t=(await (await fetch("https://api64.ipify.org?format=json")).json()).ip,localStorage.setItem("IP",t)}catch(o){t="Unknown"}let i=new Date().toISOString();localStorage.setItem("Signup-date",i),await $(c(db,"userData",e.uid),{name:e.displayName||"No Name",email:e.email,ip:t,lastSignIn:i},{merge:!0})}function updateUserUI(e){if(e){currentUser=e;let t=e.photoURL||"https://via.placeholder.com/50";document.getElementById("logbtn").innerHTML=`<div onclick="showUserInfo()" style="cursor:pointer;"><img src="${t}" width="30px" height="30px" style="border-radius:50%; vertical-align:middle;" alt="User"></div>`}}function setupAuthListener(){i(auth,e=>{e?(console.log("Logged in as:",e.email),currentUser=e,localStorage.setItem("account",e.uid),updateUserUI(e),saveUserDataToDB(e)):console.log("No user logged in")})}async function loginWithGoogleIdToken(e){try{let t=await a(auth,s.credential(e));await saveUserDataToDB(t.user),alert("Google sign-in successful!"),updateUserUI(t.user)}catch(o){alert("Google sign-in failed: "+o.message),console.error(o)}}function handleGoogleSignIn(){let e=null,t=null;if(window.location.hash&&window.location.hash.length>1){let o=new URLSearchParams(window.location.hash.slice(1));e=o.get("id_token")||null,t=o.get("access_token")||null}if((!e||!t)&&window.location.search){let i=new URLSearchParams(window.location.search);e=e||i.get("id_token"),t=t||i.get("access_token")}if(e)loginWithGoogleIdToken(e);else if(t)getUserInfo(t);else{let n=localStorage.getItem("account");n&&fetch(n).then(e=>e.json()).then(e=>{updateGoogleProfileUI(e)}).catch(e=>console.error("Fetching saved Google profile failed:",e))}}function updateGoogleProfileUI(e){e&&e.picture&&(document.getElementById("logbtn").innerHTML=`<img src="${e.picture}" width="30px" height="30px" style="border-radius:50%; margin-right:5px;" alt="user">`)}function getUserInfo(e){let t=`https://www.googleapis.com/oauth2/v2/userinfo?access_token=${e}`;fetch(t).then(e=>e.json()).then(e=>{localStorage.setItem("account",t),updateGoogleProfileUI(e)}).catch(e=>console.error("Error fetching Google user info:",e))}function handleCredentialResponse(e){a(auth,s.credential(e.credential)).then(e=>{console.log("Signed in!",e.user)}).catch(e=>{console.error("Error:",e)})}function sendNotification(){"serviceWorker"in navigator&&"PushManager"in window?navigator.serviceWorker.register("https://www.yash12007.com/service-worker.js").then(function(e){console.log("Service Worker Registered"),Notification.requestPermission().then(function(t){"granted"===t?e.showNotification("Yash12007",{body:"Check out Sera Antivirus, It provides a security shield to remove viruses, malware, trojans, and other harmful software and applications from your device and also provides Storage Management and Utilities services.",icon:"192x192.png",vibrate:[200,100,200]}):console.warn("Notification permission denied")})}).catch(console.error):console.warn("Push notifications not supported")}function Login(){document.getElementById("LogScreen").style="top:0; left:0;",document.getElementById("LogHead").textContent="Login",document.getElementById("Googlebtn").innerHTML='<div><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-google" viewBox="0 0 16 16"><path d="M15.545 6.558a9.4 9.4 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.7 7.7 0 0 1 5.352 2.082l-2.284 2.284A4.35 4.35 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.8 4.8 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.7 3.7 0 0 0 1.599-2.431H8v-3.08z"/></svg></div>Login with Google',document.getElementById("loginbtn").textContent="Login",document.getElementById("option").innerHTML="Don't have an account? <a aria-label='Signup' style='color:#0ff;' onclick='Signup()'>Signup</a>"}function Signup(){document.getElementById("LogScreen").style="top:0; left:0;",document.getElementById("LogHead").textContent="Signup",document.getElementById("Googlebtn").innerHTML='<div><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-google" viewBox="0 0 16 16"><path d="M15.545 6.558a9.4 9.4 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.7 7.7 0 0 1 5.352 2.082l-2.284 2.284A4.35 4.35 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.8 4.8 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.7 3.7 0 0 0 1.599-2.431H8v-3.08z"/></svg></div>Sign up with Google',document.getElementById("loginbtn").textContent="Signup",document.getElementById("option").innerHTML="Already have an account? <a aria-label='Login' style='color:#0ff;' onclick='Login()'>Login</a>"}function removeLogScreen(){document.getElementById("LogScreen").style="top:-50000px; left:-50000px;"}function signInWithGoogle(){let e="https://accounts.google.com/o/oauth2/v2/auth?client_id=913345082260-jobhspedjr8p6ns8iu6gd9bdfggsfi85.apps.googleusercontent.com&redirect_uri=https://www.yash12007.com&response_type=token%20id_token&scope=email%20profile&nonce=random",t=new Date().toISOString();localStorage.setItem("Signup-date",t),fetch("https://api64.ipify.org?format=json").then(e=>e.json()).then(t=>{localStorage.setItem("IP",t.ip),window.location.href=e}).catch(()=>window.location.href=e)}function ShareProfile(){let e=window.auth&&window.auth.currentUser||window.currentUser||null;if(!e){alert("No signed-in user found. Please sign in first.");return}let t=e.displayName||e.name||e.email||"No Name",o=`${location.origin}/?yuser=${btoa(`profile=${encodeURIComponent(t)}&profilepic=${encodeURIComponent(e.photoURL||e.img||"https://via.placeholder.com/50")}&email=${encodeURIComponent(e.email||"")}&lastactive=${encodeURIComponent(localStorage.getItem("Signup-date")||new Date().toISOString())}`)}`;if(navigator.share)navigator.share({title:"Take a look at my profile!",text:`Hey there! I'm ${t}.Check out my profile on Yash12007:`,url:o}).then(()=>console.log("Thanks for sharing!")).catch(e=>console.error("Error sharing:",e));else{let i=`https://wa.me/?text=${encodeURIComponent(`*Hey there! I'm ${t}* Check out my profile on Yash12007: ${o}`)}`;window.open(i,"_blank")}}async function processProfile(){let e=new URLSearchParams(location.search).get("yuser");if(!e){console.log("No shared data found in URL.");return}try{let t=atob(e),o=new URLSearchParams(t),i=o.get("profile"),n=o.get("profilepic"),r=o.get("email"),a=o.get("lastactive"),s=document.getElementById("profile");s.style="position: absolute;top: 10%;left:10%;width: 80%;height: 80%;padding: 20px;z-index: 10000;display: grid;place-items: center;text-align: center;",s.innerHTML=`<div style="gap:5px; display:flex; flex-direction:column; align-items:center; justify-content:center;"><div style="display:flex; flex-direction:column; align-items:center; padding:20px; border-radius:10px; box-shadow:0 0 10px #0df; gap:8px;"><div style="display:flex; justify-content:space-between; place-items:center; gap:4px;"><img src="${n}" alt="${i} | Verified" style="width:80px;height:80px;border-radius:50%;object-fit:cover;"><div style="display:flex; flex-direction:column; justify-content:start; place-items:left; text-align:left; align-items:left; gap:0px;"><h3 style="margin:10px 0 4px;">${i}<div title="Verified User" style="cursor:pointer; display:inline-block; color:#0df; margin-left:5px; vertical-align:middle;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-patch-check-fill" viewBox="0 0 16 16"><path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708"/></svg></div></h3><a aria-label="Email" style="font-size:12px; color:#ccc;" href="mailto:${r}">${r}</a></div></div><p style="font-size:0.8em;color:#0f0;">• Shared on: ${new Date(a).toLocaleString()}</p></div><div style="display:flex; gap:10px; justify-content:center; margin-top:20px;"><button aria-label="close" onclick="document.getElementById('profile').style.display='none';" style="height:fit-content; margin-top:20px;padding:8px;border:1px solid #0df;background:#0007;color:#0df;border-radius:5px;cursor:pointer;">Close</button><button aria-label="Share profile" onclick="shareCurrentProfile('${i}', '${e}')" style="height:fit-content; margin-top:20px;padding:8px;border:1px solid #0df;background:#0007;color:#0df;border-radius:5px;cursor:pointer;">Share Profile</button><button aria-label="Get yours" onclick="signInWithGoogle()" style="height:fit-content; margin-top:20px;padding:8px;border:1px solid #0df;background:#0007;color:#0df;border-radius:5px;cursor:pointer;">Get yours</button></div></div>`}catch(l){alert("Something went wrong: ",l)}}function shareCurrentProfile(e,t){let o=`${location.origin}/${t}`;if(navigator.share)navigator.share({title:"Take a look at my profile!",text:`Hey there! I'm ${e}. Check out my profile on Yash12007:`,url:o}).then(()=>console.log("Thanks for sharing!")).catch(e=>console.error("Error sharing:",e));else{let i=`https://wa.me/?text=${encodeURIComponent(`*Hey there! I'm ${e}* Check out my profile on Yash12007: ${o}`)}`;window.open(i,"_blank")}}window.auth=auth,window.db=db,window.firebaseApp=app,document.addEventListener("DOMContentLoaded",()=>{document.getElementById("loginbtn").addEventListener("click",loginOrSignup),setupAuthListener(),handleGoogleSignIn(),processProfile()}),sendNotification(),window.onload=function(){google.accounts.id.initialize({client_id:"913345082260-jobhspedjr8p6ns8iu6gd9bdfggsfi85.apps.googleusercontent.com",callback:handleCredentialResponse,auto_select:!0,prompt_parent_id:"g_id_onload"}),google.accounts.id.prompt()};</script>
+    <script type="module" defer async>
+      let currentUser;
+      function shareWebsite() {
+          if (navigator.share) {
+          navigator.share({
+              title: 'Check out this awesome website!',
+              text: 'Hey! I found this beneficial and cool site of a Software Company known as Yash12007. You might love:',
+              url: 'https://www.yash12007.com'
+          })
+          .then(() => console.log('Thanks for sharing!'))
+          .catch(err => console.error('Error sharing:', err));
+          } else {
+          // Fallback for unsupported browsers
+          const fallbackUrl = `https://wa.me/?text=${encodeURIComponent(
+              'Check out this awesome website! https://www.yash12007.com'
+          )}`;
+          window.open(fallbackUrl, '_blank');
+          }
+      }
+      if ("serviceWorker" in navigator) {
+          navigator.serviceWorker.register("https://www.yash12007.com/service-worker.js")
+              .then(() => console.log("Service Worker Registered"))
+              .catch((err) => console.error("Service Worker Error:", err));
+      }function closeUserInfo(){
+          document.getElementById("userInfoBox").style.display="none";
+      }function showUserInfo() {
+          if (!currentUser) return;
+          document.getElementById('profilePic').src = currentUser.photoURL || 'https://via.placeholder.com/50';
+          document.getElementById('userName').textContent = currentUser.displayName || 'No Name';
+          document.getElementById('userEmail').textContent = currentUser.email || 'No Email';
+          document.getElementById("IP").textContent = "IP Address: " + (window.localStorage.getItem("IP") || '');
+          document.getElementById("Sdatetime").textContent = "Last Signin: " + (window.localStorage.getItem("Signup-date") || '');
+          document.getElementById('userInfoBox').style.display = 'block';
+      }
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
+      import { 
+          getAuth, 
+          onAuthStateChanged, 
+          signInWithEmailAndPassword, 
+          createUserWithEmailAndPassword, 
+          signInWithCredential, 
+          GoogleAuthProvider 
+      } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+      import { getFirestore, doc, setDoc} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+      const firebaseConfig = {apiKey: "AIzaSyDHHQxbcn_FPinU1mWnbcnPRBj_8sq1vKk",authDomain: "androidsignup.firebaseapp.com",projectId: "androidsignup",storageBucket: "androidsignup.appspot.com",messagingSenderId: "913345082260",appId: "1:913345082260:web:e5d4c96dfb02cef5ab9581",measurementId: "G-G0CQDSMEZL"};
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      import { setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+      setPersistence(auth, browserLocalPersistence).then(() => {console.log("Auth persistence set to local (auto login enabled).");}).catch((error) => {console.error("Persistence error:", error);});
+      const db = getFirestore(app);
+      window.auth = auth;
+      window.db = db;
+      window.firebaseApp = app;
+      async function loginOrSignup() {
+          const email = document.getElementById('login-email').value.trim();
+          const password = document.getElementById('login-password').value.trim();
+          const action = document.getElementById('loginbtn').textContent.trim();
+          if (!email || !password) return alert('Enter email and password');
+          try {
+              let userCredential;
+              if (action === 'Signup') {
+                  userCredential = await createUserWithEmailAndPassword(auth, email, password);
+              } else {
+                  userCredential = await signInWithEmailAndPassword(auth, email, password);
+              }
+              await saveUserDataToDB(userCredential.user);
+              alert(`${action} successful!`);
+          } catch (error) {
+              alert("Error: " + error.message);
+              console.error(error);
+          }
+      }
+      async function saveUserDataToDB(user) {
+          if (!user) return;
+          let ip = localStorage.getItem('IP');
+          if (!ip) {
+              try {
+                  const response = await fetch('https://api64.ipify.org?format=json');
+                  const data = await response.json();
+                  ip = data.ip;
+                  localStorage.setItem('IP', ip);
+              } catch (e) {
+                  ip = "Unknown";
+              }
+          }
+          const signInDate = new Date().toISOString();
+          localStorage.setItem("Signup-date", signInDate);
+          const userRef = doc(db, "userData", user.uid);
+          await setDoc(userRef, {name: user.displayName || "No Name",email: user.email,ip: ip, lastSignIn: signInDate}, { merge: true });
+      }
+      function updateUserUI(user) {
+          if (user) {
+              currentUser = user;
+              const photoURL = user.photoURL || 'https://via.placeholder.com/50';
+              document.getElementById("logbtn").innerHTML = `
+                  <div onclick="showUserInfo()" style="cursor:pointer;">
+                      <img src="${photoURL}" width="30px" height="30px" style="border-radius:50%; vertical-align:middle;" alt="User">
+                  </div>
+              `;
+          }
+      }
+      function setupAuthListener() {
+          onAuthStateChanged(auth, (user) => {
+              if (user) {
+              console.log('Logged in as:', user.email);
+              currentUser = user;
+              localStorage.setItem('account', user.uid);
+              updateUserUI(user);
+              saveUserDataToDB(user);
+              } else {
+              console.log('No user logged in');
+              }
+          });
+      }
+      document.addEventListener('DOMContentLoaded', () => {
+          document.getElementById("loginbtn").addEventListener("click", loginOrSignup);
+          setupAuthListener();
+          handleGoogleSignIn();
+          processProfile();  
+      });
+      sendNotification();
+      async function loginWithGoogleIdToken(id_token) {
+          try {
+              const credential = GoogleAuthProvider.credential(id_token);
+              const userCredential = await signInWithCredential(auth, credential);
+              await saveUserDataToDB(userCredential.user);
+              alert("Google sign-in successful!");
+              updateUserUI(userCredential.user);
+          } catch (error) {
+              alert("Google sign-in failed: " + error.message);
+              console.error(error);
+          }
+      }
+      function handleGoogleSignIn() {
+          let idToken = null;
+          let accessToken = null;
+          if (window.location.hash && window.location.hash.length > 1) {
+              const hashParams = new URLSearchParams(window.location.hash.slice(1));
+              idToken = hashParams.get('id_token') || null;
+              accessToken = hashParams.get('access_token') || null;
+          }
+          if ((!idToken || !accessToken) && window.location.search) {
+              const queryParams = new URLSearchParams(window.location.search);
+              idToken = idToken || queryParams.get('id_token');
+              accessToken = accessToken || queryParams.get('access_token');
+          }
+          if (idToken) {
+              loginWithGoogleIdToken(idToken);
+          } else if (accessToken) {
+              getUserInfo(accessToken);
+          } else {
+              const storedAccountUrl = localStorage.getItem('account');
+              if (storedAccountUrl) {
+              fetch(storedAccountUrl)
+                  .then(response => response.json())
+                  .then(data => {
+                  updateGoogleProfileUI(data);
+                  })
+                  .catch(error => console.error('Fetching saved Google profile failed:', error));
+              }
+          }
+      }
+      function updateGoogleProfileUI(data) {
+          if (data && data.picture) {
+              const userInfoElement = document.getElementById('logbtn');
+              userInfoElement.innerHTML = `
+              <img src="${data.picture}" width="30px" height="30px" style="border-radius:50%; margin-right:5px;" alt="user">
+              `;
+          }
+      }
+      function getUserInfo(accessToken) {
+          const userInfoUrl = `https://www.googleapis.com/oauth2/v2/userinfo?access_token=${accessToken}`;
+          fetch(userInfoUrl)
+              .then(response => response.json())
+              .then(data => {
+              localStorage.setItem('account', userInfoUrl);
+              updateGoogleProfileUI(data);
+              })
+          .catch(error => console.error('Error fetching Google user info:', error));
+      }
+      window.onload = function () {
+          google.accounts.id.initialize({client_id: "913345082260-jobhspedjr8p6ns8iu6gd9bdfggsfi85.apps.googleusercontent.com",callback: handleCredentialResponse,auto_select: true,prompt_parent_id: "g_id_onload",});
+          google.accounts.id.prompt();
+      };
+      function handleCredentialResponse(response) {
+          const credential = GoogleAuthProvider.credential(response.credential);
+          signInWithCredential(auth, credential).then((userCredential) => {console.log("Signed in!", userCredential.user);}).catch((error) => {console.error("Error:", error);});
+      }
+      function sendNotification() {
+          if ('serviceWorker' in navigator && 'PushManager' in window) {
+              navigator.serviceWorker.register('https://www.yash12007.com/service-worker.js').then(function(reg) {
+                  console.log('Service Worker Registered');
+                  Notification.requestPermission().then(function(permission) {
+                      if (permission === 'granted') {
+                          reg.showNotification('Yash12007', {
+                              body: 'Check out Sera Antivirus, It provides a security shield to remove viruses, malware, trojans, and other harmful software and applications from your device and also provides Storage Management and Utilities services.',
+                              icon: '192x192.png',
+                              vibrate: [200, 100, 200]
+                          });
+                          } else {
+                              console.warn('Notification permission denied');
+                          }
+                  });
+              }).catch(console.error);
+          } else {
+              console.warn('Push notifications not supported');
+          }
+      }
+      function Login() {
+          document.getElementById('LogScreen').style = "top:0; left:0;";
+          document.getElementById('LogHead').textContent = 'Login';
+          document.getElementById('Googlebtn').innerHTML = `
+              <div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-google" viewBox="0 0 16 16">
+                  <path d="M15.545 6.558a9.4 9.4 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.7 7.7 0 0 1 5.352 2.082l-2.284 2.284A4.35 4.35 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.8 4.8 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.7 3.7 0 0 0 1.599-2.431H8v-3.08z"/>
+              </svg>
+              </div>
+              Login with Google
+          `;
+          document.getElementById('loginbtn').textContent = 'Login';
+          document.getElementById('option').innerHTML = "Don't have an account? <a aria-label='Signup' style='color:#0ff;' onclick='Signup()'>Signup</a>";
+      }
+      function Signup() {
+          document.getElementById('LogScreen').style = "top:0; left:0;";
+          document.getElementById('LogHead').textContent = 'Signup';
+          document.getElementById('Googlebtn').innerHTML = `
+              <div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-google" viewBox="0 0 16 16">
+                  <path d="M15.545 6.558a9.4 9.4 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.7 7.7 0 0 1 5.352 2.082l-2.284 2.284A4.35 4.35 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.8 4.8 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.7 3.7 0 0 0 1.599-2.431H8v-3.08z"/>
+              </svg>
+              </div>
+              Sign up with Google
+          `;
+          document.getElementById('loginbtn').textContent = 'Signup';
+          document.getElementById('option').innerHTML = "Already have an account? <a aria-label='Login' style='color:#0ff;' onclick='Login()'>Login</a>";
+      }
+      function removeLogScreen() {
+          document.getElementById('LogScreen').style = "top:-50000px; left:-50000px;";
+      }
+      function signInWithGoogle() {
+          const clientId = '913345082260-jobhspedjr8p6ns8iu6gd9bdfggsfi85.apps.googleusercontent.com';
+          const redirectUri = 'https://www.yash12007.com';
+          const googleSignInUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token%20id_token&scope=email%20profile&nonce=random`;
+          const datetime = new Date().toISOString();
+          localStorage.setItem('Signup-date', datetime);
+          fetch('https://api64.ipify.org?format=json').then(res => res.json()).then(data => {
+              localStorage.setItem('IP', data.ip);
+              window.location.href = googleSignInUrl;
+          }).catch(() => window.location.href = googleSignInUrl);
+      }
+      function ShareProfile(){
+          const user = (window.auth && window.auth.currentUser) || window.currentUser || null;
+          if (!user) {
+              alert('No signed-in user found. Please sign in first.');
+              return;
+          }
+          const name = user.displayName || user.name || user.email || 'No Name';
+          const pic = user.photoURL || user.img || 'https://via.placeholder.com/50';
+          const email = user.email || '';
+          const last = localStorage.getItem('Signup-date') || new Date().toISOString();
+          const rawParams = `profile=${encodeURIComponent(name)}&profilepic=${encodeURIComponent(pic)}&email=${encodeURIComponent(email)}&lastactive=${encodeURIComponent(last)}`;
+          const encodedParams = btoa(rawParams);
+          const profileLink = `${location.origin}/?yuser=${encodedParams}`;
+          if(navigator.share){
+              navigator.share({
+              title: 'Take a look at my profile!',
+              text: `Hey there! I'm ${name}.\nCheck out my profile on Yash12007:`,
+              url: profileLink
+              }).then(() => console.log('Thanks for sharing!')).catch(err => console.error('Error sharing:', err));
+          }else{
+              const fallbackUrl = `https://wa.me/?text=${encodeURIComponent(
+              `*Hey there! I'm ${name}* \nCheck out my profile on Yash12007: \n\n${profileLink}`
+              )}`;
+              window.open(fallbackUrl, '_blank');
+          }
+      }
+      async function processProfile(){
+          const params = new URLSearchParams(location.search);
+          const encoded = params.get('yuser');
+          if (!encoded) {
+              console.log('No shared data found in URL.');
+              return;
+          }
+          try {
+              const decoded = atob(encoded);
+              const query = new URLSearchParams(decoded);
+              const name = query.get('profile');
+              const pic = query.get('profilepic');
+              const email = query.get('email');
+              const last = query.get('lastactive');
+              const container = document.getElementById('profile');
+              container.style = `
+              position: absolute;
+              top: 10%;
+              left:10%;
+              width: 80%;
+              height: 80%;
+              padding: 20px;
+              z-index: 10000;
+              display: grid;
+              place-items: center;
+              text-align: center;
+              `;
+              container.innerHTML = `
+              <div style="gap:5px; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+                  <div style="display:flex; flex-direction:column; align-items:center; padding:20px; border-radius:10px; box-shadow:0 0 10px #0df; gap:8px;">
+                  <div style="display:flex; justify-content:space-between; place-items:center; gap:4px;">
+                      <img src="${pic}" alt="${name} | Verified" style="width:80px;height:80px;border-radius:50%;object-fit:cover;">
+                      <div style="display:flex; flex-direction:column; justify-content:start; place-items:left; text-align:left; align-items:left; gap:0px;">
+                      <h3 style="margin:10px 0 4px;">
+                          ${name} 
+                          <div title="Verified User" style="cursor:pointer; display:inline-block; color:#0df; margin-left:5px; vertical-align:middle;">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-patch-check-fill" viewBox="0 0 16 16">
+                              <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708"/>
+                          </svg>
+                          </div>
+                      </h3>
+                      <a aria-label="Email" style="font-size:12px; color:#ccc;" href="mailto:${email}">${email}</a>
+                      </div>
+                  </div>
+                  <p style="font-size:0.8em;color:#0f0;">• Shared on: ${new Date(last).toLocaleString()}</p>
+                  </div>
+                  <div style="display:flex; gap:10px; justify-content:center; margin-top:20px;">
+                  <button aria-label="close" onclick="document.getElementById('profile').style.display='none';" style="height:fit-content; margin-top:20px;padding:8px;border:1px solid #0df;background:#0007;color:#0df;border-radius:5px;cursor:pointer;">Close</button>
+                  <button aria-label="Share profile" onclick="shareCurrentProfile('${name}', '${encoded}')" style="height:fit-content; margin-top:20px;padding:8px;border:1px solid #0df;background:#0007;color:#0df;border-radius:5px;cursor:pointer;">Share Profile</button>
+                  <button aria-label="Get yours" onclick="signInWithGoogle()" style="height:fit-content; margin-top:20px;padding:8px;border:1px solid #0df;background:#0007;color:#0df;border-radius:5px;cursor:pointer;">Get yours</button>
+                  </div>
+              </div>
+              `;
+          } catch (err) {
+              alert("Something went wrong: ", err);
+          }
+      }function shareCurrentProfile(name, data){
+          const profileLink = `${location.origin}/${data}`;
+          if(navigator.share){
+              navigator.share({
+              title: 'Take a look at my profile!',
+              text: `Hey there! I'm ${name}.\nCheck out my profile on Yash12007:`,
+              url: profileLink
+              }).then(() => console.log('Thanks for sharing!')).catch(err => console.error('Error sharing:', err));
+          }else{
+              const fallbackUrl = `https://wa.me/?text=${encodeURIComponent(
+              `*Hey there! I'm ${name}* \nCheck out my profile on Yash12007: \n\n${profileLink}`
+              )}`;
+              window.open(fallbackUrl, '_blank');
+          }
+      }
+    </script>
 </body>
 </html>
