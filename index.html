@@ -91,7 +91,7 @@
   <link rel="preload" href="https://www.yash12007.com/styles.css" as="style">
   <link rel="preload" as="image" href="https://www.yash12007.com/192x192.png">
   <link rel="stylesheet" href="https://www.yash12007.com/styles.css">
-  <style>html{font-display: swap;}</style>
+  <style>html{font-display: swap;}@keyframes showNotifications{from{bottom:-150px;opacity: 0.7;}to{bottom:20px;opacity: 1;}}</style>
 </head>
 <body>
     <nav>
@@ -137,6 +137,15 @@
         </svg>
         Support
       </a>
+      <div id="PermReqBox" style="animation: 2s showNotifications; padding: 10px; place-items: left; justify-content: start; position: absolute; bottom: 20px; left: 20px; width: fit-content; height: fit-content; background: radial-gradient(circle closest-corner at center, #f0f7, #a0f7); border: 2px solid #f0f7; box-shadow: inset 0 0 5px #0df; border-radius: 1rem;">
+        <b>Allow us to send notifications</b>
+        <br><p id="PermReq">We'll send you updates related to our products and services</p>
+        <br>
+        <div style="display: flex; place-items: center; justify-content: end; flex-direction: row;">
+          <button onclick="sendNotification()" style="padding: 10px 14px; background: #fff; color: #222; border-radius: 10px;">Allow</button>
+          <button onclick="document.getElementById('PermReqBox').style.display='none'">Deny</button>
+        </div>
+      </div>
       <section id="features">
         <div style="gap: 3px; display: flex; flex-direction: column; justify-content: start; padding: 20px;">
           <i style="margin: 0px; color: #0df;">Special features</i>
@@ -283,7 +292,7 @@
             </div>
             <div style="display: flex; flex-wrap: wrap; flex-direction: row; place-items: center; justify-content: space-between;">
               <button aria-label="Let's talk" type="submit">Let's talk</button>
-              <a aria-label="Email us" href="mailto:info@yash12007.com" style="padding: 8px 18px; background: #f7f7f7; color: #f0d; font-size: 0.7rem;">Email us</a>
+              <a aria-label="Email us" href="mailto:info@yash12007.com" style="padding: 8px 18px; background: #f7f7f7; color: #b00097; font-size: 0.7rem;">Email us</a>
             </div>
           </div>
         </form>
@@ -397,7 +406,7 @@
       </div>
       <div id="userInfoBox">
           <div style="display:grid; place-items:center; margin: 8px;">
-            <img id="profilePic" src="https://cdn.pixabay.com/photo/2022/03/09/09/07/sakura-7057460_1280.jpg" width="80px" height="80px" style="border-radius: 50%;" alt="Profile"><br>
+            <img id="profilePic" src="https://icons.getbootstrap.com/assets/icons/person-circle.svg" width="80px" height="80px" style="border-radius: 50%;" alt="Profile"><br>
             <div style="display: grid; place-items: center; justify-content: center; gap: 0px;">
               <strong id="userName">Example Name</strong>
               <span id="userEmail" style="font-size: 10px;"><a aria-label="Protected Email" href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f19f909c94b19489909c819d94df929e9c"><span class="__cf_email__" data-cfemail="cfbabcaabd8faab7aea2bfa3aae1aca0a2">[email&#160;protected]</span></a></span>
@@ -495,7 +504,37 @@
           handleGoogleSignIn();
           processProfile();  
       });
-      sendNotification();
+      async function getProducts() {
+        const response = await fetch("products.json");
+        const data = await response.json();
+        return data;
+      }
+      function checkPerm(){
+        if (Notification.permission === "granted") {
+          document.getElementById('PermReqBox').style.display='none';
+          navigator.serviceWorker.register('https://www.yash12007.com/service-worker.js').then(function(reg) {
+            getProducts().then(products => {
+                products.forEach(product => {
+                  if (product) {
+                    const images = Array.isArray(product.Image) ? product.Image : [product.Image];
+                    reg.showNotification('Yash12007 | Store', {
+                      body: product.Description,
+                      icon: images[0],
+                      vibrate: [200, 100, 200]
+                    });
+                  }else{
+                    console.log("Products not found...");
+                  }
+                });
+            });
+          }).catch((err)=>{console.warn(err);});
+        } else if (Notification.permission === "denied") {
+          document.getElementById('PermReq').textContent="Heads up! You’ve blocked notifications — turn them on in your browser settings to keep getting updates."
+          document.getElementById('PermReqBox').style.display='block';
+        } else {
+          document.getElementById('PermReqBox').style.display='block';
+        }
+      }checkPerm();
       async function loginWithGoogleIdToken(id_token) {
           try {
               const credential = GoogleAuthProvider.credential(id_token);
@@ -598,14 +637,23 @@
                   console.log('Service Worker Registered');
                   Notification.requestPermission().then(function(permission) {
                       if (permission === 'granted') {
-                          reg.showNotification('Yash12007', {
-                              body: 'Check out Sera Antivirus, It provides a security shield to remove viruses, malware, trojans, and other harmful software and applications from your device and also provides Storage Management and Utilities services.',
-                              icon: '192x192.png',
-                              vibrate: [200, 100, 200]
+                          getProducts().then(products => {
+                              products.forEach(product => {
+                                if (product) {
+                                  const images = Array.isArray(product.Image) ? product.Image : [product.Image];
+                                  reg.showNotification('Yash12007 | Store', {
+                                    body: product.Description,
+                                    icon: images[0],
+                                    vibrate: [200, 100, 200]
+                                  });
+                                }else{
+                                  console.log("Products not found...");
+                                }
+                              });
                           });
-                          } else {
-                              console.warn('Notification permission denied');
-                          }
+                      } else {
+                          console.warn('Notification permission denied');
+                      }
                   });
               }).catch(console.warn);
           } else {
