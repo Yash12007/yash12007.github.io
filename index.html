@@ -637,7 +637,8 @@
                   console.log('Service Worker Registered');
                   Notification.requestPermission().then(function(permission) {
                       if (permission === 'granted') {
-                          getProducts().then(products => {
+                        document.getElementById('PermReqBox').style.display='none';  
+                        getProducts().then(products => {
                               products.forEach(product => {
                                 if (product) {
                                   const images = Array.isArray(product.Image) ? product.Image : [product.Image];
