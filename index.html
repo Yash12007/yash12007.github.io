@@ -425,7 +425,7 @@
     </main>
     <script src="https://accounts.google.com/gsi/client" defer></script>
     <script type="module">
-      let currentUser;
+      window.currentUser;
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
       import {getAuth,onAuthStateChanged,signInWithEmailAndPassword,createUserWithEmailAndPassword,signInWithCredential,GoogleAuthProvider,setPersistence,browserLocalPersistence} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
       import {getFirestore,doc,setDoc} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-lite.js";
@@ -477,6 +477,7 @@
       function updateUserUI(user) {
           if (user) {
               currentUser = user;
+              window.currentUser = user;
               const photoURL = user.photoURL || 'https://via.placeholder.com/50';
               document.getElementById("logbtn").innerHTML = `
                   <div onclick="showUserInfo()" style="cursor:pointer;">
@@ -490,11 +491,13 @@
               if (user) {
               console.log('Logged in as:', user.email);
               currentUser = user;
+              window.currentUser = user;
               localStorage.setItem('account', user.uid);
               updateUserUI(user);
               saveUserDataToDB(user);
               } else {
-              console.log('No user logged in');
+                console.log('No user logged in');
+                window.currentUser = null;
               }
           });
       }
