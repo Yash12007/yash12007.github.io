@@ -425,6 +425,7 @@
     </main>
     <script src="https://accounts.google.com/gsi/client" defer></script>
     <script type="module">
+      let currentUser;
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
       import {getAuth,onAuthStateChanged,signInWithEmailAndPassword,createUserWithEmailAndPassword,signInWithCredential,GoogleAuthProvider,setPersistence,browserLocalPersistence} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
       import {getFirestore,doc,setDoc} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-lite.js";
@@ -575,7 +576,6 @@
       }
     </script>
     <script>
-      let currentUser;
       function shareWebsite() {
           if (navigator.share) {
           navigator.share({
