@@ -116,7 +116,7 @@
         </ul>
         <div style="display: flex; place-items: center; justify-content: space-between; width: fit-content;">
           <button aria-label="Account" onclick="showUserInfo()">Account</button>
-          <button aria-label="Login" id="logbtn" onclick="Login()">
+          <button aria-label="Login" onclick="Login()">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
               <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
             </svg>
@@ -443,23 +443,21 @@
             window.open(fallbackUrl, '_blank');
           }
       }
-      let currentUser = null;
-        if ("serviceWorker" in navigator) {
-            navigator.serviceWorker.register("https://www.yash12007.com/service-worker.js")
-                .then(() => console.log("Service Worker Registered"))
-                .catch((err) => console.error("Service Worker Error:", err));
-        }function closeUserInfo(){
-            document.getElementById("userInfoBox").style.display="none";
-        }function showUserInfo() {
-          
-          if (!currentUser) return;
-          document.getElementById('profilePic').src = currentUser.photoURL || 'https://via.placeholder.com/50';
-          document.getElementById('userName').textContent = currentUser.displayName || 'No Name';
-          document.getElementById('userEmail').textContent = currentUser.email || 'No Email';
-          document.getElementById("IP").textContent = "IP Address: " + (window.localStorage.getItem("IP") || '');
-          document.getElementById("Sdatetime").textContent = "Last Signin: " + (window.localStorage.getItem("Signup-date") || '');
-          document.getElementById('userInfoBox').style.display = 'block';
-        }
+      if ("serviceWorker" in navigator) {
+          navigator.serviceWorker.register("https://www.yash12007.com/service-worker.js")
+              .then(() => console.log("Service Worker Registered"))
+              .catch((err) => console.error("Service Worker Error:", err));
+      }function closeUserInfo(){
+          document.getElementById("userInfoBox").style.display="none";
+      }function showUserInfo() {
+        if (!currentUser) return;
+        document.getElementById('profilePic').src = currentUser.photoURL || 'https://via.placeholder.com/50';
+        document.getElementById('userName').textContent = currentUser.displayName || 'No Name';
+        document.getElementById('userEmail').textContent = currentUser.email || 'No Email';
+        document.getElementById("IP").textContent = "IP Address: " + (window.localStorage.getItem("IP") || '');
+        document.getElementById("Sdatetime").textContent = "Last Signin: " + (window.localStorage.getItem("Signup-date") || '');
+        document.getElementById('userInfoBox').style.display = 'block';
+      }
     </script>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script type="module" defer async>
@@ -550,6 +548,7 @@
           lastSignIn: signInDate
         }, { merge: true });
       }
+      let currentUser;
       function updateUserUI(user) {
         if (user) {
           currentUser = user;
