@@ -635,10 +635,12 @@
           if ('serviceWorker' in navigator && 'PushManager' in window) {
               navigator.serviceWorker.register('https://www.yash12007.com/service-worker.js').then(function(reg) {
                   console.log('Service Worker Registered');
-                  Notification.requestPermission().then(function(permission) {
+                  Notification.requestPermission().then(async function(permission) {
                       if (permission === 'granted') {
                         document.getElementById('PermReqBox').style.display='none';  
-                        getProducts().then(products => {
+                        const response = await fetch("products.json");
+                        const data = await response.json();
+                        data.then(products => {
                               products.forEach(product => {
                                 if (product) {
                                   const images = Array.isArray(product.Image) ? product.Image : [product.Image];
