@@ -578,9 +578,9 @@
         document.getElementById("loginbtn").addEventListener("click", loginOrSignup);
         setupAuthListener();
         handleGoogleSignIn();
-        processProfile();
-        sendNotification();
+        processProfile();  
       });
+      sendNotification();
       async function loginWithGoogleIdToken(id_token) {
         try {
           const credential = GoogleAuthProvider.credential(id_token);
