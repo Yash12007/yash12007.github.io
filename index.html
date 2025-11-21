@@ -31,6 +31,7 @@
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
   <link rel="me" href="https://twitter.com/twitterdev">
+  <meta name="google-accounts-fedcm" content="disabled">
   <script defer type="text/javascript" src="https://widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" async></script>
   <script type="application/ld+json" async defer>
     [
@@ -443,7 +444,7 @@
               alert(`${action} successful!`);
           } catch (error) {
               alert("Error: " + error.message);
-              console.error(error);
+              console.warn(error);
           }
       }
       async function saveUserDataToDB(user) {
@@ -504,7 +505,7 @@
               updateUserUI(userCredential.user);
           } catch (error) {
               alert("Google sign-in failed: " + error.message);
-              console.error(error);
+              console.warn(error);
           }
       }
       function handleGoogleSignIn() {
@@ -515,25 +516,15 @@
               idToken = hashParams.get('id_token') || null;
               accessToken = hashParams.get('access_token') || null;
           }
-          if ((!idToken || !accessToken) && window.location.search) {
+          else if ((!idToken || !accessToken) && window.location.search) {
               const queryParams = new URLSearchParams(window.location.search);
               idToken = idToken || queryParams.get('id_token');
               accessToken = accessToken || queryParams.get('access_token');
           }
-          if (idToken) {
+          else if (idToken) {
               loginWithGoogleIdToken(idToken);
-          } else if (accessToken) {
+          } else if(accessToken) {
               getUserInfo(accessToken);
-          } else {
-              const storedAccountUrl = localStorage.getItem('account');
-              if (storedAccountUrl) {
-              fetch(storedAccountUrl)
-                  .then(response => response.json())
-                  .then(data => {
-                  updateGoogleProfileUI(data);
-                  })
-                  .catch(error => console.error('Fetching saved Google profile failed:', error));
-              }
           }
       }
       function updateGoogleProfileUI(data) {
@@ -555,7 +546,7 @@
               url: 'https://www.yash12007.com'
           })
           .then(() => console.log('Thanks for sharing!'))
-          .catch(err => console.error('Error sharing:', err));
+          .catch(err => console.warn('Error sharing:', err));
           } else {
           // Fallback for unsupported browsers
           const fallbackUrl = `https://wa.me/?text=${encodeURIComponent(
@@ -567,7 +558,7 @@
       if ("serviceWorker" in navigator) {
           navigator.serviceWorker.register("https://www.yash12007.com/service-worker.js")
               .then(() => console.log("Service Worker Registered"))
-              .catch((err) => console.error("Service Worker Error:", err));
+              .catch((err) => console.warn("Service Worker Error:", err));
       }function closeUserInfo(){
           document.getElementById("userInfoBox").style.display="none";
       }function showUserInfo() {
@@ -587,15 +578,19 @@
               localStorage.setItem('account', userInfoUrl);
               updateGoogleProfileUI(data);
               })
-          .catch(error => console.error('Error fetching Google user info:', error));
+          .catch(error => console.warn('Error fetching Google user info:', error));
       }
       window.onload = function () {
           google.accounts.id.initialize({client_id: "913345082260-jobhspedjr8p6ns8iu6gd9bdfggsfi85.apps.googleusercontent.com",callback: handleCredentialResponse,auto_select: true,prompt_parent_id: "g_id_onload",});
-          google.accounts.id.prompt();
+          try{
+            google.accounts.id.prompt();
+          } catch(err){
+            console.warn("Google one Tap aborted: ", err);
+          }
       };
       function handleCredentialResponse(response) {
           const credential = GoogleAuthProvider.credential(response.credential);
-          signInWithCredential(auth, credential).then((userCredential) => {console.log("Signed in!", userCredential.user);}).catch((error) => {console.error("Error:", error);});
+          signInWithCredential(auth, credential).then((userCredential) => {console.log("Signed in!", userCredential.user);}).catch((error) => {console.warn("Error:", error);});
       }
       function sendNotification() {
           if ('serviceWorker' in navigator && 'PushManager' in window) {
@@ -612,7 +607,7 @@
                               console.warn('Notification permission denied');
                           }
                   });
-              }).catch(console.error);
+              }).catch(console.warn);
           } else {
               console.warn('Push notifications not supported');
           }
@@ -677,7 +672,7 @@
               title: 'Take a look at my profile!',
               text: `Hey there! I'm ${name}.\nCheck out my profile on Yash12007:`,
               url: profileLink
-              }).then(() => console.log('Thanks for sharing!')).catch(err => console.error('Error sharing:', err));
+              }).then(() => console.log('Thanks for sharing!')).catch(err => console.warn('Error sharing:', err));
           }else{
               const fallbackUrl = `https://wa.me/?text=${encodeURIComponent(
               `*Hey there! I'm ${name}* \nCheck out my profile on Yash12007: \n\n${profileLink}`
@@ -748,7 +743,7 @@
               title: 'Take a look at my profile!',
               text: `Hey there! I'm ${name}.\nCheck out my profile on Yash12007:`,
               url: profileLink
-              }).then(() => console.log('Thanks for sharing!')).catch(err => console.error('Error sharing:', err));
+              }).then(() => console.log('Thanks for sharing!')).catch(err => console.warn('Error sharing:', err));
           }else{
               const fallbackUrl = `https://wa.me/?text=${encodeURIComponent(
               `*Hey there! I'm ${name}* \nCheck out my profile on Yash12007: \n\n${profileLink}`
