@@ -505,7 +505,7 @@
           processProfile();  
       });
       async function getProducts() {
-        const response = await fetch("products.json");
+        const response = await fetch("https://store.yash12007.com/products.json");
         const data = await response.json();
         return data;
       }
@@ -638,7 +638,7 @@
                   Notification.requestPermission().then(async function(permission) {
                       if (permission === 'granted') {
                         document.getElementById('PermReqBox').style.display='none';  
-                        const response = await fetch("products.json");
+                        const response = await fetch("https://store.yash12007.com/products.json");
                         const data = await response.json();
                         data.then(products => {
                               products.forEach(product => {
