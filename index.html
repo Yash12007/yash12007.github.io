@@ -513,32 +513,42 @@
         const data = await response.json();
         return data;
       }
-      function checkPerm(){
-        if (Notification.permission === "granted") {
-          document.getElementById('PermReqBox').style.display='none';
-          navigator.serviceWorker.register('https://www.yash12007.com/service-worker.js').then(function(reg) {
-            getProducts().then(products => {
+      async function checkPerm() {
+        const perm = Notification.permission;
+        if(perm){
+          if (perm === "granted") {
+            document.getElementById('PermReqBox').style.display = 'none';
+            try {
+                const reg = await navigator.serviceWorker.register('/service-worker.js');
+                const response = await fetch("https://store.yash12007.com/products.json");
+                const products = await response.json();
                 products.forEach(product => {
-                  if (product) {
-                    const images = Array.isArray(product.Image) ? product.Image : [product.Image];
-                    reg.showNotification('Yash12007 | Store', {
-                      body: product.Description,
-                      icon: images[0],
-                      vibrate: [200, 100, 200]
-                    });
-                  }else{
-                    console.log("Products not found...");
-                  }
+                  if (!product) return;
+                  const images = Array.isArray(product.Image) ? product.Image : [product.Image];
+                  reg.showNotification(product.Name, {
+                    body: product.Description,
+                    icon: images[0],
+                    vibrate: [200, 100, 200]
+                  });
+                  self.addEventListener("notificationclick", event => {
+                    event.notification.close();
+                    event.waitUntil(clients.openWindow("https://www.yash12007.com"));
+                  });
                 });
-            });
-          }).catch((err)=>{console.warn(err);});
-        } else if (Notification.permission === "denied") {
-          document.getElementById('PermReq').textContent="Heads up! You’ve blocked notifications — turn them on in your browser settings to keep getting updates."
-          document.getElementById('PermReqBox').style.display='block';
-        } else {
-          document.getElementById('PermReqBox').style.display='block';
+            } catch (err) {
+              console.warn("SW / Notification error:", err);
+            }
+          } else if (perm === "denied") {
+            document.getElementById('PermReq').textContent = "Heads up! You've blocked notifications — enable them from settings to stay updated.";
+            document.getElementById('PermReqBox').style.display = 'block';
+          } else {
+            document.getElementById('PermReqBox').style.display = 'block';
+          }
+        }else{
+          document.getElementById('PermReqBox').style.display='none';
         }
-      }checkPerm();
+      }
+      checkPerm();
       async function loginWithGoogleIdToken(id_token) {
           try {
               const credential = GoogleAuthProvider.credential(id_token);
@@ -652,37 +662,29 @@
           console.warn("Firebase Google Sign-In Error:", error);
         });
       }
-      function sendNotification() {
-          if ('serviceWorker' in navigator && 'PushManager' in window) {
-              navigator.serviceWorker.register('https://www.yash12007.com/service-worker.js').then(function(reg) {
-                  console.log('Service Worker Registered');
-                  Notification.requestPermission().then(async function(permission) {
-                      if (permission === 'granted') {
-                        document.getElementById('PermReqBox').style.display='none';  
-                        const response = await fetch("https://store.yash12007.com/products.json");
-                        const data = await response.json();
-                        data.then(products => {
-                              products.forEach(product => {
-                                if (product) {
-                                  const images = Array.isArray(product.Image) ? product.Image : [product.Image];
-                                  reg.showNotification('Yash12007 | Store', {
-                                    body: product.Description,
-                                    icon: images[0],
-                                    vibrate: [200, 100, 200]
-                                  });
-                                }else{
-                                  console.log("Products not found...");
-                                }
-                              });
-                          });
-                      } else {
-                          console.warn('Notification permission denied');
-                      }
-                  });
-              }).catch(console.warn);
-          } else {
-              console.warn('Push notifications not supported');
-          }
+      async function sendNotification() {
+          if (!("Notification" in window) || !("serviceWorker" in navigator)) {return console.warn("Notifications not supported");}
+          const permission = await Notification.requestPermission();
+          if (permission !== "granted") {console.warn("Notification permission denied");return;}
+          document.getElementById('PermReqBox').style.display = 'none';
+          try {
+            const reg = await navigator.serviceWorker.register('/service-worker.js');
+            const response = await fetch("https://store.yash12007.com/products.json");
+            const products = await response.json();
+            products.forEach(product => {
+              if (!product) return;
+              const images = Array.isArray(product.Image) ? product.Image : [product.Image];
+              reg.showNotification(product.Name, {
+                body: product.Description,
+                icon: images[0],
+                vibrate: [200, 100, 200]
+              });
+              self.addEventListener("notificationclick", event => {
+                event.notification.close();
+                event.waitUntil(clients.openWindow("https://www.yash12007.com"));
+              });
+            });
+          } catch (err) {console.warn(err);}
       }
       function Login() {
           document.getElementById('LogScreen').style = "top:0; left:0;";
