@@ -426,6 +426,7 @@
     <script src="https://accounts.google.com/gsi/client" defer></script>
     <script type="module">
       window.currentUser;
+      
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
       import {getAuth,onAuthStateChanged,signInWithEmailAndPassword,createUserWithEmailAndPassword,signInWithCredential,GoogleAuthProvider,setPersistence,browserLocalPersistence} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
       import {getFirestore,doc,setDoc} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-lite.js";
@@ -433,10 +434,12 @@
       const auth = getAuth(app);
       setPersistence(auth, browserLocalPersistence);
       const db = getFirestore(app);
+      
       window.addEventListener("load", async () => {const { getAnalytics } = await import("https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js");getAnalytics(app);});
       window.auth = auth;
       window.db = db;
       window.firebaseApp = app;
+      
       async function loginOrSignup() {
           const email = document.getElementById('login-email').value.trim();
           const password = document.getElementById('login-password').value.trim();
@@ -476,7 +479,6 @@
       }
       function updateUserUI(user) {
           if (user) {
-              currentUser = user;
               window.currentUser = user;
               const photoURL = user.photoURL || 'https://via.placeholder.com/50';
               document.getElementById("logbtn").innerHTML = `
@@ -490,7 +492,6 @@
           onAuthStateChanged(auth, (user) => {
               if (user) {
               console.log('Logged in as:', user.email);
-              currentUser = user;
               window.currentUser = user;
               localStorage.setItem('account', user.uid);
               updateUserUI(user);
@@ -603,10 +604,10 @@
       }function closeUserInfo(){
           document.getElementById("userInfoBox").style.display="none";
       }function showUserInfo() {
-          if (!currentUser) return;
-          document.getElementById('profilePic').src = currentUser.photoURL || 'https://via.placeholder.com/50';
-          document.getElementById('userName').textContent = currentUser.displayName || 'No Name';
-          document.getElementById('userEmail').textContent = currentUser.email || 'No Email';
+          if (!window.currentUser) return;
+          document.getElementById('profilePic').src = window.currentUser.photoURL || 'https://via.placeholder.com/50';
+          document.getElementById('userName').textContent = window.currentUser.displayName || 'No Name';
+          document.getElementById('userEmail').textContent = window.currentUser.email || 'No Email';
           document.getElementById("IP").textContent = "IP Address: " + (window.localStorage.getItem("IP") || '');
           document.getElementById("Sdatetime").textContent = "Last Signin: " + (window.localStorage.getItem("Signup-date") || '');
           document.getElementById('userInfoBox').style.display = 'block';
