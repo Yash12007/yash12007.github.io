@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Yash12007 | A software development company</title>
-  <script src="https://accounts.google.com/gsi/client" defer></script>
+  <script src="https://accounts.google.com/gsi/client" defer async></script>
   <link rel="manifest" href="https://www.yash12007.com/manifest.json">
   <meta property="og:title" content="Yash12007">
   <meta property="og:site_name" content="Yash12007">
@@ -104,7 +104,7 @@
         </ul>
         <div style="display: flex; place-items: center; justify-content: space-between; width: fit-content;">
           <button aria-label="Account" onclick="showUserInfo()">Account</button>
-          <button aria-label="Login" id="logbtn" onclick="Login()">
+          <button aria-label="Login" id="logbtn" data-action="login" onclick="Login()">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
               <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
             </svg>
@@ -426,7 +426,7 @@
     <script src="https://accounts.google.com/gsi/client" defer></script>
     <script type="module">
       window.currentUser;
-      
+
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
       import {getAuth,onAuthStateChanged,signInWithEmailAndPassword,createUserWithEmailAndPassword,signInWithCredential,GoogleAuthProvider,setPersistence,browserLocalPersistence} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
       import {getFirestore,doc,setDoc} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-lite.js";
@@ -434,16 +434,16 @@
       const auth = getAuth(app);
       setPersistence(auth, browserLocalPersistence);
       const db = getFirestore(app);
-      
+
       window.addEventListener("load", async () => {const { getAnalytics } = await import("https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js");getAnalytics(app);});
       window.auth = auth;
       window.db = db;
       window.firebaseApp = app;
-      
+
       async function loginOrSignup() {
           const email = document.getElementById('login-email').value.trim();
           const password = document.getElementById('login-password').value.trim();
-          const action = document.getElementById('loginbtn').textContent.trim();
+          const action = document.getElementById('loginbtn').dataset.action;
           if (!email || !password) return alert('Enter email and password');
           try {
               let userCredential;
@@ -497,8 +497,8 @@
               updateUserUI(user);
               saveUserDataToDB(user);
               } else {
-                console.log('No user logged in');
-                window.currentUser = null;
+              console.log('No user logged in');
+              window.currentUser = null;
               }
           });
       }
@@ -554,19 +554,20 @@
       function handleGoogleSignIn() {
           let idToken = null;
           let accessToken = null;
-          if (window.location.hash && window.location.hash.length > 1) {
+          if (window.location.hash) {
               const hashParams = new URLSearchParams(window.location.hash.slice(1));
-              idToken = hashParams.get('id_token') || null;
-              accessToken = hashParams.get('access_token') || null;
+              idToken = hashParams.get('id_token');
+              accessToken = hashParams.get('access_token');
           }
-          else if ((!idToken || !accessToken) && window.location.search) {
+          if (window.location.search) {
               const queryParams = new URLSearchParams(window.location.search);
               idToken = idToken || queryParams.get('id_token');
               accessToken = accessToken || queryParams.get('access_token');
           }
-          else if (idToken) {
+          if (idToken) {
               loginWithGoogleIdToken(idToken);
-          } else if(accessToken) {
+          } 
+          else if (accessToken) {
               getUserInfo(accessToken);
           }
       }
@@ -622,17 +623,34 @@
               })
           .catch(error => console.warn('Error fetching Google user info:', error));
       }
-      window.onload = function () {
-          google.accounts.id.initialize({client_id: "913345082260-jobhspedjr8p6ns8iu6gd9bdfggsfi85.apps.googleusercontent.com",callback: handleCredentialResponse,auto_select: true,prompt_parent_id: "g_id_onload",});
-          try{
+      document.addEventListener("DOMContentLoaded", () => {
+        google.accounts.id.initialize({
+            client_id: "913345082260-jobhspedjr8p6ns8iu6gd9bdfggsfi85.apps.googleusercontent.com",
+            callback: handleCredentialResponse,
+            prompt_parent_id: "g_id_onload"
+            // auto_select: true   // enable later
+        });
+
+        try {
             google.accounts.id.prompt();
-          } catch(err){
-            console.warn("Google one Tap aborted: ", err);
-          }
-      };
+        } catch (err) {
+            console.warn("Google One Tap aborted:", err);
+        }
+      });
       function handleCredentialResponse(response) {
-          const credential = GoogleAuthProvider.credential(response.credential);
-          signInWithCredential(auth, credential).then((userCredential) => {console.log("Signed in!", userCredential.user);}).catch((error) => {console.warn("Error:", error);});
+        const idToken = response.credential;
+        if (!idToken) {
+          console.warn("Missing ID Token from Google One Tap");
+          return;
+        }
+        const credential = GoogleAuthProvider.credential(idToken);
+        signInWithCredential(auth, credential).then(async (userCredential) => {
+          console.log("Google One Tap Signed in:", userCredential.user);
+          await saveUserDataToDB(userCredential.user);
+          updateUserUI(userCredential.user);
+        }).catch((error) => {
+          console.warn("Firebase Google Sign-In Error:", error);
+        });
       }
       function sendNotification() {
           if ('serviceWorker' in navigator && 'PushManager' in window) {
