@@ -3,13 +3,13 @@
   "short_name": "Yash12007",
   "icons": [
     {
-      "src": "/https://www.yash12007.com/web-app-manifest-192x192.png",
+      "src": "https://www.yash12007.com/web-app-manifest-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable"
     },
     {
-      "src": "/https://www.yash12007.com/web-app-manifest-512x512.png",
+      "src": "https://www.yash12007.com/web-app-manifest-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
