@@ -728,6 +728,26 @@
               window.open(`https://wa.me/?text=${encodeURIComponent('Ecosystem link active: ' + generatedTargetLink)}`, '_blank');
           }
       }
-    </script>
+      window.executeSecureAuthAction = async function() {
+        const emailValue = document.getElementById('login-email').value.trim();
+        const processingSecret = document.getElementById('login-password').value.trim();
+        const explicitActionLabel = document.getElementById('loginbtn').textContent;
+        if (!emailValue || !processingSecret) return alert('Entry mismatch parameters.');
+        
+        try {
+            let targetedAuthReceipt;
+            if (explicitActionLabel === 'Signup') {
+                targetedAuthReceipt = await createUserWithEmailAndPassword(productionAuthGateway, emailValue, processingSecret);
+            } else {
+                targetedAuthReceipt = await signInWithEmailAndPassword(productionAuthGateway, emailValue, processingSecret);
+            }
+            await saveDataToSecureVault(targetedAuthReceipt.user);
+            closeLoginModal();
+        } catch (problem) {
+            console.error("Auth Loop Failed:", problem); // <--- Crucial for testing
+            alert("Authentication Failed: " + problem.message);
+        }
+    };
+  </script>
 </body>
 </html>
