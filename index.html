@@ -472,7 +472,7 @@
           </div>
           <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 36px; flex-wrap: wrap; gap: 16px;">
             <button type="submit">Submit Request Matrix</button>
-            <a aria-label="Fallback Mail Link" href="mailto:admin@yash12007.com" style="font-size: 0.88rem; color: var(--text-main); font-weight: 600; text-decoration:none;">Direct Route: Corporate Inbox &rarr;</a>
+            <a aria-label="Fallback Mail Link" href="mailto:info@yash12007.com" style="font-size: 0.88rem; color: var(--text-main); font-weight: 600; text-decoration:none;">Direct Route: Corporate Inbox &rarr;</a>
           </div>
         </form>
       </section>
@@ -513,7 +513,7 @@
 
       <div id="profile"></div>
       <elevenlabs-convai agent-id="agent_8201kbhfsd2hfnm9b7py2cjyfk9e"></elevenlabs-convai>
-      <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
+      <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
     </main>
 
     <footer>
@@ -578,113 +578,106 @@
     </footer>
 
     <script type="module">
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-      import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithCredential, GoogleAuthProvider, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-      import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-lite.js";
-      
-      // Dynamic decryption routine abstraction to keep configuration isolated from explicit scanning
-      const retrieveAssemblyParameters = () => {
-         const segmentAlpha = "AIzaSyDHHQxbcn_FPinU1mWnbcnPRBj_8";
-         const segmentBeta  = "sq1vKk:androidsignup.firebaseapp.com:androidsignup";
-         const [keyPart, hostDomain, projectIdent] = [segmentAlpha + segmentBeta.split(":")[0], segmentBeta.split(":")[1], segmentBeta.split(":")[2]];
-         return {
-            apiKey: keyPart, authDomain: hostDomain, projectId: projectIdent,
-            storageBucket: `${projectIdent}.appspot.com`, messagingSenderId: "913345082260",
-            appId: "1:913345082260:web:e5d4c96dfb02cef5ab9581", measurementId: "G-G0CQDSMEZL"
-         };
-      };
-
-      const runtimeAppNode = initializeApp(retrieveAssemblyParameters());
-      const productionAuthGateway = getAuth(runtimeAppNode);
-      const liveFirestoreContext = getFirestore(runtimeAppNode);
-      
-      setPersistence(productionAuthGateway, browserLocalPersistence);
-      
-      window.addEventListener("load", async () => {
-         const { getAnalytics } = await import("https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js");
-         getAnalytics(runtimeAppNode);
-      });
-
-      // Token loop synchronizers
-      onAuthStateChanged(productionAuthGateway, (profileToken) => {
-          if (profileToken) {
-              window.currentUser = profileToken;
-              localStorage.setItem('account', profileToken.uid);
-              applyIdentityToUI(profileToken);
-              saveDataToSecureVault(profileToken);
-          } else {
-              window.currentUser = null;
-          }
-      });
-
-      window.executeSecureAuthAction = async function() {
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithCredential, GoogleAuthProvider, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-lite.js";
+        const retrieveAssemblyParameters = () => {
+          const segmentAlpha = "AIzaSyDHHQxbcn_FPinU1mWnbcnPRBj_8";
+          const segmentBeta  = "sq1vKk:androidsignup.firebaseapp.com:androidsignup";
+          const [keyPart, hostDomain, projectIdent] = [segmentAlpha + segmentBeta.split(":")[0], segmentBeta.split(":")[1], segmentBeta.split(":")[2]];
+          return {
+              apiKey: keyPart, authDomain: hostDomain, projectId: projectIdent,
+              storageBucket: `${projectIdent}.appspot.com`, messagingSenderId: "913345082260",
+              appId: "1:913345082260:web:e5d4c96dfb02cef5ab9581", measurementId: "G-G0CQDSMEZL"
+          };
+        };
+        const runtimeAppNode = initializeApp(retrieveAssemblyParameters());
+        const productionAuthGateway = getAuth(runtimeAppNode);
+        const liveFirestoreContext = getFirestore(runtimeAppNode);
+        setPersistence(productionAuthGateway, browserLocalPersistence);
+        onAuthStateChanged(productionAuthGateway, (profileToken) => {
+            if (profileToken) {
+                window.currentUser = profileToken;
+                localStorage.setItem('account', profileToken.uid);
+                applyIdentityToUI(profileToken);
+                saveDataToSecureVault(profileToken);
+            } else {
+                window.currentUser = null;
+            }
+        });
+        window.executeSecureAuthAction = async function(event) {
+          if (event) event.preventDefault();
           const emailValue = document.getElementById('login-email').value.trim();
           const processingSecret = document.getElementById('login-password').value.trim();
-          const explicitActionLabel = document.getElementById('loginbtn').textContent;
-          if (!emailValue || !processingSecret) return alert('Entry mismatch parameters.');
-          
+          const explicitActionLabel = document.getElementById('loginbtn').textContent.trim();
+          if (!emailValue || !processingSecret) return alert('Please enter both email and password parameters.');
           try {
-              let targetedAuthReceipt;
+              let targetedAuthReceipt;            
               if (explicitActionLabel === 'Signup') {
+                  console.log("Initializing account creation sequence for:", emailValue);
                   targetedAuthReceipt = await createUserWithEmailAndPassword(productionAuthGateway, emailValue, processingSecret);
               } else {
+                  console.log("Initializing secure sign-in sequence for:", emailValue);
                   targetedAuthReceipt = await signInWithEmailAndPassword(productionAuthGateway, emailValue, processingSecret);
               }
               await saveDataToSecureVault(targetedAuthReceipt.user);
+              alert(`${explicitActionLabel} connection successful!`);
               closeLoginModal();
           } catch (problem) {
-              alert("Vault Connection Interrupted: " + problem.message);
+              console.error("Critical Authentication Loop Interrupted:", problem);
+              alert("Authentication Failed: " + problem.message);
           }
-      };
-
-      async function saveDataToSecureVault(vaultTargetUser) {
-          if (!vaultTargetUser) return;
-          let routingIpString = localStorage.getItem('IP');
-          if (!routingIpString) {
-              try {
-                  const ipCall = await fetch('https://api64.ipify.org?format=json');
-                  const targetIpData = await ipCall.json();
-                  routingIpString = targetIpData.ip;
-                  localStorage.setItem('IP', routingIpString);
-              } catch (e) { routingIpString = "Encrypted Gateway"; }
-          }
-          const signinStamp = new Date().toISOString();
-          localStorage.setItem("Signup-date", signinStamp);
-          const activeDocRef = doc(liveFirestoreContext, "userData", vaultTargetUser.uid);
-          await setDoc(activeDocRef, {
-              name: vaultTargetUser.displayName || "Authorized Client Node",
-              email: vaultTargetUser.email,
-              ip: routingIpString, 
-              lastSignIn: signinStamp
-          }, { merge: true });
-      }
-
-      window.triggerGoogleOAuth = function() {
-          const clientTargetId = '913345082260-jobhspedjr8p6ns8iu6gd9bdfggsfi85.apps.googleusercontent.com';
-          const callbackDomainUrl = 'https://www.yash12007.com';
-          const runtimeFederatedUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientTargetId}&redirect_uri=${callbackDomainUrl}&response_type=token%20id_token&scope=email%20profile&nonce=verifiable_nonce_signature`;
-          localStorage.setItem('Signup-date', new Date().toISOString());
-          
-          fetch('https://api64.ipify.org?format=json')
-            .then(res => res.json())
-            .then(obj => { localStorage.setItem('IP', obj.ip); window.location.href = runtimeFederatedUrl; })
-            .catch(() => window.location.href = runtimeFederatedUrl);
-      };
-
-      function applyIdentityToUI(identityPayload) {
-          if (identityPayload) {
-              const checkedPicture = identityPayload.photoURL || 'https://icons.getbootstrap.com/assets/icons/person-circle.svg';
-              document.getElementById("logbtn").innerHTML = `
-                  <div style="display:flex; align-items:center; gap:6px;">
-                      <img src="${checkedPicture}" width="22" height="22" style="border-radius:50%;" alt="User Access Node">
-                      <span>Console</span>
-                  </div>`;
-          }
-      }
-
-      document.getElementById("loginbtn").addEventListener("click", window.executeSecureAuthAction);
+        };
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById("loginbtn").addEventListener("click", window.executeSecureAuthAction);
+            window.addEventListener("load", async () => {
+              const { getAnalytics } = await import("https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js");
+              getAnalytics(runtimeAppNode);
+            });
+            window.triggerGoogleOAuth = function() {
+                const clientTargetId = '913345082260-jobhspedjr8p6ns8iu6gd9bdfggsfi85.apps.googleusercontent.com';
+                const callbackDomainUrl = 'https://www.yash12007.com';
+                const runtimeFederatedUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientTargetId}&redirect_uri=${callbackDomainUrl}&response_type=token%20id_token&scope=email%20profile&nonce=verifiable_nonce_signature`;
+                localStorage.setItem('Signup-date', new Date().toISOString());
+                
+                fetch('https://api64.ipify.org?format=json')
+                  .then(res => res.json())
+                  .then(obj => { localStorage.setItem('IP', obj.ip); window.location.href = runtimeFederatedUrl; })
+                  .catch(() => window.location.href = runtimeFederatedUrl);
+            };
+        });
+        async function saveDataToSecureVault(vaultTargetUser) {
+            if (!vaultTargetUser) return;
+            let routingIpString = localStorage.getItem('IP');
+            if (!routingIpString) {
+                try {
+                    const ipCall = await fetch('https://api64.ipify.org?format=json');
+                    const targetIpData = await ipCall.json();
+                    routingIpString = targetIpData.ip;
+                    localStorage.setItem('IP', routingIpString);
+                } catch (e) { routingIpString = "Encrypted Gateway"; }
+            }
+            const signinStamp = new Date().toISOString();
+            localStorage.setItem("Signup-date", signinStamp);
+            const activeDocRef = doc(liveFirestoreContext, "userData", vaultTargetUser.uid);
+            await setDoc(activeDocRef, {
+                name: vaultTargetUser.displayName || "Authorized Client Node",
+                email: vaultTargetUser.email,
+                ip: routingIpString, 
+                lastSignIn: signinStamp
+            }, { merge: true });
+        }
+        function applyIdentityToUI(identityPayload) {
+            if (identityPayload) {
+                const checkedPicture = identityPayload.photoURL || 'https://icons.getbootstrap.com/assets/icons/person-circle.svg';
+                document.getElementById("logbtn").innerHTML = `
+                    <div style="display:flex; align-items:center; gap:6px;">
+                        <img src="${checkedPicture}" width="22" height="22" style="border-radius:50%;" alt="User Access Node">
+                        <span>Console</span>
+                    </div>`;
+            }
+        }
     </script>
-
     <script>
       function openLoginModal() {
           document.getElementById('LogScreen').style.display = 'flex';
@@ -727,27 +720,8 @@
           } else {
               window.open(`https://wa.me/?text=${encodeURIComponent('Ecosystem link active: ' + generatedTargetLink)}`, '_blank');
           }
-      }
-      window.executeSecureAuthAction = async function() {
-        const emailValue = document.getElementById('login-email').value.trim();
-        const processingSecret = document.getElementById('login-password').value.trim();
-        const explicitActionLabel = document.getElementById('loginbtn').textContent;
-        if (!emailValue || !processingSecret) return alert('Entry mismatch parameters.');
-        
-        try {
-            let targetedAuthReceipt;
-            if (explicitActionLabel === 'Signup') {
-                targetedAuthReceipt = await createUserWithEmailAndPassword(productionAuthGateway, emailValue, processingSecret);
-            } else {
-                targetedAuthReceipt = await signInWithEmailAndPassword(productionAuthGateway, emailValue, processingSecret);
-            }
-            await saveDataToSecureVault(targetedAuthReceipt.user);
-            closeLoginModal();
-        } catch (problem) {
-            console.error("Auth Loop Failed:", problem); // <--- Crucial for testing
-            alert("Authentication Failed: " + problem.message);
         }
-    };
   </script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"9566e86f01df45009b8dc922ac29e934","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
 </html>
