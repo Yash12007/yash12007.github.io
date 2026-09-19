@@ -1,14 +1,14 @@
         :root {
-            --bg-main: #0a0c10;
-            --bg-secondary: #11141b;
-            --card-bg: rgba(22, 27, 36, 0.7);
-            --card-border: rgba(255, 255, 255, 0.08);
-            --card-hover-border: rgba(99, 102, 241, 0.4);
-            --text-main: #f3f4f6;
-            --text-muted: #9ca3af;
-            --accent-primary: #6366f1;
-            --accent-primary-hover: #4f46e5;
-            --accent-glow: rgba(99, 102, 241, 0.15);
+            --bg-main: #fff;
+            --bg-secondary: #eee;
+            --card-bg: #9993;
+            --card-border: #fff;
+            --card-hover-border: #fefeff66;
+            --text-main: #000;
+            --text-muted: #666;
+            --accent-primary: #a0f;
+            --accent-primary-hover: #fff;
+            --accent-glow: #6366f126;
             --price-green: #10b981;
             --radius-md: 12px;
             --radius-lg: 16px;
@@ -43,7 +43,7 @@
             font-family: var(--font-display);
             font-weight: 700;
             letter-spacing: -0.02em;
-            color: #fff;
+            color: #222;
         }
 
         h1 {
@@ -120,7 +120,7 @@
             left: 0;
             width: 100%;
             height: 70px;
-            background: rgba(10, 12, 16, 0.85);
+            background: #fff8;
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--card-border);
@@ -141,7 +141,7 @@
             align-items: center;
             gap: 0.75rem;
             text-decoration: none;
-            color: #fff;
+            color: #000;
             font-family: var(--font-display);
             font-weight: 700;
             font-size: 1.25rem;
@@ -276,7 +276,7 @@
             position: sticky;
             top: 70px;
             z-index: 900;
-            background: rgba(10, 12, 16, 0.6);
+            background: #fff6;
             backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--card-border);
             padding: 0.5rem 0;
@@ -477,13 +477,17 @@
             text-align: center;
             font-weight: 600;
             font-size: 0.95rem;
-            color: #e5e7eb;
+            color: #222;
             transition: all 0.2s ease;
             display: flex;
             align-items: center;
             justify-content: center;
+            gap: 10px;
+            flex-direction: column;
             min-height: 100px;
         }
+
+        .service-card svg{fill: #a0f; height: 80px !important; width: 80px !important;}
 
         .service-card:hover {
             border-color: var(--accent-primary);
@@ -493,7 +497,7 @@
 
         
         .studio-banner {
-            background: linear-gradient(135deg, rgba(76, 29, 149, 0.4), rgba(30, 27, 75, 0.6));
+            background: linear-gradient(135deg, #a0f, #222);
             border: 1px solid rgba(139, 92, 246, 0.3);
             border-radius: var(--radius-lg);
             padding: 4rem 2rem;
@@ -505,6 +509,7 @@
         .studio-banner h3 {
             font-size: 2rem;
             margin-bottom: 1rem;
+            color: #fff;
         }
 
         .studio-banner p {
@@ -539,7 +544,7 @@
             font-family: var(--font-display);
             font-weight: 600;
             font-size: 1.05rem;
-            color: #fff;
+            color: #222;
             cursor: pointer;
             list-style: none;
             display: flex;
@@ -632,16 +637,16 @@
             height: 38px;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.05);
-            color: var(--text-muted);
+            color: #ccc;
             border: 1px solid var(--card-border);
             transition: all 0.2s ease;
             text-decoration: none;
         }
 
         .social-ico:hover {
-            color: #fff;
-            background: var(--accent-primary);
-            border-color: var(--accent-primary);
+            color: #000;
+            background: #fff;
+            box-shadow: 0 0 20px 1px #fff;
             transform: translateY(-2px);
         }
 
