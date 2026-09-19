@@ -96,6 +96,7 @@
 
         .btn-primary:hover {
             background: var(--accent-primary-hover);
+            color: var(--text-main);
             transform: translateY(-2px);
             box-shadow: 0 0 30px rgba(99, 102, 241, 0.5);
         }
@@ -172,7 +173,7 @@
             border: 1px solid var(--card-border);
             padding: 0.35rem 0.75rem 0.35rem 0.4rem;
             border-radius: 30px;
-            color: #fff;
+            color: #000;
             cursor: pointer;
             transition: all 0.2s ease;
         }
@@ -246,7 +247,7 @@
         }
 
         .dropdown-item {
-            color: var(--text-main);
+            color: #fff;
             text-decoration: none;
             padding: 0.5rem 0.75rem;
             font-size: 0.85rem;
