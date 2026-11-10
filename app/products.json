@@ -2,7 +2,7 @@
   {
     "id": 1,
     "name": "SERA 3.0",
-    "icon": "🛡️",
+    "icon": "https://www.yash12007.com/Sera/Sera.png",
     "description": "Sera Antivirus for Windows, providing subscription-based protection for your device.",
     "category": "Security Software",
     "price": "$30/year"
@@ -10,7 +10,7 @@
   {
     "id": 2,
     "name": "Metrica",
-    "icon": "📊",
+    "icon": "https://www.yash12007.com/metrica/Metrica.png",
     "description": "Product details will be announced soon.",
     "category": "Software"
   },
