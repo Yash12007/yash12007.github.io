@@ -1,0 +1,25 @@
+[
+  {
+    "id": 1,
+    "name": "SERA 3.0",
+    "icon": "🛡️",
+    "description": "Sera Antivirus for Windows, providing subscription-based protection for your device.",
+    "category": "Security Software",
+    "price": "$30/year"
+  },
+  {
+    "id": 2,
+    "name": "Metrica",
+    "icon": "📊",
+    "description": "Product details will be announced soon.",
+    "category": "Software"
+  },
+  {
+    "id": 3,
+    "name": "Hinata",
+    "icon": "⚙️",
+    "description": "Enterprise automation solution designed to help businesses automate their workflows.",
+    "category": "Business Automation",
+    "price": "$250/year per business"
+  }
+]
