@@ -1,0 +1,10 @@
+[
+  {
+    "id": "event-101",
+    "name": "Yash12007 Tech Summit 2026",
+    "description": "Join us for an interactive session on modern Android development, Jetpack Compose, and AI-driven mobile apps.",
+    "category": "Workshop",
+    "price": "Free",
+    "icon": "🚀"
+  }
+]
