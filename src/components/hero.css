@@ -1,0 +1,29 @@
+.hero {
+  min-height: 80vh;
+  padding: 48px 24px;
+  display: flex;
+  flex-direction: column;
+  place-items: center;
+  justify-content: center;
+  gap: 15px;
+  text-align: center;
+  color: #fff;
+}.hero h1{text-shadow: 0 2px 5px #a0f7;}
+.hero__title {
+  max-width: 16ch;
+  margin: 0;
+  font-size: clamp(2rem, 6vw, 4rem);
+  line-height: 1.1;
+}.hero a{
+  padding: 10px 20px;
+  display: flex;
+  place-items: center;
+  justify-content: center;
+  text-align: center;
+  border: 2px solid #fff;
+  border-radius: 30px;
+  text-decoration: none;
+  color: #fff;
+  background: #fff3;
+  text-shadow: none;
+}
