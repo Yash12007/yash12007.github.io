@@ -1,0 +1,46 @@
+{
+  "services": [
+    {
+      "id": "srv-1",
+      "name": "Mobile App Development",
+      "description": "High-performance native Android, iOS, and cross-platform applications built with modern declarative UI and robust architecture.",
+      "category": "Development",
+      "icon": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M1,18q0.25-2.63 1.6-4.78t3.48-3.5L4.15,6.5Q3.93,6.15 4.04,5.75T4.5,5.15Q4.85,4.93 5.25,5.02q0.4,0.1 0.6,0.45l2,3.33Q8.8,8.4 9.84,8.2T12,8t2.16,0.2t1.99,0.6l2-3.33q0.2-0.35 0.6-0.45q0.4-0.1 0.75,0.13q0.35,0.2 0.45,0.6T19.85,6.5L17.93,9.73q2.13,1.35 3.48,3.5T23,18H1Zm17.01-3.79q0.04-0.44-0.24-0.86T17.1,12.8t-0.73,0.1Q16.05,13.13 16,13.55q-0.05,0.43 0.23,0.85q0.27,0.43 0.69,0.56t0.74-0.09t0.36-0.66ZM7.1,14.95q0.4-0.13 0.67-0.55q0.28-0.42 0.24-0.86T7.65,12.88T6.91,12.79T6.23,13.35Q5.95,13.77 6,14.2t0.38,0.65t0.73,0.1Z'/></svg>"
+    },
+    {
+      "id": "srv-2",
+      "name": "Web App & Frontend Engineering",
+      "description": "Responsive, fast, and accessible web applications built with modern frontend frameworks and progressive web technologies.",
+      "category": "Development",
+      "icon": "<svg xmlns='http://www.w3.org/2000/svg'><path d='M8.13,21.21Q6.3,20.43 4.94,19.06Q3.58,17.7 2.79,15.88T2,11.99T2.79,8.11T4.94,4.94T8.13,2.79T12.01,2t3.88,0.79t3.17,2.15t2.15,3.17T22,11.99t-0.79,3.89t-2.15,3.19t-3.17,2.15T12.01,22T8.13,21.21ZM12,19.95q0.65-0.9 1.13-1.88T13.9,16H10.1q0.3,1.1 0.77,2.07T12,19.95Zm-2.6-0.4q-0.45-0.82-0.79-1.71T8.05,16H5.1q0.72,1.25 1.81,2.18T9.4,19.55Zm5.2,0q1.4-0.45 2.49-1.38T18.9,16H15.95q-0.22,0.95-0.56,1.84q-0.34,0.89-0.79,1.71ZM4.25,14h3.4q-0.08-0.5-0.11-0.99T7.5,12t0.04-1.01T7.65,10H4.25q-0.13,0.5-0.19,0.99Q4,11.48 4,12q0,0.52 0.06,1.01T4.25,14Zm5.4,0h4.7q0.07-0.5 0.11-0.99T14.5,12t-0.04-1.01T14.35,10H9.65q-0.07,0.5-0.11,0.99Q9.5,11.48 9.5,12q0,0.52 0.04,1.01Q9.58,13.5 9.65,14Zm6.7,0h3.4q0.13-0.5 0.19-0.99T20,12t-0.06-1.01T19.75,10h-3.4q0.07,0.5 0.11,0.99Q16.5,11.48 16.5,12q0,0.52-0.04,1.01T16.35,14Zm-0.4-6H18.9q-0.73-1.25-1.81-2.18T14.6,4.45q0.45,0.82 0.79,1.71T15.95,8ZM10.1,8h3.8q-0.3-1.1-0.78-2.07T12,4.05q-0.65,0.9-1.13,1.88T10.1,8Zm-5,0H8.05Q8.28,7.05 8.61,6.16T9.4,4.45Q8,4.9 6.91,5.82T5.1,8Z'/></svg>"
+    },
+    {
+      "id": "srv-3",
+      "name": "Cloud Architecture & Backend",
+      "description": "Scalable cloud infrastructure, secure REST/GraphQL APIs, and robust microservices architecture.",
+      "category": "Cloud & Backend",
+      "icon": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M6.5,20q-2.27,0-3.89-1.57T1,14.58q0-1.95 1.18-3.47T5.25,9.15q0.63-2.3 2.5-3.72T12,4q2.93,0 4.96,2.04T19,11q1.73,0.2 2.86,1.49T23,15.5q0,1.88-1.31,3.19T18.5,20H6.5Zm0-2h12q1.05,0 1.78-0.73T21,15.5t-0.72-1.78T18.5,13H17V11q0-2.08-1.46-3.54T12,6Q9.93,6 8.46,7.46T7,11H6.5q-1.45,0-2.47,1.02T3,14.5t1.03,2.48T6.5,18ZM12,12Z'/></svg>"
+    },
+    {
+      "id": "srv-4",
+      "name": "UI/UX Design Systems",
+      "description": "Thoughtfully crafted design systems, user journeys, wireframes, and intuitive interfaces focused on exceptional user experience.",
+      "category": "Design",
+      "icon": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M12,22q-2.05,0-3.88-0.79Q6.3,20.43 4.94,19.06Q3.58,17.7 2.79,15.88T2,12Q2,9.92 2.81,8.1q0.81-1.83 2.2-3.17Q6.4,3.57 8.25,2.79T12.2,2q2,0 3.78,0.69t3.11,1.9t2.13,2.88Q22,9.13 22,11.05q0,2.88-1.75,4.41T16,17H14.15q-0.22,0-0.31,0.13T13.75,17.4q0,0.3 0.38,0.86t0.38,1.29q0,1.25-0.69,1.85T12,22Zm0-10ZM7.58,12.58Q8,12.15 8,11.5T7.58,10.43T6.5,10T5.43,10.43T5,11.5t0.43,1.07T6.5,13t1.08-0.43Zm3-4Q11,8.15 11,7.5T10.58,6.43T9.5,6T8.43,6.43T8,7.5T8.43,8.57T9.5,9t1.08-0.43Zm5,0Q16,8.15 16,7.5T15.58,6.43T14.5,6T13.43,6.43T13,7.5t0.43,1.07T14.5,9t1.08-0.43Zm3,4Q19,12.15 19,11.5t-0.43-1.08T17.5,10t-1.07,0.42T16,11.5t0.43,1.07T17.5,13t1.07-0.43ZM12,20q0.23,0 0.36-0.13t0.14-0.32q0-0.35-0.38-0.82T11.75,17.3q0-1.05 0.73-1.68T14.25,15H16q1.65,0 2.82-0.96T20,11.05q0-3.03-2.31-5.04T12.2,4Q8.8,4 6.4,6.32T4,12q0,3.32 2.34,5.66T12,20Z'/></svg>"
+    },
+    {
+      "id": "srv-5",
+      "name": "AI Agent & Device Integration",
+      "description": "Integrating cutting-edge on-device AI models, AppFunctions, voice shortcuts, and intelligent agent workflows.",
+      "category": "Artificial Intelligence",
+      "icon": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M4,21V16q0-0.83 0.59-1.41T6,14H18q0.82,0 1.41,0.59T20,16v5H4Zm5-8q-2.07,0-3.54-1.46T4,8T5.46,4.46T9,3h6q2.07,0 3.54,1.46Q20,5.93 20,8t-1.46,3.54T15,13H9ZM6,19H18V16H6v3Zm3-8h6q1.25,0 2.13-0.88T18,8T17.13,5.88T15,5H9Q7.75,5 6.88,5.88T6,8t0.88,2.13T9,11ZM9.71,8.71Q10,8.42 10,8q0-0.43-0.29-0.71T9,7Q8.58,7 8.29,7.29T8,8Q8,8.42 8.29,8.71Q8.58,9 9,9Q9.43,9 9.71,8.71Zm6,0Q16,8.42 16,8q0-0.43-0.29-0.71T15,7T14.29,7.29T14,8q0,0.42 0.29,0.71T15,9t0.71-0.29ZM12,19ZM12,8Z'/></svg>"
+    },
+    {
+      "id": "srv-6",
+      "name": "Performance & Security Auditing",
+      "description": "Comprehensive code review, R8 code optimization, Perfetto profiling, and Android Intent security hardening.",
+      "category": "Optimization",
+      "icon": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M6,22q-0.82,0-1.41-0.59T4,20V10Q4,9.17 4.59,8.59T6,8H7V6Q7,3.92 8.46,2.46T12,1t3.54,1.46T17,6V8h1q0.82,0 1.41,0.59T20,10V20q0,0.82-0.59,1.41T18,22H6Zm0-2H18V10H6V20Zm7.41-3.59Q14,15.83 14,15t-0.59-1.41T12,13t-1.41,0.59Q10,14.18 10,15t0.59,1.41T12,17t1.41-0.59ZM9,8h6V6q0-1.25-0.88-2.13T12,3T9.88,3.88T9,6V8ZM6,20V10V20Z'/></svg>"
+    }
+  ]
+}
